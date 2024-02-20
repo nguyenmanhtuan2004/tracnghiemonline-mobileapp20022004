@@ -1,5 +1,6 @@
 package com.example.quizapp;
 
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,7 +33,7 @@ public class CategoryAdapter extends BaseAdapter {
     }
 
     @Override
-    public View getView(int position, View view, ViewGroup viewGroup) {
+    public View getView( int position, View view, ViewGroup viewGroup) {
         View myView;
 
         if(view==null)
@@ -43,11 +44,22 @@ public class CategoryAdapter extends BaseAdapter {
         {
             myView=view;
         }
+
+        myView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(view.getContext(), TestActivity.class);
+                //khởi động Activity TestActivity từ Activity hoặc Fragment chứa View (TextView) mà bạn đang thao tác.
+                intent.putExtra("CAT_INDEX",position);
+                view.getContext().startActivity(intent);
+                //view.getContext() là phương thức được sử dụng để lấy ra Context của View. Context là một đối tượng cung cấp quyền truy cập vào các tài nguyên và dịch vụ của hệ thống Android
+            }
+        });
         TextView catName = myView.findViewById(R.id.catName);
         TextView noOfTests = myView.findViewById(R.id.no_of_tests);
 
         catName.setText(cat_list.get(position).getName());
-        noOfTests.setText(String.valueOf(cat_list.get(position).getNoOfTests()) + " Tests");
+        noOfTests.setText(String.valueOf(cat_list.get(position).getNoOfTests()+ " Tests"));
         return myView;
     }
 }

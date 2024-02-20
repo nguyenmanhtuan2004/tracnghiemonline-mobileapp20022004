@@ -17,8 +17,10 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        android:background="?android:attr/windowBackground"
-        app:menu="@menu/bottom_menu">
+        android:background="@color/teal_700"
+        app:menu="@menu/bottom_menu"
+        app:itemTextColor="@color/white"
+        app:itemIconTint="#B8C6F8">
 
     </com.google.android.material.bottomnavigation.BottomNavigationView>
 

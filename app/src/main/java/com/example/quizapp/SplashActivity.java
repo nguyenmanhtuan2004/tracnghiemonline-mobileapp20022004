@@ -28,10 +28,9 @@ public class SplashActivity extends AppCompatActivity {
         appName.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FirebaseUser user=mAuth.getCurrentUser();
-                if(user!=null)//đăng nhập rồi//này lỗi rồi
+                if(mAuth.getCurrentUser()!=null)//đăng nhập rồi//này lỗi rồi
                 {
-                    Intent intent=new Intent(SplashActivity.this,LoginActivity.class);
+                    Intent intent=new Intent(SplashActivity.this,MainActivity.class);
                     startActivity(intent);
                     SplashActivity.this.finish();
                 }
