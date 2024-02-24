@@ -14,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.quizapp.model.DbQuery;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -116,6 +117,9 @@ public class SignUpActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             Toast.makeText(SignUpActivity.this,"Sign Up Successful",Toast.LENGTH_SHORT).show();
+
+                            DbQuery.createUserData(emailStr,nameStr);
+
                             progress_Dialog.dismiss();//đóng Dialog tiến trình
                             Intent intent=new Intent(SignUpActivity.this,MainActivity.class);
                             startActivity(intent);

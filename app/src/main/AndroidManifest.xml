@@ -18,9 +18,11 @@
             android:exported="false" />
         <activity
             android:name=".SignUpActivity"
+            android:theme="@style/Theme.QuizApp.NoActionBar"
             android:exported="false" />
         <activity
             android:name=".LoginActivity"
+            android:theme="@style/Theme.QuizApp.NoActionBar"
             android:exported="false" />
         <activity
             android:name=".SplashActivity"

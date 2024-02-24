@@ -9,6 +9,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.os.Bundle;
 import android.view.MenuItem;
 
+import com.example.quizapp.model.TestModel;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,8 +35,8 @@ public class TestActivity extends AppCompatActivity {
         getSupportActionBar().setTitle(CatergoryFragment.catList.get(cat_index).getName());
         //lấy tên ra để gán vào toolbar
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        testView=findViewById(R.id.test_recycler_view);
 
+        testView=findViewById(R.id.test_recycler_view);
         LinearLayoutManager layoutManager=new LinearLayoutManager(this);
         layoutManager.setOrientation(RecyclerView.VERTICAL);
         testView.setLayoutManager(layoutManager);

@@ -8,8 +8,10 @@ import android.view.Menu;
 import android.view.View;
 import android.widget.TextView;
 
+import com.example.quizapp.model.DbQuery;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 public class SplashActivity extends AppCompatActivity {
     TextView appName;
@@ -49,5 +51,7 @@ public class SplashActivity extends AppCompatActivity {
     private void addControl() {
         appName=findViewById(R.id.app_name);
         mAuth=FirebaseAuth.getInstance();
+
+        DbQuery.g_firestore =FirebaseFirestore.getInstance();
     }
 }

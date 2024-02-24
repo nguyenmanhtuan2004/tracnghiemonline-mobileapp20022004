@@ -9,7 +9,12 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.quizapp.model.TestModel;
+
 import java.util.List;
+
+//ViewHolder là trình bao bọc xung quanh một View chứa bố cục cho từng mục riêng lẻ trong danh sách
+//Adapter sẽ tạo các đối tượng ViewHolder nếu cần, đồng thời đặt dữ liệu cho các thành phần hiển thị đó
 
 public class TestAdapter extends RecyclerView.Adapter<TestAdapter.ViewHolder> {
 
@@ -27,6 +32,7 @@ public class TestAdapter extends RecyclerView.Adapter<TestAdapter.ViewHolder> {
         View view= LayoutInflater.from(parent.getContext()).inflate(R.layout.test_item_layout,parent,false);
         return new  ViewHolder(view);
     }
+    //phương thức này tạo và khởi động ViewHolder cùng với View đã liên kết-ViewHoler chưa liên kêt dữ liệu
 
     @Override
     public void onBindViewHolder(@NonNull TestAdapter.ViewHolder holder, int position) {
@@ -35,11 +41,14 @@ public class TestAdapter extends RecyclerView.Adapter<TestAdapter.ViewHolder> {
         //lấy điểm theo position và gắn vào progress
         holder.setData(position,progress);
     }
+    //onBindViewHolder liên kết ViewHolder với dữ liệu
 
     @Override
     public int getItemCount() {
         return testList.size();
     }
+    //trả về danh sách có bao nhiêu item
+
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 

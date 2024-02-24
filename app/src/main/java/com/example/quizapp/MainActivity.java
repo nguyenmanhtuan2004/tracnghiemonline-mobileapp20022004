@@ -5,6 +5,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.Menu;
 import android.widget.FrameLayout;
+import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.snackbar.Snackbar;
@@ -39,7 +40,6 @@ public class MainActivity extends AppCompatActivity {
 
         bottomNavigationView=findViewById(R.id.bottom_nav_bar);
         main_frame=findViewById(R.id.main_frame);
-        bottomNavigationView.setOnNavigationItemSelectedListener(onNavigationItemSelectedListener);
 
         setSupportActionBar(binding.appBarMain.toolbar);
 
@@ -65,10 +65,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void addEvents() {
-        onNavigationItemSelectedListener=new BottomNavigationView.OnNavigationItemSelectedListener() {
+
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                if(item.getItemId()==R.id.nav_home)
+                if(item.getItemId()==R.id.nav_home1)
                 {
                     setFragment(new CatergoryFragment());
                     return true;
@@ -86,7 +87,7 @@ public class MainActivity extends AppCompatActivity {
                 }
                 return false;
             }
-        };
+        });
     }
 
     @Override

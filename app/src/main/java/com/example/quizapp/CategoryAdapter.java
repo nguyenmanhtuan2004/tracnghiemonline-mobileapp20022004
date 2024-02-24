@@ -7,6 +7,8 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+import com.example.quizapp.model.CategoryModel;
+
 import java.util.List;
 
 public class CategoryAdapter extends BaseAdapter {

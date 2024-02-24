@@ -12,7 +12,20 @@
           "package_name": "com.example.quizapp"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "1008670849727-8s1aosakdnd6bj09rgpbe71h86f816h8.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.quizapp",
+            "certificate_hash": "4df7aa9f44a7c8b3af08076e43c6b5f9191c1477"
+          }
+        },
+        {
+          "client_id": "1008670849727-p30eppu2538dv23n0pnafi61b2a70kng.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyAVVh087z3NJKxE-jTGc8Rxf1i47GxVgMM"
@@ -20,7 +33,12 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1008670849727-p30eppu2538dv23n0pnafi61b2a70kng.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         }
       }
     }
