@@ -1,4 +1,6 @@
 package com.example.quizapp.model;
 
-public class MyCompleteListener {
+public interface MyCompleteListener {
+    void onSuccess();
+    void onFailure();
 }
