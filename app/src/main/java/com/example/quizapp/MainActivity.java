@@ -41,7 +41,11 @@ public class MainActivity extends AppCompatActivity {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        bottomNavigationView=findViewById(R.id.bottom_nav_bar);
+        main_frame=findViewById(R.id.main_frame);
+
         setSupportActionBar(binding.appBarMain.toolbar);
+
 
         DrawerLayout drawer = binding.drawerLayout;
         NavigationView navigationView = binding.navView;
@@ -51,7 +55,6 @@ public class MainActivity extends AppCompatActivity {
                 R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow)
                 .setOpenableLayout(drawer)
                 .build();
-
 
         addEvents();
         setFragment(new CatergoryFragment());
