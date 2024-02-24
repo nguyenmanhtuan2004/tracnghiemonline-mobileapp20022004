@@ -79,6 +79,7 @@ public class MainActivity extends AppCompatActivity {
                     setFragment(new LeaderBoardFragment());
                     return true;
                 }
+                ;
 
                 if(item.getItemId()==R.id.nav_account)
                 {
