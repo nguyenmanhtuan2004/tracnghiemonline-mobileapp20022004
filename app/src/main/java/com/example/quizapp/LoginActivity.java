@@ -20,6 +20,7 @@ import android.os.Bundle;
 import android.util.Log;
 
 import com.example.quizapp.model.DbQuery;
+import com.example.quizapp.model.MyCompleteListener;
 import com.google.android.gms.auth.api.identity.BeginSignInRequest;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -105,12 +106,27 @@ public class LoginActivity extends AppCompatActivity {
                         if (task.isSuccessful()) {
 
                             // Sign in success, update UI with the signed-in user's information
-                            progress_Dialog.dismiss();
+
                             Toast.makeText(LoginActivity.this,"Login Success",Toast.LENGTH_SHORT).show();
 
-                            Intent intent=new Intent(LoginActivity.this,MainActivity.class);
-                            startActivity(intent);
-                            finish();//hoạt động đăng nhập kết thúc
+                            DbQuery.loadCategories(new MyCompleteListener() {
+                                @Override
+                                public void onSuccess() {
+                                    progress_Dialog.dismiss();
+                                    Intent intent=new Intent(LoginActivity.this,MainActivity.class);
+                                    startActivity(intent);
+                                    finish();//hoạt động đăng nhập kết thúc
+                                }
+
+                                @Override
+                                public void onFailure() {
+                                    progress_Dialog.dismiss();
+                                    Toast.makeText(LoginActivity.this, "Có gì đó sai! Vui lòng thử lại",
+                                            Toast.LENGTH_SHORT).show();
+                                }
+                            });
+
+
                         } else {
                             // If sign in fails, display a message to the user.
                             progress_Dialog.dismiss();
@@ -191,10 +207,62 @@ public class LoginActivity extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             Toast.makeText(LoginActivity.this,"Google Sign In Success",Toast.LENGTH_SHORT).show();
                             FirebaseUser user = mAuth.getCurrentUser();
-                            progress_Dialog.dismiss();
-                            Intent intent=new Intent(LoginActivity.this,MainActivity.class);
-                            startActivity(intent);
-                            LoginActivity.this.finish();
+
+                            if(task.getResult().getAdditionalUserInfo().isNewUser())
+                            //kiểm tra xem người dùng có phải là người dùng mới hay không
+                            {
+                                DbQuery.createUserData(user.getEmail(), user.getDisplayName(), new MyCompleteListener() {
+                                    @Override
+                                    public void onSuccess() {
+                                        DbQuery.loadCategories(new MyCompleteListener() {
+                                            @Override
+                                            public void onSuccess() {
+                                                progress_Dialog.dismiss();
+                                                Intent intent=new Intent(LoginActivity.this,MainActivity.class);
+                                                startActivity(intent);
+                                                LoginActivity.this.finish();
+                                            }
+
+                                            @Override
+                                            public void onFailure() {
+                                                progress_Dialog.dismiss();
+                                                Toast.makeText(LoginActivity.this, "Có gì đó sai! Vui lòng thử lại",
+                                                        Toast.LENGTH_SHORT).show();
+                                            }
+                                        });
+
+                                    }
+
+                                    @Override
+                                    public void onFailure() {
+                                        progress_Dialog.dismiss();
+                                        Toast.makeText(LoginActivity.this, "Có gì đó sai! Vui lòng thử lại",
+                                                Toast.LENGTH_SHORT).show();
+                                    }
+                                });
+                            }
+                            else
+                            //không phải người dùng mới
+                            {
+
+                                DbQuery.loadCategories(new MyCompleteListener() {
+                                    @Override
+                                    public void onSuccess() {
+                                        progress_Dialog.dismiss();
+                                        Intent intent=new Intent(LoginActivity.this,MainActivity.class);
+                                        startActivity(intent);
+                                        LoginActivity.this.finish();
+                                    }
+
+                                    @Override
+                                    public void onFailure() {
+                                        progress_Dialog.dismiss();
+                                        Toast.makeText(LoginActivity.this, "Có gì đó sai! Vui lòng thử lại",
+                                                Toast.LENGTH_SHORT).show();
+                                    }
+                                });
+                            }
+
                         } else {
                             // If sign in fails, display a message to the user.
                             //Log.w(TAG, "signInWithCredential:failure", task.getException());

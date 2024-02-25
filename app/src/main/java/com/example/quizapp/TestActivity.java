@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.os.Bundle;
 import android.view.MenuItem;
 
+import com.example.quizapp.model.DbQuery;
 import com.example.quizapp.model.TestModel;
 
 import java.util.ArrayList;
@@ -32,7 +33,8 @@ public class TestActivity extends AppCompatActivity {
         //tiêu đề của Activity có được hiển thị trên ActionBar
         int cat_index=getIntent().getIntExtra("CAT_INDEX",0);
         //nhận dữ liệu được truyền từ activity có khóa là CAT_INDEX
-        getSupportActionBar().setTitle(CatergoryFragment.catList.get(cat_index).getName());
+
+        getSupportActionBar().setTitle(DbQuery.g_catList.get(cat_index).getName());
         //lấy tên ra để gán vào toolbar
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 

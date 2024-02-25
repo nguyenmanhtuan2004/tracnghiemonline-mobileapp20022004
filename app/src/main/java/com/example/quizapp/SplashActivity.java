@@ -7,8 +7,10 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.quizapp.model.DbQuery;
+import com.example.quizapp.model.MyCompleteListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -30,8 +32,23 @@ public class SplashActivity extends AppCompatActivity {
         appName.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(mAuth.getCurrentUser()!=null)//đăng nhập rồi//này lỗi rồi
+                if(mAuth.getCurrentUser()!=null)//đăng nhập rồi
                 {
+                    //để load dữ liệu của từ bảng Catergory
+                    DbQuery.loadCategories(new MyCompleteListener() {
+                        @Override
+                        public void onSuccess() {
+                            Intent intent=new Intent(SplashActivity.this,MainActivity.class);
+                            startActivity(intent);
+                            SplashActivity.this.finish();
+                        }
+
+                        @Override
+                        public void onFailure() {
+                            Toast.makeText(SplashActivity.this, "Có gì đó sai! Vui lòng thử lại",
+                                    Toast.LENGTH_SHORT).show();
+                        }
+                    });
                     Intent intent=new Intent(SplashActivity.this,MainActivity.class);
                     startActivity(intent);
                     SplashActivity.this.finish();

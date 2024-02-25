@@ -15,6 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.quizapp.model.DbQuery;
+import com.example.quizapp.model.MyCompleteListener;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -118,17 +119,42 @@ public class SignUpActivity extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             Toast.makeText(SignUpActivity.this,"Sign Up Successful",Toast.LENGTH_SHORT).show();
 
-                            DbQuery.createUserData(emailStr,nameStr);
+                            DbQuery.createUserData(emailStr,nameStr, new MyCompleteListener() {
+                                @Override
+                                public void onSuccess() {
 
-                            progress_Dialog.dismiss();//đóng Dialog tiến trình
-                            Intent intent=new Intent(SignUpActivity.this,MainActivity.class);
-                            startActivity(intent);
-                            SignUpActivity.this.finish();
+                                    DbQuery.loadCategories(new MyCompleteListener() {
+                                        @Override
+                                        public void onSuccess() {
+                                            progress_Dialog.dismiss();
+                                            Intent intent=new Intent(SignUpActivity.this,MainActivity.class);
+                                            startActivity(intent);
+                                            SignUpActivity.this.finish();
+                                        }
+
+                                        @Override
+                                        public void onFailure() {
+                                            Toast.makeText(SignUpActivity.this,"Có gì đó sai! Vui lòng thử lại",Toast.LENGTH_SHORT).show();
+                                            progress_Dialog.dismiss();
+                                        }
+                                    });
+
+                                }
+
+                                @Override
+                                public void onFailure() {
+                                    Toast.makeText(SignUpActivity.this,"Có gì đó sai! Vui lòng thử lại",Toast.LENGTH_SHORT).show();
+                                    progress_Dialog.dismiss();
+                                }
+                            });
+
+
                         } else {
                             // If sign in fails, display a message to the user.
                             progress_Dialog.dismiss();
                             Toast.makeText(SignUpActivity.this, "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();
+                            progress_Dialog.dismiss();
                         }
                     }
                 });

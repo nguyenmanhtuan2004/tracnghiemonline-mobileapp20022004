@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.GridView;
 
 import com.example.quizapp.model.CategoryModel;
+import com.example.quizapp.model.DbQuery;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,7 +28,8 @@ public class CatergoryFragment extends Fragment {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
     private GridView catView;
-    public static List<CategoryModel> catList =new ArrayList<CategoryModel>();
+
+
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -71,21 +73,13 @@ public class CatergoryFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_catergory, container, false);
 
         catView=view.findViewById(R.id.cat_Grid);//tham chiếu cat_Grid với catView
-        loadCategories();//tạo mới CategoryModel
+        //loadCategories();//tạo mới CategoryModel
 
-        CategoryAdapter adapter=new CategoryAdapter(catList);//khởi tạo một CategoryAdapter(cardView) mới với tham số đầu vào là catList
+        CategoryAdapter adapter=new CategoryAdapter(DbQuery.g_catList);//khởi tạo một CategoryAdapter(cardView) mới với tham số đầu vào là catList
         catView.setAdapter(adapter);//thiết lập adapter vào catView
 
         return view;
     }
 
-    private void loadCategories() {
-        catList.clear();
 
-        catList.add(new CategoryModel("1","GK",20));
-        catList.add(new CategoryModel("2","HISTORY",30));
-        catList.add(new CategoryModel("3","ENGLISH",10));
-        catList.add(new CategoryModel("4","SCIENCE",25));
-        catList.add(new CategoryModel("5","MATHS",20));
-    }
 }
