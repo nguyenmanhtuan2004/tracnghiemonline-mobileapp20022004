@@ -24,6 +24,7 @@ public class TestActivity extends AppCompatActivity {
 
     private RecyclerView testView;
     //hiển thị danh sách các phần tử
+    //Bảo xíu nữa làm bài
     private Toolbar toolbar;
 
 
