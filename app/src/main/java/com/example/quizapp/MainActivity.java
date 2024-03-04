@@ -39,7 +39,6 @@ public class MainActivity extends AppCompatActivity  {
 //    private BottomNavigationView.OnNavigationItemSelectedListener onNavigationItemSelectedListener;
     private ActivityMainBinding binding;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
