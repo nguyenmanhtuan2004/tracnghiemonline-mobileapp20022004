@@ -1,5 +1,6 @@
 package com.example.quizapp;
 
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +10,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.quizapp.model.DbQuery;
 import com.example.quizapp.model.TestModel;
 
 import java.util.List;
@@ -69,15 +71,22 @@ public class TestAdapter extends RecyclerView.Adapter<TestAdapter.ViewHolder> {
             topScore=itemView.findViewById(R.id.scoretext);
             progressBar=itemView.findViewById(R.id.testProgressbar);
 
+
         }
 
-        private void setData(int pos, int progress)
+        private void setData(final int pos, int progress)
         {
             //progress ở đây là điểm lấy theo position
             testNo.setText("Test No :"+ String.valueOf(pos+1));
             topScore.setText(String.valueOf(progress)+ "%");
 
             progressBar.setProgress(progress);
+
+            itemView.setOnClickListener(view -> {
+                DbQuery.g_selectted_test_index = pos;
+                Intent intent = new Intent(itemView.getContext(), StartTestActivity.class);
+                itemView.getContext().startActivity(intent);
+            } );
         }
     }
 }

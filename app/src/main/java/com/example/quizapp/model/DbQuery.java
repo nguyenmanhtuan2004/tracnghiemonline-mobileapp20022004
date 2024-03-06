@@ -26,9 +26,45 @@ public class DbQuery {
     public static FirebaseFirestore g_firestore;
     //fireStore cung cấp các phương thức để tương tác các dữ liệu được lưu trữ trong FireStore:đọc, ghi, xóa
     public static List<CategoryModel> g_catList =new ArrayList<CategoryModel>();
+    //Part 17
+    public static int g_selectted_test_index = 0;
+    public static List<QuestionsModel> g_quesList = new ArrayList<>();
+    //end part 17
     public static ProfileModel myProfile = new ProfileModel("NA",null);//(name,email)
     public static List<TestModel> g_testList = new ArrayList<>();
 
+    //PART 17
+    public static void loadquestions(MyCompleteListener completeListener)
+    {
+        g_quesList.clear();
+        g_firestore.collection("Questions")
+                .whereEqualTo("CATEGORY", g_catList.get(g_selected_cat_index).getDocID())
+                .whereEqualTo("TEST", g_testList.get(g_selectted_test_index).getTestID())
+                .get()
+                .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                    @Override
+                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                        for (DocumentSnapshot doc : queryDocumentSnapshots)
+                        {
+                            g_quesList.add(new QuestionsModel(
+                                    doc.getString("QUESTION"),
+                                    doc.getString("A"),
+                                    doc.getString("B"),
+                                    doc.getString("C"),
+                                    doc.getString("D"),
+                                    doc.getLong("ANSWER").intValue()
+                            ));
+                        }
+                        completeListener.onSuccess();
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        completeListener.onFailure();
+                    }
+                });
+    }
 
     //Tạo dữ liệu người dùng mới trong Firestore.
     //Cập nhật thông tin người dùng gồm email, tên và tổng điểm (khởi tạo là 0).
