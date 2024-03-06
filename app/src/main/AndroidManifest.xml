@@ -13,14 +13,10 @@
         android:theme="@style/Theme.QuizApp"
         tools:targetApi="31">
         <activity
-<<<<<<< HEAD
             android:name=".StartTestActivity"
-=======
-            android:name=".QuestionsActivity"
             android:exported="false" />
         <activity
             android:name=".ui.TheyActivity"
->>>>>>> ef736667602139c2ab4667508f55aa927d4ca2c1
             android:exported="false" />
         <activity
             android:name=".QuestionActivity"

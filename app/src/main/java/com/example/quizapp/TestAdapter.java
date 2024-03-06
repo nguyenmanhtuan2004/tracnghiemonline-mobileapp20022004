@@ -70,10 +70,9 @@ public class TestAdapter extends RecyclerView.Adapter<TestAdapter.ViewHolder> {
             //ViewHolder cho cả layout_1.xml và layout_2.xml
             topScore=itemView.findViewById(R.id.scoretext);
             progressBar=itemView.findViewById(R.id.testProgressbar);
-<<<<<<< HEAD
 
 
-=======
+
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -81,7 +80,7 @@ public class TestAdapter extends RecyclerView.Adapter<TestAdapter.ViewHolder> {
                     itemView.getContext().startActivity(intent);
                 }
             });
->>>>>>> ef736667602139c2ab4667508f55aa927d4ca2c1
+
         }
 
         private void setData(final int pos, int progress)

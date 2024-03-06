@@ -1,13 +1,17 @@
 package com.example.quizapp;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import com.example.quizapp.model.DbQuery;
 
 public class QuestionActivity extends AppCompatActivity {
     private RecyclerView questionsView;
@@ -20,7 +24,16 @@ public class QuestionActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_question);
+
         addControls();
+
+        QuestionAdapter quesAdapter = new QuestionAdapter(DbQuery.g_quesList);
+        questionsView.setAdapter(quesAdapter);
+
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+        layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
+        questionsView.setLayoutManager(layoutManager);
+
     }
 
     private void addControls() {
