@@ -25,7 +25,7 @@ import com.google.firebase.auth.FirebaseAuth;
  */
 public class AccountFragment extends Fragment {
 
-    //07.03.24
+    //07.03.2024
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
