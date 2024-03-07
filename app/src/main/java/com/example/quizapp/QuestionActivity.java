@@ -14,6 +14,8 @@ import android.widget.TextView;
 import com.example.quizapp.model.DbQuery;
 
 public class QuestionActivity extends AppCompatActivity {
+
+    //08.03 di choi
     private RecyclerView questionsView;
     private TextView txtQuesID, txtTimer, txtOK;
     private Button btnSubmit, btnMarkForReview, btnClear;
