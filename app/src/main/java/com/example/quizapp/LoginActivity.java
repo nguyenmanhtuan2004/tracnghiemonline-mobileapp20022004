@@ -37,6 +37,7 @@ import com.google.firebase.auth.GoogleAuthProvider;
 
 public class LoginActivity extends AppCompatActivity {
 
+    //7/3/2024
     private EditText email, pass;
     private Button loginB;
     private TextView forgotPassb, signupB;
