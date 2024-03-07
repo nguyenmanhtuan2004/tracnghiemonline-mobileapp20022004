@@ -36,9 +36,8 @@ public class MainActivity extends AppCompatActivity  {
     private NavigationView navigationView1;
 
     private BottomNavigationView bottomNavigationView;
-//    private BottomNavigationView.OnNavigationItemSelectedListener onNavigationItemSelectedListener;
+    //    private BottomNavigationView.OnNavigationItemSelectedListener onNavigationItemSelectedListener;
     private ActivityMainBinding binding;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,8 +65,8 @@ public class MainActivity extends AppCompatActivity  {
 
         drawerProfileName = navigationView.getHeaderView(0).findViewById(R.id.nav_drawer_name);
 
-         String name = DbQuery.myProfile.getName();
-         drawerProfileName.setText(name);
+        String name = DbQuery.myProfile.getName();
+        drawerProfileName.setText(name);
 
         setFragment(new CatergoryFragment());
 
