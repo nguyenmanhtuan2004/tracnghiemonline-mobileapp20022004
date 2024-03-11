@@ -8,6 +8,8 @@ import static com.example.quizapp.model.DbQuery.g_testList;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.PagerSnapHelper;
 import androidx.recyclerview.widget.RecyclerView;
@@ -33,15 +35,18 @@ public class QuestionActivity extends AppCompatActivity {
     private ImageButton prevQuesB, nextQuesB;
     private ImageView quesListB;
     private int quesID;
+    QuestionAdapter quesAdapter;
+    private DrawerLayout drawer;
+    private ImageButton drawerCloseB;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_question);
+        setContentView(R.layout.questions_list_layout);
 
         addControls();
 
-        QuestionAdapter quesAdapter = new QuestionAdapter(g_quesList);
+        quesAdapter = new QuestionAdapter(g_quesList);
         questionsView.setAdapter(quesAdapter);
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
@@ -99,6 +104,34 @@ public class QuestionActivity extends AppCompatActivity {
                     questionsView.smoothScrollToPosition(quesID + 1);
             }
         });
+
+        btnClear.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                g_quesList.get(quesID).setSelectedAns(-1);
+                quesAdapter.notifyDataSetChanged();
+            }
+        });
+
+        quesListB.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(!drawer.isDrawerOpen(GravityCompat.END))
+                {
+                    drawer.openDrawer(GravityCompat.END);
+                }
+            }
+        });
+
+        drawerCloseB.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(!drawer.isDrawerOpen(GravityCompat.END))
+                {
+                    drawer.closeDrawer(GravityCompat.END);
+                }
+            }
+        });
     }
 
     private void setSnapHelper() {
@@ -134,7 +167,12 @@ public class QuestionActivity extends AppCompatActivity {
         prevQuesB = findViewById(R.id.prev_quesB);
         nextQuesB = findViewById(R.id.next_quesB);
         quesListB = findViewById(R.id.ques_list_gridB);
+        drawer = findViewById(R.id.drawer_layout);
+
+        drawerCloseB = findViewById(R.id.drawerCloseB);
+
         quesID = 0;
+
         txtQuesID.setText("1/" + String.valueOf(g_quesList.size()));
         txtCatName.setText(g_catList.get(g_selected_cat_index).getName());
     }
