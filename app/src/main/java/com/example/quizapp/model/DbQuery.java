@@ -31,6 +31,8 @@ public class DbQuery {
     public static List<QuestionsModel> g_quesList = new ArrayList<>();
     //end part 17
     public static ProfileModel myProfile = new ProfileModel("NA",null);//(name,email)
+    //public static RankModel myPerformance = new RankModel(0,-1);
+
     public static List<TestModel> g_testList = new ArrayList<>();
 
     //PART 17
