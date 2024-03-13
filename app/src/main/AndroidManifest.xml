@@ -13,6 +13,16 @@
         android:theme="@style/Theme.QuizApp"
         tools:targetApi="31">
         <activity
+<<<<<<< HEAD
+            android:name=".MyProfileActivity"
+=======
+            android:name=".ScoreActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.ScoreActivity"
+>>>>>>> e148c19ee74b309953f059bb020c5f770692f892
+            android:exported="false" />
+        <activity
             android:name=".StartTestActivity"
             android:exported="false" />
         <activity
