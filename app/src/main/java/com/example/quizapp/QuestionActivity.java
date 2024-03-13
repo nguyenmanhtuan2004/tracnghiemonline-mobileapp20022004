@@ -15,10 +15,12 @@ import androidx.recyclerview.widget.PagerSnapHelper;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.SnapHelper;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.view.View;
 import android.widget.Button;
+import android.widget.GridView;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -72,7 +74,6 @@ public class QuestionActivity extends AppCompatActivity {
                         TimeUnit.MILLISECONDS.toMinutes(remainingTime),
                         TimeUnit.MILLISECONDS.toSeconds(remainingTime),
                         TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(remainingTime)));
-
                 txtTimer.setText(time);
             }
 
