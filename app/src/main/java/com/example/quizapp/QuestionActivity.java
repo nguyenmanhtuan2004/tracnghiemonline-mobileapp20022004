@@ -11,6 +11,7 @@ import static com.example.quizapp.model.DbQuery.g_selectted_test_index;
 import static com.example.quizapp.model.DbQuery.g_testList;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -19,6 +20,7 @@ import androidx.recyclerview.widget.PagerSnapHelper;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.SnapHelper;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.view.View;
@@ -46,6 +48,7 @@ public class QuestionActivity extends AppCompatActivity {
     private GridView quesListGV;
     private ImageView markImage;
     private QuestionGridAdapter gridAdapter;
+    private CountDownTimer timer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,12 +79,12 @@ public class QuestionActivity extends AppCompatActivity {
 
         long totalTimer = g_testList.get(g_selectted_test_index).getTime()*60*1000;
 
-        CountDownTimer timer = new CountDownTimer(totalTimer +1000, 1000) {
+        timer = new CountDownTimer(totalTimer +1000, 1000) {
             @Override
             public void onTick(long remainingTime) {
                 String time = String.format("%02d:%02d min",
                         TimeUnit.MILLISECONDS.toMinutes(remainingTime),
-                        TimeUnit.MILLISECONDS.toSeconds(remainingTime),
+                        TimeUnit.MILLISECONDS.toSeconds(remainingTime)-
                         TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(remainingTime)));
 
                 txtTimer.setText(time);
@@ -90,6 +93,9 @@ public class QuestionActivity extends AppCompatActivity {
             @Override
             public void onFinish() {
 
+                Intent intent=new Intent(QuestionActivity.this,ScoreActivity.class);
+                startActivity(intent);
+                QuestionActivity.this.finish();
             }
         };
 
@@ -120,6 +126,10 @@ public class QuestionActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 g_quesList.get(quesID).setSelectedAns(-1);
+                g_quesList.get(quesID).setStatus(UNANSWERED);
+                markImage.setVisibility(View.GONE);
+                //setVisibility(View.GONE) là một phương thức được sử dụng để
+                // thay đổi trạng thái hiển thị của view.
                 quesAdapter.notifyDataSetChanged();
             }
         });
@@ -167,6 +177,47 @@ public class QuestionActivity extends AppCompatActivity {
                 }
             }
         });
+
+        btnSubmit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                submitTest();
+            }
+        });
+    }
+
+    private void submitTest()
+    {
+        AlertDialog.Builder builder=new AlertDialog.Builder(QuestionActivity.this);
+        builder.setCancelable(true);//user có thể hủy hộp thoại này
+
+        View view=getLayoutInflater().inflate(R.layout.alert_dialog_layout,null);
+
+        Button cancelB=view.findViewById(R.id.cancelB);
+        Button confirmB=view.findViewById(R.id.confirmB);
+
+        builder.setView(view);
+
+        AlertDialog alertDialog=builder.create();
+
+        cancelB.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                alertDialog.dismiss();
+            }
+        });
+        confirmB.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                timer.cancel();
+                alertDialog.dismiss();
+
+                Intent intent=new Intent(QuestionActivity.this,ScoreActivity.class);
+                startActivity(intent);
+                QuestionActivity.this.finish();
+            }
+        });
+        alertDialog.show();
     }
 
     public void goToQuestion(int position)
@@ -188,10 +239,18 @@ public class QuestionActivity extends AppCompatActivity {
 
                 View view = snapHelper.findSnapView(recyclerView.getLayoutManager());
                 quesID = recyclerView.getLayoutManager().getPosition(view);
-
+                //lấy chỉ mục của item
                 if(g_quesList.get(quesID).getStatus() == NOT_VISITED)
                     g_quesList.get(quesID).setStatus(UNANSWERED);
 
+                if(g_quesList.get(quesID).getStatus()==REVIEW)
+                {
+                    markImage.setVisibility(View.VISIBLE);
+                }
+                else
+                {
+                    markImage.setVisibility(View.GONE);
+                }
                 txtQuesID.setText(String.valueOf(quesID + 1) + "/" + String.valueOf(g_quesList.size()));
 
             }

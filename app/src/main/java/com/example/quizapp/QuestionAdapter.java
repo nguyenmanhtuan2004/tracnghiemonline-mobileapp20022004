@@ -1,5 +1,6 @@
 package com.example.quizapp;
 
+
 import static com.example.quizapp.model.DbQuery.ANSWERED;
 import static com.example.quizapp.model.DbQuery.REVIEW;
 import static com.example.quizapp.model.DbQuery.UNANSWERED;
@@ -10,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.ToggleButton;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -48,7 +50,7 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.ViewHo
     public class ViewHolder extends RecyclerView.ViewHolder {
 
         private TextView ques;
-        private Button optionA, optionB, optionC, optionD, prevSelectedB;
+        private ToggleButton optionA, optionB, optionC, optionD, prevSelectedB;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
@@ -67,6 +69,16 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.ViewHo
             optionB.setText(questionsList.get(pos).getOptionB());
             optionC.setText(questionsList.get(pos).getOptionC());
             optionD.setText(questionsList.get(pos).getOptionD());
+
+            optionA.setTextOff(questionsList.get(pos).getOptionA());
+            optionB.setTextOff(questionsList.get(pos).getOptionB());
+            optionC.setTextOff(questionsList.get(pos).getOptionC());
+            optionD.setTextOff(questionsList.get(pos).getOptionD());
+
+            optionA.setTextOn(questionsList.get(pos).getOptionA());
+            optionB.setTextOn(questionsList.get(pos).getOptionB());
+            optionC.setTextOn(questionsList.get(pos).getOptionC());
+            optionD.setTextOn(questionsList.get(pos).getOptionD());
 
             setOption(optionA, 1, pos);
             setOption(optionB, 2, pos);
@@ -102,7 +114,7 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.ViewHo
             });
         }
 
-        private void selectOption(Button btn, int option_num, int quesID)
+        private void selectOption(ToggleButton btn, int option_num, int quesID)
         {
             if(prevSelectedB == null)
             {
