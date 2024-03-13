@@ -186,7 +186,8 @@ public class DbQuery {
                         for(int i=1;i<=noOfTests;i++)
                         {
                             g_testList.add(new TestModel(
-                                    documentSnapshot.getString("TEST"+String.valueOf(i)+"_ID"),0,documentSnapshot.getLong("TEST"+String.valueOf(i)+"_TIME").intValue()
+                                    documentSnapshot.getString("TEST"+String.valueOf(i)+"_ID"),0,
+                                    documentSnapshot.getLong("TEST"+String.valueOf(i)+"_TIME").intValue()
                             ));
                         }
                         completeListener.onSuccess();

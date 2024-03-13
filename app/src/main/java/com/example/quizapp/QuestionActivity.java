@@ -175,5 +175,7 @@ public class QuestionActivity extends AppCompatActivity {
 
         txtQuesID.setText("1/" + String.valueOf(g_quesList.size()));
         txtCatName.setText(g_catList.get(g_selected_cat_index).getName());
+
+        g_quesList.get(0).setStatus(UNANSWERED);
     }
 }

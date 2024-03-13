@@ -2,7 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:theme="@style/Theme.QuizApp.NoActionBar">
 
     <TextView
         android:layout_width="match_parent"
@@ -30,6 +31,7 @@
         android:textColor="@color/black"
         android:text="Option A"
         android:textSize="16sp"
+        android:backgroundTint="#FFFFFFFF"
         android:background="@drawable/unselected_btn"
         android:elevation="3dp"
         android:translationZ="2dp"
