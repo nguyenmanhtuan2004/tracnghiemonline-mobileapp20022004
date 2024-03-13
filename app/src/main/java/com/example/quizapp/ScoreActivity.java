@@ -103,7 +103,7 @@ public class ScoreActivity extends AppCompatActivity {
         for (int i = 0; i < DbQuery.g_quesList.size(); i++)
         {
             DbQuery.g_quesList.get(i).setSelectedAns(-1);
-            //DbQuery.g_quesList.get(i).setStatus(DbQuery.NOT_VISITED); Dòng code này còn thiếu hàm setStatus nên bổ sung sau.
+            DbQuery.g_quesList.get(i).setStatus(DbQuery.NOT_VISITED);
         }
     }
 }
