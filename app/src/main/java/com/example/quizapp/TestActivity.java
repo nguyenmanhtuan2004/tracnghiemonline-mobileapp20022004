@@ -76,7 +76,7 @@ public class TestActivity extends AppCompatActivity {
                     @Override
                     public void onFailure() {
                         progress_Dialog.dismiss();
-                        Toast.makeText(TestActivity.this, "Có gì đó sai! Vui lòng thử lại",
+                        Toast.makeText(TestActivity.this, "Có gì đó sai! Vui lòng thử.(Test1)",
                                 Toast.LENGTH_SHORT).show();
                     }
                 });
@@ -85,7 +85,7 @@ public class TestActivity extends AppCompatActivity {
             @Override
             public void onFailure() {
                 progress_Dialog.dismiss();
-                Toast.makeText(TestActivity.this, "Có gì đó sai! Vui lòng thử lại",
+                Toast.makeText(TestActivity.this, "Có gì đó sai! Vui lòng thử lại(Test2)",
                         Toast.LENGTH_SHORT).show();
             }
         });
