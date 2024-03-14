@@ -1,4 +1,4 @@
-package com.example.quizapp;
+package com.example.quizapp.Adapter;
 
 
 import static com.example.quizapp.model.DbQuery.ANSWERED;
@@ -16,10 +16,10 @@ import android.widget.ToggleButton;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.quizapp.R;
 import com.example.quizapp.model.DbQuery;
 import com.example.quizapp.model.QuestionsModel;
 
-import java.security.AccessController;
 import java.util.List;
 
 public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.ViewHolder> {

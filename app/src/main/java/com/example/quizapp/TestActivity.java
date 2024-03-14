@@ -13,12 +13,9 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.quizapp.Adapter.TestAdapter;
 import com.example.quizapp.model.DbQuery;
 import com.example.quizapp.model.MyCompleteListener;
-import com.example.quizapp.model.TestModel;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class TestActivity extends AppCompatActivity {
 
@@ -66,11 +63,23 @@ public class TestActivity extends AppCompatActivity {
         DbQuery.loadTestData(new MyCompleteListener() {
             @Override
             public void onSuccess() {
-                TestAdapter adapter=new TestAdapter(DbQuery.g_testList);
-                //testList là danh sách object TestModel
-                testView.setAdapter(adapter);
+                DbQuery.loadMyScores(new MyCompleteListener() {
+                    @Override
+                    public void onSuccess() {
+                        TestAdapter adapter=new TestAdapter(DbQuery.g_testList);
+                        //testList là danh sách object TestModel
+                        testView.setAdapter(adapter);
 
-                progress_Dialog.dismiss();
+                        progress_Dialog.dismiss();
+                    }
+
+                    @Override
+                    public void onFailure() {
+                        progress_Dialog.dismiss();
+                        Toast.makeText(TestActivity.this, "Có gì đó sai! Vui lòng thử lại",
+                                Toast.LENGTH_SHORT).show();
+                    }
+                });
             }
 
             @Override
@@ -80,12 +89,7 @@ public class TestActivity extends AppCompatActivity {
                         Toast.LENGTH_SHORT).show();
             }
         });
-
-
-
     }
-
-
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {

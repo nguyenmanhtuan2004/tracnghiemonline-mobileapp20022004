@@ -28,10 +28,10 @@ import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.example.quizapp.model.DbQuery;
+import com.example.quizapp.Adapter.QuestionAdapter;
+import com.example.quizapp.Adapter.QuestionGridAdapter;
 
 import java.util.concurrent.TimeUnit;
 
@@ -49,6 +49,7 @@ public class QuestionActivity extends AppCompatActivity {
     private ImageView markImage;
     private QuestionGridAdapter gridAdapter;
     private CountDownTimer timer;
+    private long timeLeft;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,6 +83,9 @@ public class QuestionActivity extends AppCompatActivity {
         timer = new CountDownTimer(totalTimer +1000, 1000) {
             @Override
             public void onTick(long remainingTime) {
+
+                timeLeft = remainingTime;
+
                 String time = String.format("%02d:%02d min",
                         TimeUnit.MILLISECONDS.toMinutes(remainingTime),
                         TimeUnit.MILLISECONDS.toSeconds(remainingTime)-
@@ -94,6 +98,8 @@ public class QuestionActivity extends AppCompatActivity {
 
                 Intent intent=new Intent(QuestionActivity.this,ScoreActivity.class);
                 startActivity(intent);
+                long totalTime = g_testList.get(g_selectted_test_index).getTime()*60*1000;
+                intent.putExtra("TIME_TAKEN",totalTime - timeLeft);
                 QuestionActivity.this.finish();
             }
         };
@@ -213,6 +219,8 @@ public class QuestionActivity extends AppCompatActivity {
 
                 Intent intent=new Intent(QuestionActivity.this,ScoreActivity.class);
                 startActivity(intent);
+                long totalTime = g_testList.get(g_selectted_test_index).getTime()*60*1000;
+                intent.putExtra("TIME_TAKEN",totalTime - timeLeft);
                 QuestionActivity.this.finish();
             }
         });

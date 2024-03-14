@@ -170,7 +170,7 @@ public class AccountFragment extends Fragment {
         leaderB.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                bottomNavigationView.setSelectedItemId(R.id.nav_leaderboard);
+                bottomNavigationView.setSelectedItemId(R.id.navigation_leaderboard);
 
             }
         });

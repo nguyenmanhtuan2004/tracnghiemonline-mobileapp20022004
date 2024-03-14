@@ -83,18 +83,18 @@ public class MainActivity extends AppCompatActivity  {
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                if(item.getItemId()==R.id.nav_home1)
+                if(item.getItemId()==R.id.navigation_home)
                 {
                     setFragment(new CatergoryFragment());
                     return true;
                 }
-                if(item.getItemId()==R.id.nav_leaderboard)
+                if(item.getItemId()==R.id.navigation_leaderboard)
                 {
                     setFragment(new LeaderBoardFragment());
                     return true;
                 }
 
-                if(item.getItemId()==R.id.nav_account)
+                if(item.getItemId()==R.id.navigation_account)
                 {
                     setFragment(new AccountFragment());
                     return true;

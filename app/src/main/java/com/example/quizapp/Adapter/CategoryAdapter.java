@@ -1,4 +1,4 @@
-package com.example.quizapp;
+package com.example.quizapp.Adapter;
 
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -7,6 +7,8 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+import com.example.quizapp.R;
+import com.example.quizapp.TestActivity;
 import com.example.quizapp.model.CategoryModel;
 import com.example.quizapp.model.DbQuery;
 
