@@ -13,9 +13,11 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.Toolbar;
 
 import com.example.quizapp.model.DbQuery;
+import com.example.quizapp.model.MyCompleteListener;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
@@ -97,6 +99,39 @@ public class AccountFragment extends Fragment {
         //score.setText(String.valueOf(DbQuery.myPerformance.getScore()));
 
 
+        //if (DbQuery.g_usersList.size()==0)
+        {
+            //DbQuery.getTopUsers(new MyCompleteListener() {
+
+               //@Override
+                //public void onSuccess() {
+
+                  // adapter.notifyDataSetChanged();
+                   // if(DbQuery.myPerformance.getScore() !=0)
+                   // {
+                      //  if (! DbQuery.isMeOnTopList){
+                         //   calculateRank();
+                      //  }
+                      //  myscoreTV.setText("Score : " + myPerformance.getScore());
+                      //  myRankTV.setText("Rank - "+ myPerformance.getRank());
+
+                  //  }
+                   // progress_Dialog.dismiss();
+
+              //  }
+
+              //  @Override
+             //   public void onFailure() {
+                //    Toast.makeText(getContext(), "Có gì đó sai! Vui lòng thử lại",
+                   //         Toast.LENGTH_SHORT).show();
+                  //  progress_Dialog.dismiss();
+
+               // }
+          //  });
+
+        }
+
+
 
         logoutB.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -153,4 +188,5 @@ public class AccountFragment extends Fragment {
         profileB = view.findViewById(R.id.profileB);
         bottomNavigationView = getActivity().findViewById(R.id.bottom_nav_bar);
     }
+    
 }

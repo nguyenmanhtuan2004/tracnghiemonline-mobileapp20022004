@@ -2,9 +2,10 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
+    android:layout_height="match_parent"
+    android:theme="@style/Theme.QuizApp.NoActionBar">
     <TextView
+
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/txtQuestion"
@@ -22,7 +23,7 @@
         android:elevation="5dp"
         android:translationZ="3dp"/>
 
-    <Button
+    <ToggleButton
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
@@ -35,7 +36,7 @@
         android:translationZ="2dp"
         android:stateListAnimator="@null"/>
 
-    <Button
+    <ToggleButton
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
@@ -48,7 +49,7 @@
         android:translationZ="2dp"
         android:stateListAnimator="@null"/>
 
-    <Button
+    <ToggleButton
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
@@ -61,13 +62,14 @@
         android:translationZ="2dp"
         android:stateListAnimator="@null"/>
 
-    <Button
+    <ToggleButton
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
         android:id="@+id/btnOptionD"
         android:textColor="@color/black"
-        android:text="Option D"
+        android:textOn=""
+        android:textOff=""
         android:textSize="16sp"
         android:background="@drawable/unselected_btn"
         android:elevation="3dp"
