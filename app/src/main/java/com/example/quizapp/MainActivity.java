@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity  {
     private NavigationView navigationView1;
 
     private BottomNavigationView bottomNavigationView;
-//    private BottomNavigationView.OnNavigationItemSelectedListener onNavigationItemSelectedListener;
+    //    private BottomNavigationView.OnNavigationItemSelectedListener onNavigationItemSelectedListener;
     private ActivityMainBinding binding;
 
     @Override
@@ -65,8 +65,8 @@ public class MainActivity extends AppCompatActivity  {
 
         drawerProfileName = navigationView.getHeaderView(0).findViewById(R.id.nav_drawer_name);
 
-         String name = DbQuery.myProfile.getName();
-         drawerProfileName.setText(name);
+        String name = DbQuery.myProfile.getName();
+        drawerProfileName.setText(name);
 
         setFragment(new CatergoryFragment());
 
@@ -83,18 +83,18 @@ public class MainActivity extends AppCompatActivity  {
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                if(item.getItemId()==R.id.nav_home1)
+                if(item.getItemId()==R.id.navigation_home)
                 {
                     setFragment(new CatergoryFragment());
                     return true;
                 }
-                if(item.getItemId()==R.id.nav_leaderboard)
+                if(item.getItemId()==R.id.navigation_leaderboard)
                 {
                     setFragment(new LeaderBoardFragment());
                     return true;
                 }
 
-                if(item.getItemId()==R.id.nav_account)
+                if(item.getItemId()==R.id.navigation_account)
                 {
                     setFragment(new AccountFragment());
                     return true;

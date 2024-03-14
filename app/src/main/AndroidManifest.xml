@@ -15,18 +15,22 @@
         <activity
             android:name=".ScoreActivity"
             android:exported="false" />
+
+
         <activity
-            android:name=".ui.ScoreActivity"
-            android:exported="false" />
+            android:name=".MyProfileActivity"
+            android:exported="false"
+            android:theme="@style/Theme.QuizApp.NoActionBar"/>
+
         <activity
             android:name=".StartTestActivity"
-            android:exported="false" />
-        <activity
-            android:name=".ui.TheyActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:theme="@style/Theme.QuizApp.NoActionBar"/>
+
         <activity
             android:name=".QuestionActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:theme="@style/Theme.QuizApp.NoActionBar"/>
         <activity
             android:name=".TestActivity"
             android:exported="false"
