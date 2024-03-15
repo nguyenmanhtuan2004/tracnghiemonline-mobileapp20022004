@@ -52,7 +52,7 @@ public class TestAdapter extends RecyclerView.Adapter<TestAdapter.ViewHolder> {
     //trả về danh sách có bao nhiêu item
 
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    public static class ViewHolder extends RecyclerView.ViewHolder {
 
         private TextView testNo;
 

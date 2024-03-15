@@ -86,9 +86,11 @@ public class AccountFragment extends Fragment {
         // Inflate the layout for this fragment
         View view= inflater.inflate(R.layout.fragment_account, container, false);
 
+       //Lỗi
         initViews(view);
-        Toolbar toolbar = getActivity().findViewById(R.id.toolbar);
-        ((MainActivity)getActivity()).getSupportActionBar().setTitle(("My Account"));
+        //Toolbar toolbar = getActivity().findViewById(R.id.toolbar);
+        //((MainActivity)getActivity()).getSupportActionBar().setTitle(("My Account"));
+        //
 
         String userName = DbQuery.myProfile.getName();
         profile_img_text.setText(userName.toUpperCase().substring(0,1));
