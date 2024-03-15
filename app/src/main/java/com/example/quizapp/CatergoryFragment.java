@@ -9,11 +9,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.GridView;
 
-import com.example.quizapp.model.CategoryModel;
+import com.example.quizapp.Adapter.CategoryAdapter;
 import com.example.quizapp.model.DbQuery;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.

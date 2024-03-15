@@ -1,4 +1,4 @@
-package com.example.quizapp;
+package com.example.quizapp.Adapter;
 
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -10,6 +10,9 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.quizapp.QuestionActivity;
+import com.example.quizapp.R;
+import com.example.quizapp.StartTestActivity;
 import com.example.quizapp.model.DbQuery;
 import com.example.quizapp.model.TestModel;
 
@@ -34,7 +37,7 @@ public class TestAdapter extends RecyclerView.Adapter<TestAdapter.ViewHolder> {
         View view= LayoutInflater.from(parent.getContext()).inflate(R.layout.test_item_layout,parent,false);
         return new  ViewHolder(view);
     }
-    //phương thức này tạo và khởi động ViewHolder cùng với View đã liên kết-ViewHoler chưa liên kêt dữ liệu
+    //phương thức này tạo và khởi động ViewHolder cùng với View(test_item_layout) đã liên kết-ViewHoler chưa liên kêt dữ liệu
 
     @Override
     public void onBindViewHolder(@NonNull TestAdapter.ViewHolder holder, int position) {

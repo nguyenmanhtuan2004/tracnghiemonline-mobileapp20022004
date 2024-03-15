@@ -13,18 +13,14 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.quizapp.Adapter.TestAdapter;
 import com.example.quizapp.model.DbQuery;
 import com.example.quizapp.model.MyCompleteListener;
-import com.example.quizapp.model.TestModel;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class TestActivity extends AppCompatActivity {
 
     private RecyclerView testView;
     //hiển thị danh sách các phần tử
-    //Bảo xíu nữa làm bài
     private Toolbar toolbar;
 
 
@@ -68,12 +64,12 @@ public class TestActivity extends AppCompatActivity {
         DbQuery.loadTestData(new MyCompleteListener() {
             @Override
             public void onSuccess() {
-                TestAdapter adapter=new TestAdapter(DbQuery.g_testList);
-                //testList là danh sách object TestModel
-                testView.setAdapter(adapter);
+                        TestAdapter adapter = new TestAdapter(DbQuery.g_testList);
+                        //testList là danh sách object TestModel
+                        testView.setAdapter(adapter);
 
-                progress_Dialog.dismiss();
-            }
+                        progress_Dialog.dismiss();
+                    }
 
             @Override
             public void onFailure() {
@@ -82,12 +78,7 @@ public class TestActivity extends AppCompatActivity {
                         Toast.LENGTH_SHORT).show();
             }
         });
-
-
-
     }
-
-
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {

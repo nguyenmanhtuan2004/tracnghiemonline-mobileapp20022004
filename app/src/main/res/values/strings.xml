@@ -15,6 +15,11 @@
     <string name="menu_slideshow1">1008670849727-p30eppu2538dv23n0pnafi61b2a70kng.apps.googleusercontent.com</string>
     <string name="menu_slideshow">LeaderBoard</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
+<<<<<<< HEAD
     <string name="title_activity_answers">AnswersActivity</string>
 
+=======
+    <string name="open_drawer">Mở thanh điều hướng</string>
+    <string name="close_drawer">Đóng thanh điều hướng</string>
+>>>>>>> 42bfb210e1ed75ed27da6ff06d2797b9156a799a
 </resources>

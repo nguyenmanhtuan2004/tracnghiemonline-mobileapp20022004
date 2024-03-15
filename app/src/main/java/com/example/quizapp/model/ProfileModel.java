@@ -1,17 +1,26 @@
-package com.example.quizapp;
+package com.example.quizapp.model;
 
 public class ProfileModel {
 
     private String name;
     private String email;
+    private String phone;
 
-    public ProfileModel(String name, String email) {
+    public ProfileModel(String name, String email, String phone) {
         this.name = name;
         this.email = email;
+        this.phone = phone;
     }
     public ProfileModel() {
     }
 
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
 
     public String getName() {
         return name;
