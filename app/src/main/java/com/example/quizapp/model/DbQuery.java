@@ -1,6 +1,7 @@
 package com.example.quizapp.model;
 
 import android.util.ArrayMap;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -142,8 +143,8 @@ public class DbQuery {
     }
     public static void getUserData(final MyCompleteListener completeListener)
     {
+        //document có ID tương ứng với UID của người dùng hiện tại
         g_firestore.collection("USERS").document(FirebaseAuth.getInstance().getUid())
-                //document có ID tương ứng với UID của người dùng hiện tại
                 .get()
                 .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>(){
                    @Override
@@ -163,6 +164,26 @@ public class DbQuery {
                     @Override
                     public void onFailure(@NonNull Exception e) {
                         completeListener.onFailure();
+                    }
+                });
+    }
+
+    public static void loadMyProfile(TextView username,TextView profileimage,final MyCompleteListener completeListener)
+    {
+        g_firestore.collection("USERS").document(FirebaseAuth.getInstance().getUid())
+                .get()
+                .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                    @Override
+                    public void onSuccess(DocumentSnapshot documentSnapshot) {
+                        String name=documentSnapshot.getString("NAME");
+                        profileimage.setText(name.toUpperCase().substring(0,1));
+                        username.setText(name);
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+
                     }
                 });
     }
@@ -278,6 +299,7 @@ public class DbQuery {
                     }
                 });
     }
+
 
     //tải dữ liệu testID và testTime cho từng cái catergory (môn học)
     public static void loadTestData(final MyCompleteListener completeListener)

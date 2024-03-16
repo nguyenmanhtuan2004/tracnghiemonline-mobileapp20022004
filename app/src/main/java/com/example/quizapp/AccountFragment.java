@@ -93,9 +93,18 @@ public class AccountFragment extends Fragment {
         //
 
         String userName = DbQuery.myProfile.getName();
-        profile_img_text.setText(userName.toUpperCase().substring(0,1));
+//        profile_img_text.setText(userName.toUpperCase().substring(0,1));
+        DbQuery.loadMyProfile(name,profile_img_text, new MyCompleteListener() {
+            @Override
+            public void onSuccess() {
 
-        name.setText(userName);
+            }
+
+            @Override
+            public void onFailure() {
+                Toast.makeText(view.getContext(),"sai ròi",Toast.LENGTH_SHORT).show();
+            }
+        });
 
         //Thiếu RankModel ở DBQuery
         //score.setText(String.valueOf(DbQuery.myPerformance.getScore()));
