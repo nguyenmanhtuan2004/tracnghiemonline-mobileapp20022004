@@ -86,9 +86,11 @@ public class AccountFragment extends Fragment {
         // Inflate the layout for this fragment
         View view= inflater.inflate(R.layout.fragment_account, container, false);
 
+        //Lỗi
         initViews(view);
         //Toolbar toolbar = getActivity().findViewById(R.id.toolbar);
-       // ((MainActivity)getActivity()).getSupportActionBar().setTitle(("My Account"));
+        //((MainActivity)getActivity()).getSupportActionBar().setTitle(("My Account"));
+        //
 
         String userName = DbQuery.myProfile.getName();
         profile_img_text.setText(userName.toUpperCase().substring(0,1));
@@ -103,31 +105,31 @@ public class AccountFragment extends Fragment {
         {
             //DbQuery.getTopUsers(new MyCompleteListener() {
 
-               //@Override
-                //public void onSuccess() {
+            //@Override
+            //public void onSuccess() {
 
-                  // adapter.notifyDataSetChanged();
-                   // if(DbQuery.myPerformance.getScore() !=0)
-                   // {
-                      //  if (! DbQuery.isMeOnTopList){
-                         //   calculateRank();
-                      //  }
-                      //  myscoreTV.setText("Score : " + myPerformance.getScore());
-                      //  myRankTV.setText("Rank - "+ myPerformance.getRank());
+            // adapter.notifyDataSetChanged();
+            // if(DbQuery.myPerformance.getScore() !=0)
+            // {
+            //  if (! DbQuery.isMeOnTopList){
+            //   calculateRank();
+            //  }
+            //  myscoreTV.setText("Score : " + myPerformance.getScore());
+            //  myRankTV.setText("Rank - "+ myPerformance.getRank());
 
-                  //  }
-                   // progress_Dialog.dismiss();
+            //  }
+            // progress_Dialog.dismiss();
 
-              //  }
+            //  }
 
-              //  @Override
-             //   public void onFailure() {
-                //    Toast.makeText(getContext(), "Có gì đó sai! Vui lòng thử lại",
-                   //         Toast.LENGTH_SHORT).show();
-                  //  progress_Dialog.dismiss();
+            //  @Override
+            //   public void onFailure() {
+            //    Toast.makeText(getContext(), "Có gì đó sai! Vui lòng thử lại",
+            //         Toast.LENGTH_SHORT).show();
+            //  progress_Dialog.dismiss();
 
-               // }
-          //  });
+            // }
+            //  });
 
         }
 
@@ -164,7 +166,8 @@ public class AccountFragment extends Fragment {
         profileB.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent intent = new Intent(getContext(), MyProfileActivity.class);
+                startActivity(intent);
             }
         });
         leaderB.setOnClickListener(new View.OnClickListener() {
@@ -188,5 +191,5 @@ public class AccountFragment extends Fragment {
         profileB = view.findViewById(R.id.profileB);
         bottomNavigationView = getActivity().findViewById(R.id.bottom_nav_bar);
     }
-    
+
 }

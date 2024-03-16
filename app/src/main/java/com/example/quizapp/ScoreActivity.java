@@ -1,5 +1,14 @@
 package com.example.quizapp;
 
+<<<<<<< HEAD
+import android.app.Dialog;
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
+import android.widget.Toolbar;
+=======
 import static com.example.quizapp.model.DbQuery.loadData;
 
 import android.app.Dialog;
@@ -11,6 +20,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+>>>>>>> 42bfb210e1ed75ed27da6ff06d2797b9156a799a
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
@@ -20,6 +30,19 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+<<<<<<< HEAD
+import org.w3c.dom.Text;
+
+public class ScoreActivity extends AppCompatActivity {
+
+    private TextView scoreTV , timeTV , totalQTV , correctQTV, wrongQTV , unattemptedQTV;
+    private Button leaderB , reAttempB , viewAnsB;
+    private long timeTaken;
+    private Dialog progressDialog;
+    private TextView dialogText;
+    private int finalScore;
+
+=======
 import com.example.quizapp.model.DbQuery;
 import com.example.quizapp.model.MyCompleteListener;
 
@@ -33,12 +56,53 @@ public class ScoreActivity extends AppCompatActivity {
     private Dialog progress_Dialog;
     private TextView dialogText;
     private int finalscore;
+>>>>>>> 42bfb210e1ed75ed27da6ff06d2797b9156a799a
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_score);
 
         Toolbar toolbar = findViewById(R.id.toolbar);
+<<<<<<< HEAD
+        // Part 33
+        // setSupportActionBar(toolbar);
+        // setSupportActionBar().setDisplayShowTitleEnabled(true);
+        // setSupportActionBar().SetTitle("Result");
+        // setSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
+            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
+            return insets;
+
+
+
+
+            //Part 33
+            // viewAnsB.setOnClickListener ( new View.OnClickListener(){
+
+           // public void onClick (View view){
+            //    Intent intent = new Intent(ScoreActivity.this , AnswersActivity.class);
+             //   startActivity(Intent);
+           // }
+
+
+          //}
+
+
+
+
+
+        });
+
+
+    }
+
+
+
+}
+=======
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(true);
         getSupportActionBar().setTitle("Result");
@@ -164,3 +228,4 @@ public class ScoreActivity extends AppCompatActivity {
         }
     }
 }
+>>>>>>> 42bfb210e1ed75ed27da6ff06d2797b9156a799a

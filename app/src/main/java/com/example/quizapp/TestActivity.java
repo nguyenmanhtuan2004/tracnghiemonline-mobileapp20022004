@@ -34,10 +34,11 @@ public class TestActivity extends AppCompatActivity {
         setContentView(R.layout.activity_test);
 
         toolbar=findViewById(R.id.toolbar);
+
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(true);
-        //tiêu đề của Activity có được hiển thị trên ActionBar
 
+        //tiêu đề của Activity có được hiển thị trên ActionBar
         //nhận dữ liệu được truyền từ activity có khóa là CAT_INDEX
 
         getSupportActionBar().setTitle(DbQuery.g_catList.get(DbQuery.g_selected_cat_index).getName());
