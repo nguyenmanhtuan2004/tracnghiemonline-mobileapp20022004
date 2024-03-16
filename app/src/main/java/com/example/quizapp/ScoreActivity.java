@@ -85,7 +85,7 @@ public class ScoreActivity extends AppCompatActivity {
             @Override
             public void onFailure() {
 
-                Toast.makeText(ScoreActivity.this,"Something went wrong! Please try again later!",Toast.LENGTH_SHORT).show();
+                Toast.makeText(ScoreActivity.this,"Something went wrong! Please try again later!ScoreActivity",Toast.LENGTH_SHORT).show();
                 progress_Dialog.dismiss();
             }
         });
@@ -140,7 +140,7 @@ public class ScoreActivity extends AppCompatActivity {
 
         totalQTV.setText(String.valueOf(DbQuery.g_quesList.size()));
 
-        finalscore = (correctQ*100)/DbQuery.g_quesList.size();
+        finalscore = (int)((correctQ*100)/DbQuery.g_quesList.size());
         scoreTV.setText(String.valueOf(finalscore));
 
         timeTaken = getIntent().getLongExtra("TIME_TAKEN", 0);

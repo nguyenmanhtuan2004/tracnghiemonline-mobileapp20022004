@@ -89,7 +89,7 @@ public class TestAdapter extends RecyclerView.Adapter<TestAdapter.ViewHolder> {
         private void setData(final int pos, int progress)
         {
             //progress ở đây là điểm lấy theo position
-            testNo.setText("Test No :"+ String.valueOf(pos+1));
+            testNo.setText("Test No :"+ String.valueOf(pos));
             topScore.setText(String.valueOf(progress)+ "%");
 
             progressBar.setProgress(progress);

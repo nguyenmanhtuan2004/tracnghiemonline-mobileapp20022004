@@ -203,7 +203,7 @@ public class QuestionActivity extends AppCompatActivity {
 
         builder.setView(view);
 
-        AlertDialog alertDialog=builder.create();
+        final AlertDialog alertDialog=builder.create();
 
         cancelB.setOnClickListener(new View.OnClickListener() {
             @Override

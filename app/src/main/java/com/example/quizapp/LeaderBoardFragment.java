@@ -160,7 +160,4 @@ public class LeaderBoardFragment extends Fragment {
         //  }
         //  myPerformance.setRank(rank);
     }
-
-
-
 }

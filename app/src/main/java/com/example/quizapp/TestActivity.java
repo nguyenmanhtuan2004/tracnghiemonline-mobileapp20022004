@@ -26,6 +26,7 @@ public class TestActivity extends AppCompatActivity {
 
     private Dialog progress_Dialog;
     private TextView dialogText;
+    private TestAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,7 +67,7 @@ public class TestActivity extends AppCompatActivity {
                 DbQuery.loadMyScores(new MyCompleteListener() {
                     @Override
                     public void onSuccess() {
-                        TestAdapter adapter=new TestAdapter(DbQuery.g_testList);
+                        adapter = new TestAdapter(DbQuery.g_testList);
                         //testList là danh sách object TestModel
                         testView.setAdapter(adapter);
 
@@ -76,7 +77,7 @@ public class TestActivity extends AppCompatActivity {
                     @Override
                     public void onFailure() {
                         progress_Dialog.dismiss();
-                        Toast.makeText(TestActivity.this, "Có gì đó sai! Vui lòng thử.(Test1)",
+                        Toast.makeText(TestActivity.this, "Có gì đó sai! Vui lòng thử lại",
                                 Toast.LENGTH_SHORT).show();
                     }
                 });
@@ -85,7 +86,7 @@ public class TestActivity extends AppCompatActivity {
             @Override
             public void onFailure() {
                 progress_Dialog.dismiss();
-                Toast.makeText(TestActivity.this, "Có gì đó sai! Vui lòng thử lại(Test2)",
+                Toast.makeText(TestActivity.this, "Có gì đó sai! Vui lòng thử lại",
                         Toast.LENGTH_SHORT).show();
             }
         });

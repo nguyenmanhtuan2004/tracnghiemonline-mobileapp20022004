@@ -1,6 +1,7 @@
 package com.example.quizapp.model;
 
 import android.util.ArrayMap;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
@@ -138,11 +139,12 @@ public class DbQuery {
 
     public static void loadMyScores(MyCompleteListener completeListener)
     {
+
         g_firestore.collection("USERS").document(FirebaseAuth.getInstance().getUid()).
                 collection("USER_DATA").
                 document("MY_SCORES").
-                get().
-                addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                get()
+                .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                     @Override
                     public void onSuccess(DocumentSnapshot documentSnapshot) {
 
@@ -152,6 +154,7 @@ public class DbQuery {
                             if (documentSnapshot.get(g_testList.get(i).getTestID()) != null)
                             {
                                 top = documentSnapshot.getLong(g_testList.get(i).getTestID()).intValue();
+
                             }
 
                             g_testList.get(i).setTopScore(top);
@@ -260,7 +263,7 @@ public class DbQuery {
                         for(int i=1;i<=noOfTests;i++)
                         {
                             g_testList.add(new TestModel(
-                                    documentSnapshot.getString("TEST"+String.valueOf(i)+"_ID"),0,
+                                    documentSnapshot.getString("TEST"+String.valueOf(i)+"_ID"),1,
                                     documentSnapshot.getLong("TEST"+String.valueOf(i)+"_TIME").intValue()
                             ));
                         }
