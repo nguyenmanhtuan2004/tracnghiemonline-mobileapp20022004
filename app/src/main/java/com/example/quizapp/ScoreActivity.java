@@ -1,14 +1,12 @@
 package com.example.quizapp;
 
-<<<<<<< HEAD
 import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toolbar;
-=======
+
 import static com.example.quizapp.model.DbQuery.loadData;
 
 import android.app.Dialog;
@@ -20,7 +18,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
->>>>>>> 42bfb210e1ed75ed27da6ff06d2797b9156a799a
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
@@ -29,24 +26,23 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
-
-<<<<<<< HEAD
-import org.w3c.dom.Text;
-
-public class ScoreActivity extends AppCompatActivity {
-
-    private TextView scoreTV , timeTV , totalQTV , correctQTV, wrongQTV , unattemptedQTV;
-    private Button leaderB , reAttempB , viewAnsB;
-    private long timeTaken;
-    private Dialog progressDialog;
-    private TextView dialogText;
-    private int finalScore;
-
-=======
 import com.example.quizapp.model.DbQuery;
 import com.example.quizapp.model.MyCompleteListener;
 
 import java.util.concurrent.TimeUnit;
+
+import org.w3c.dom.Text;
+
+//public class ScoreActivity extends AppCompatActivity {
+//
+//    private TextView scoreTV , timeTV , totalQTV , correctQTV, wrongQTV , unattemptedQTV;
+//    private Button leaderB , reAttempB , viewAnsB;
+//    private long timeTaken;
+//    private Dialog progressDialog;
+//    private TextView dialogText;
+//    private int finalScore;
+
+
 
 public class ScoreActivity extends AppCompatActivity {
 
@@ -56,29 +52,23 @@ public class ScoreActivity extends AppCompatActivity {
     private Dialog progress_Dialog;
     private TextView dialogText;
     private int finalscore;
->>>>>>> 42bfb210e1ed75ed27da6ff06d2797b9156a799a
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_score);
 
         Toolbar toolbar = findViewById(R.id.toolbar);
-<<<<<<< HEAD
         // Part 33
-        // setSupportActionBar(toolbar);
-        // setSupportActionBar().setDisplayShowTitleEnabled(true);
-        // setSupportActionBar().SetTitle("Result");
-        // setSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayShowTitleEnabled(true);
+        getSupportActionBar().setTitle("Result");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
-
-
-
-
             //Part 33
             // viewAnsB.setOnClickListener ( new View.OnClickListener(){
 
@@ -90,24 +80,7 @@ public class ScoreActivity extends AppCompatActivity {
 
           //}
 
-
-
-
-
         });
-
-
-    }
-
-
-
-}
-=======
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayShowTitleEnabled(true);
-        getSupportActionBar().setTitle("Result");
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
         progress_Dialog=new Dialog(ScoreActivity.this);//khởi tạo hộp thoại
         progress_Dialog.setContentView(R.layout.dialog_layout);
         progress_Dialog.setCancelable(false);//người dùng không thể hủy hộp thoại này
@@ -214,6 +187,7 @@ public class ScoreActivity extends AppCompatActivity {
                 TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(timeTaken)));
 
         timeTV.setText(time);
+        progress_Dialog.dismiss();
     }
 
     private void reAttempt()
@@ -228,4 +202,9 @@ public class ScoreActivity extends AppCompatActivity {
         }
     }
 }
->>>>>>> 42bfb210e1ed75ed27da6ff06d2797b9156a799a
+
+
+
+
+
+
