@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Menu;
+import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -35,6 +36,7 @@ public class MainActivity extends AppCompatActivity  {
     private AppBarConfiguration mAppBarConfiguration;
     private FrameLayout main_frame;
     private NavigationView navigationView1;
+    private DrawerLayout drawerLayout;
 
     private BottomNavigationView bottomNavigationView;
     //    private BottomNavigationView.OnNavigationItemSelectedListener onNavigationItemSelectedListener;
@@ -51,6 +53,15 @@ public class MainActivity extends AppCompatActivity  {
         main_frame=findViewById(R.id.main_frame);
 
         setSupportActionBar(binding.appBarMain.toolbar);
+
+        drawerLayout=findViewById(R.id.drawer_layout);
+        Button btnOpenDrawer=findViewById(R.id.btnOpenDrawer);
+        btnOpenDrawer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                drawerLayout.openDrawer(GravityCompat.START);
+            }
+        });
 
         navigationView1=findViewById(R.id.nav_view);
         DrawerLayout drawer = binding.drawerLayout;

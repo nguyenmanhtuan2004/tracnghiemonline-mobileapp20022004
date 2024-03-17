@@ -16,7 +16,16 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="@color/teal_200"
-            app:popupTheme="@style/Theme.QuizApp.PopupOverlay" />
+            app:popupTheme="@style/Theme.QuizApp.AppBarOverlay">
+
+            <Button
+                android:id="@+id/btnOpenDrawer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Option"
+                android:layout_marginLeft="5dp"
+                android:textStyle="bold"/>
+        </androidx.appcompat.widget.Toolbar>
 
     </com.google.android.material.appbar.AppBarLayout>
 
