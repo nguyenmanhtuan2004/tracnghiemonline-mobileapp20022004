@@ -13,7 +13,7 @@ public class QuestionsModel {
     private int selectedAns,selectAns2;
     private int status;
 
-    public QuestionsModel(String question, String optionA, String optionB, String optionC, String optionD, int correctAns, int selectedAns, int status, int answer2, int i, int notVisited) {
+    public QuestionsModel(String question, String optionA, String optionB, String optionC, String optionD, int correctAns, int selectedAns, int status) {
         this.question = question;
         this.optionA = optionA;
         this.optionB = optionB;
@@ -23,7 +23,7 @@ public class QuestionsModel {
         this.selectedAns = selectedAns;
         this.status = status;
     }
-    public QuestionsModel(String question, String optionA, String optionB, String optionC, String optionD, int correctAns,int correctAns2, int selectedAns,int selectAns2, int status,int answer2, int i, int notVisited) {
+    public QuestionsModel(String question, String optionA, String optionB, String optionC, String optionD, int correctAns,int correctAns2, int selectedAns,int selectAns2, int status) {
         this.question = question;
         this.optionA = optionA;
         this.optionB = optionB;
@@ -107,4 +107,13 @@ public class QuestionsModel {
     public void setCorrectAns(int correctAns) {
         this.correctAns = correctAns;
     }
+
+    public int getCorrectAns2() {
+        return correctAns2;
+    }
+
+    public void setCorrectAns2(int correctAns2) {
+        this.correctAns2 = correctAns2;
+    }
+
 }

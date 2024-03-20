@@ -1,6 +1,7 @@
 package com.example.quizapp;
 
 import static com.example.quizapp.model.DbQuery.g_catList;
+import static com.example.quizapp.model.DbQuery.g_selectted_test_index;
 import static com.example.quizapp.model.DbQuery.loadquestions;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -37,11 +38,6 @@ public class StartTestActivity extends AppCompatActivity {
 
     private Date time1;
     private Date time2;
-    private Date date;
-
-    private String range1 = "10:00";
-    private String range2 = "07:00";
-
 
 
     @Override
@@ -105,8 +101,8 @@ public class StartTestActivity extends AppCompatActivity {
     private void checkRange(){
         Calendar now = Calendar.getInstance();
         now.setTimeZone(TimeZone.getDefault());
-        String mystr1 = "03/20/2024 00:50:00";
-        String mystr2="03/21/2024 23:55:00";
+        String mystr1 = DbQuery.g_testList.get(g_selectted_test_index).getStart();
+        String mystr2=DbQuery.g_testList.get(g_selectted_test_index).getEnd();
 
         SimpleDateFormat format = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
         try {

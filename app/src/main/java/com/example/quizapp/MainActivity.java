@@ -80,17 +80,17 @@ public class MainActivity extends AppCompatActivity  {
         imgText=navigationView.getHeaderView(0).findViewById(R.id.img_text);
 
 
-//        DbQuery.loadMyProfile(drawerProfileName, imgText, new MyCompleteListener() {
-//            @Override
-//            public void onSuccess() {
-//
-//            }
-//
-//            @Override
-//            public void onFailure() {
-//
-//            }
-//        });
+        DbQuery.loadMyProfile(drawerProfileName, imgText, new MyCompleteListener() {
+            @Override
+            public void onSuccess() {
+
+            }
+
+            @Override
+            public void onFailure() {
+
+            }
+        });
 
         setFragment(new CatergoryFragment());
 

@@ -92,9 +92,9 @@ public class QuestionActivity extends AppCompatActivity {
                 timeLeft = remainingTime;
 
                 String time = String.format("%02d:%02d min",
-                        TimeUnit.MILLISECONDS.toMinutes(remainingTime),
-                        TimeUnit.MILLISECONDS.toSeconds(remainingTime)-
-                        TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(remainingTime)));
+                        TimeUnit.MILLISECONDS.toMinutes(timeLeft),
+                        TimeUnit.MILLISECONDS.toSeconds(timeLeft)-
+                        TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(timeLeft)));
                 txtTimer.setText(time);
             }
 
@@ -222,10 +222,11 @@ public class QuestionActivity extends AppCompatActivity {
                 timer.cancel();
                 alertDialog.dismiss();
 
+
                 Intent intent=new Intent(QuestionActivity.this,ScoreActivity.class);
-                startActivity(intent);
                 long totalTime = g_testList.get(g_selectted_test_index).getTime()*60*1000;
-                intent.putExtra("TIME_TAKEN",totalTime - timeLeft);
+                intent.putExtra("TIME_TAKEN",(long) totalTime-timeLeft);
+                startActivity(intent);
                 QuestionActivity.this.finish();
             }
         });

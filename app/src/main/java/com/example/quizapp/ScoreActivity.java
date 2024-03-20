@@ -29,6 +29,7 @@ import androidx.core.view.WindowInsetsCompat;
 import com.example.quizapp.model.DbQuery;
 import com.example.quizapp.model.MyCompleteListener;
 
+import java.text.SimpleDateFormat;
 import java.util.concurrent.TimeUnit;
 
 import org.w3c.dom.Text;
@@ -160,14 +161,32 @@ public class ScoreActivity extends AppCompatActivity {
             }
             else
             {
-                if (DbQuery.g_quesList.get(i).getSelectedAns() == DbQuery.g_quesList.get(i).getCorrectAns())
+                if(DbQuery.g_quesList.get(i).getCorrectAns2()!=0)// có đáp án 2
                 {
-                    correctQ++;
+                    if ((DbQuery.g_quesList.get(i).getSelectedAns() == DbQuery.g_quesList.get(i).getCorrectAns() &&
+                            DbQuery.g_quesList.get(i).getSelectedAns2() == DbQuery.g_quesList.get(i).getCorrectAns2())||
+                            DbQuery.g_quesList.get(i).getSelectedAns() == DbQuery.g_quesList.get(i).getCorrectAns2() &&
+                                    DbQuery.g_quesList.get(i).getSelectedAns2() == DbQuery.g_quesList.get(i).getCorrectAns())
+                    {
+                        correctQ++;
+                    }
+                    else
+                    {
+                        wrongQ++;
+                    }
                 }
                 else
                 {
-                    wrongQ++;
+                    if (DbQuery.g_quesList.get(i).getSelectedAns() == DbQuery.g_quesList.get(i).getCorrectAns())
+                    {
+                        correctQ++;
+                    }
+                    else
+                    {
+                        wrongQ++;
+                    }
                 }
+
             }
         }
 
@@ -183,7 +202,7 @@ public class ScoreActivity extends AppCompatActivity {
         timeTaken = getIntent().getLongExtra("TIME_TAKEN", 0);
         String time = String.format("%02d:%02d min",
                 TimeUnit.MILLISECONDS.toMinutes(timeTaken),
-                TimeUnit.MILLISECONDS.toSeconds(timeTaken),
+                TimeUnit.MILLISECONDS.toSeconds(timeTaken)-
                 TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(timeTaken)));
 
         timeTV.setText(time);

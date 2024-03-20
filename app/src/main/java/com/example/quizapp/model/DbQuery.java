@@ -60,8 +60,10 @@ public class DbQuery {
                                     doc.getString("B"),
                                     doc.getString("C"),
                                     doc.getString("D"),
-                                    doc.getLong("ANSWER").intValue(),-1,NOT_VISITED,
-                                    doc.getLong("ANSWER2").intValue(),-1,NOT_VISITED
+                                    doc.getLong("ANSWER").intValue(),
+                                    doc.getLong("ANSWER2").intValue(),
+                                    -1,-1,NOT_VISITED
+
                             ));
                         }
                         completeListener.onSuccess();
@@ -319,7 +321,9 @@ public class DbQuery {
                         {
                             g_testList.add(new TestModel(
                                     documentSnapshot.getString("TEST"+String.valueOf(i)+"_ID"),1,
-                                    documentSnapshot.getLong("TEST"+String.valueOf(i)+"_TIME").intValue()
+                                    documentSnapshot.getLong("TEST"+String.valueOf(i)+"_TIME").intValue(),
+                                    documentSnapshot.getString("TEST"+String.valueOf(i)+"_START"),
+                                    documentSnapshot.getString("TEST"+String.valueOf(i)+"_END")
                             ));
                         }
                         completeListener.onSuccess();
