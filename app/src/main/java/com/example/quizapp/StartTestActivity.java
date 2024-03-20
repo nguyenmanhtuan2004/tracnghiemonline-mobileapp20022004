@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Dialog;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +18,15 @@ import android.widget.Toast;
 
 import com.example.quizapp.model.DbQuery;
 import com.example.quizapp.model.MyCompleteListener;
+import com.google.protobuf.StringValue;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.format.DateTimeFormatter;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
+import java.util.TimeZone;
 
 public class StartTestActivity extends AppCompatActivity {
     private TextView catName, testNo, totalQ, bestScore, time;
@@ -24,6 +34,16 @@ public class StartTestActivity extends AppCompatActivity {
     private ImageView backB;
     private Dialog progress_Dialog;
     private TextView dialogText;
+
+    private Date time1;
+    private Date time2;
+    private Date date;
+
+    private String range1 = "10:00";
+    private String range2 = "07:00";
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -75,12 +95,41 @@ public class StartTestActivity extends AppCompatActivity {
         startTestB.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(StartTestActivity.this, QuestionActivity.class);
-                startActivity(intent);
-                finish();
+                checkRange();
             }
         });
 
+
+
+    }
+    private void checkRange(){
+        Calendar now = Calendar.getInstance();
+        now.setTimeZone(TimeZone.getDefault());
+        String mystr1 = "03/20/2024 00:50:00";
+        String mystr2="03/21/2024 23:55:00";
+
+        SimpleDateFormat format = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
+        try {
+            time1 = format.parse(mystr1);
+            time2 = format.parse(mystr2);
+
+        } catch (ParseException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+
+        if ( now.getTime().after(time1) && now.getTime().before(time2)) {
+            Intent intent = new Intent(StartTestActivity.this, QuestionActivity.class);
+            startActivity(intent);
+            finish();
+        }
+        else
+        {
+            String log=String.valueOf(time1.toGMTString()+" mới tới giờ làm bài");
+            Toast.makeText(StartTestActivity.this,log,Toast.LENGTH_LONG).show();
+            Intent intent = new Intent(StartTestActivity.this, StartTestActivity.class);
+            startActivity(intent);
+        }
     }
     private void setData()
     {

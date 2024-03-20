@@ -92,7 +92,7 @@ public class AccountFragment extends Fragment {
         //((MainActivity)getActivity()).getSupportActionBar().setTitle(("My Account"));
         //
 
-        String userName = DbQuery.myProfile.getName();
+
 //        profile_img_text.setText(userName.toUpperCase().substring(0,1));
         DbQuery.loadMyProfile(name,profile_img_text, new MyCompleteListener() {
             @Override

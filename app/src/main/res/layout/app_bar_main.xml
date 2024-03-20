@@ -18,13 +18,14 @@
             android:background="@color/teal_200"
             app:popupTheme="@style/Theme.QuizApp.AppBarOverlay">
 
-            <Button
+            <ImageButton
                 android:id="@+id/btnOpenDrawer"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Option"
-                android:layout_marginLeft="5dp"
-                android:textStyle="bold"/>
+                android:src="@drawable/icons8_add_50"
+                android:background="@drawable/round_btn_google_login"
+
+                />
         </androidx.appcompat.widget.Toolbar>
 
     </com.google.android.material.appbar.AppBarLayout>

@@ -60,7 +60,8 @@ public class DbQuery {
                                     doc.getString("B"),
                                     doc.getString("C"),
                                     doc.getString("D"),
-                                    doc.getLong("ANSWER").intValue(),-1,NOT_VISITED
+                                    doc.getLong("ANSWER").intValue(),-1,NOT_VISITED,
+                                    doc.getLong("ANSWER2").intValue(),-1,NOT_VISITED
                             ));
                         }
                         completeListener.onSuccess();
@@ -178,12 +179,14 @@ public class DbQuery {
                         String name=documentSnapshot.getString("NAME");
                         profileimage.setText(name.toUpperCase().substring(0,1));
                         username.setText(name);
+                        completeListener.onSuccess();
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
 
+                        completeListener.onFailure();
                     }
                 });
     }

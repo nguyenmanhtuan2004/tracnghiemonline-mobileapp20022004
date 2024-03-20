@@ -33,6 +33,9 @@ import android.widget.TextView;
 import com.example.quizapp.Adapter.QuestionAdapter;
 import com.example.quizapp.Adapter.QuestionGridAdapter;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
 public class QuestionActivity extends AppCompatActivity {
@@ -50,6 +53,8 @@ public class QuestionActivity extends AppCompatActivity {
     private QuestionGridAdapter gridAdapter;
     private CountDownTimer timer;
     private long timeLeft;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

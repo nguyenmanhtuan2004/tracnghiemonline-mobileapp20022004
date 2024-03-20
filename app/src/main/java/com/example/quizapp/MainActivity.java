@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.Menu;
 import android.widget.Button;
 import android.widget.FrameLayout;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.Toolbar;
@@ -55,7 +56,7 @@ public class MainActivity extends AppCompatActivity  {
         setSupportActionBar(binding.appBarMain.toolbar);
 
         drawerLayout=findViewById(R.id.drawer_layout);
-        Button btnOpenDrawer=findViewById(R.id.btnOpenDrawer);
+        ImageButton btnOpenDrawer=findViewById(R.id.btnOpenDrawer);
         btnOpenDrawer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -79,17 +80,17 @@ public class MainActivity extends AppCompatActivity  {
         imgText=navigationView.getHeaderView(0).findViewById(R.id.img_text);
 
 
-        DbQuery.loadMyProfile(drawerProfileName, imgText, new MyCompleteListener() {
-            @Override
-            public void onSuccess() {
-
-            }
-
-            @Override
-            public void onFailure() {
-
-            }
-        });
+//        DbQuery.loadMyProfile(drawerProfileName, imgText, new MyCompleteListener() {
+//            @Override
+//            public void onSuccess() {
+//
+//            }
+//
+//            @Override
+//            public void onFailure() {
+//
+//            }
+//        });
 
         setFragment(new CatergoryFragment());
 
