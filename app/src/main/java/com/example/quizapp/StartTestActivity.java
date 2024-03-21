@@ -31,7 +31,7 @@ import java.util.TimeZone;
 
 public class StartTestActivity extends AppCompatActivity {
     private TextView catName, testNo, totalQ, bestScore, time;
-    private Button startTestB,setTime;
+    private Button startTestB;
     private ImageView backB;
     private Dialog progress_Dialog;
     private TextView dialogText;
@@ -80,16 +80,9 @@ public class StartTestActivity extends AppCompatActivity {
         time=findViewById(R.id.st_time);
         startTestB=findViewById(R.id.start_testB);
         backB=findViewById(R.id.st_backB);
-        setTime=findViewById(R.id.setTimeForTest);
 
-        if(DbQuery.myProfile.getVaitro()=="GIAOVIEN")
-        {
-            setTime.setVisibility(View.GONE);
-        }
-        else
-        {
-            setTime.setVisibility(View.VISIBLE);
-        }
+
+
 
         backB.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -105,13 +98,6 @@ public class StartTestActivity extends AppCompatActivity {
             }
         });
 
-        setTime.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent=new Intent(StartTestActivity.this,SetTimeForTestActivity.class);
-                startActivity(intent);
-            }
-        });
 
 
 

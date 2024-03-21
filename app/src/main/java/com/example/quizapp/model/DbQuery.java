@@ -1,6 +1,8 @@
 package com.example.quizapp.model;
 
 import android.util.ArrayMap;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -31,7 +33,7 @@ public class DbQuery {
     public static int g_selectted_test_index = 0;
     public static List<QuestionsModel> g_quesList = new ArrayList<>();
     //end part 17
-    public static ProfileModel myProfile = new ProfileModel("NA",null, null);//(name,email)
+    public static ProfileModel myProfile = new ProfileModel("NA",null, null,null);//(name,email)
     //public static RankModel myPerformance = new RankModel(0,-1);
 
     public static RankModel myPerformance = new RankModel(0,-1);
@@ -117,6 +119,29 @@ public class DbQuery {
                     }
                 });
     }
+    public static void saveSetTime(String setDate,String time, MyCompleteListener completeListener)
+    {
+        Map<String, Object> saveTimeData = new ArrayMap<>();
+        saveTimeData.put("TEST"+String.valueOf(g_selectted_test_index)+"_START",setDate);
+        saveTimeData.put("TEST"+String.valueOf(g_selectted_test_index)+"_TIME",time);
+
+        g_firestore.collection("QUIZ").document(g_catList.get(g_selected_cat_index).getDocID())
+                .collection("TESTS_LIST").document("TESTS_INFO")
+                .update(saveTimeData)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void unused) {
+
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        completeListener.onFailure();
+                    }
+                });
+
+    }
 
     public static void saveProfileData(String name, String phone, MyCompleteListener completeListener)
     {
@@ -154,10 +179,9 @@ public class DbQuery {
                    public void onSuccess(DocumentSnapshot documentSnapshot){
                         myProfile.setName(documentSnapshot.getString("NAME"));
                         myProfile.setEmail(documentSnapshot.getString("EMAIL_ID"));
-                        if(documentSnapshot.getString("VAITRO") != null)
-                        {
-                            myProfile.setVaitro(documentSnapshot.getString("VAITRO"));
-                        }
+
+                       if (documentSnapshot.getString("VAITRO") != null)
+                           myProfile.setVaitro(String.valueOf(documentSnapshot.getString("VAITRO")));
 
                         if (documentSnapshot.getString("PHONE") != null)
                             myProfile.setPhone(documentSnapshot.getString("PHONE"));
@@ -174,6 +198,9 @@ public class DbQuery {
                     }
                 });
     }
+
+
+
 
     public static void loadMyProfile(TextView username,TextView profileimage,final MyCompleteListener completeListener)
     {
@@ -339,10 +366,7 @@ public class DbQuery {
                     }
                 });
     }
-    public static void updateTimeForTest(final MyCompleteListener completeListener)
-    {
-//        g_firestore.collection("QUIZ")
-    }
+
 
     public static void loadData(final MyCompleteListener completeListener)
     {

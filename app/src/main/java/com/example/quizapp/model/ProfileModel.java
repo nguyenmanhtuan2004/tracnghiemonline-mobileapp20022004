@@ -16,7 +16,7 @@ public class ProfileModel {
         this.name = name;
         this.email = email;
         this.phone = phone;
-        this.vaitro=vaitro;
+        this.vaitro = vaitro;
     }
     public ProfileModel() {
     }

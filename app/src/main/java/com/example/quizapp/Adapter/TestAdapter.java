@@ -12,8 +12,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.quizapp.QuestionActivity;
 import com.example.quizapp.R;
+import com.example.quizapp.SetTimeForTestActivity;
 import com.example.quizapp.StartTestActivity;
 import com.example.quizapp.model.DbQuery;
+import com.example.quizapp.model.MyCompleteListener;
 import com.example.quizapp.model.TestModel;
 
 import java.util.List;
@@ -85,20 +87,46 @@ public class TestAdapter extends RecyclerView.Adapter<TestAdapter.ViewHolder> {
             });
 
         }
+        private void checkRoleUser(int pos)
+        {
+            if(DbQuery.myProfile.getVaitro().compareTo("GIAOVIEN")==0)
+            {
+                DbQuery.g_selectted_test_index = pos;
+                Intent intent = new Intent(itemView.getContext(), SetTimeForTestActivity.class);
+                itemView.getContext().startActivity(intent);
+            }
+            else
+            {
+                DbQuery.g_selectted_test_index = pos;
+                Intent intent = new Intent(itemView.getContext(), StartTestActivity.class);
+                itemView.getContext().startActivity(intent);
+            }
+        }
 
         private void setData(final int pos, int progress)
         {
             //progress ở đây là điểm lấy theo position
             testNo.setText("Test No :"+ String.valueOf(pos));
+
+
             topScore.setText(String.valueOf(progress)+ "%");
 
-            progressBar.setProgress(progress);
 
-            itemView.setOnClickListener(view -> {
-                DbQuery.g_selectted_test_index = pos;
-                Intent intent = new Intent(itemView.getContext(), StartTestActivity.class);
-                itemView.getContext().startActivity(intent);
-            } );
+            progressBar.setProgress(progress);
+            DbQuery.getUserData(new MyCompleteListener() {
+                @Override
+                public void onSuccess() {
+                    itemView.setOnClickListener(view -> {
+                        checkRoleUser(pos);
+                    } );
+                }
+
+                @Override
+                public void onFailure() {
+
+                }
+            });
+
         }
     }
 }
