@@ -154,6 +154,10 @@ public class DbQuery {
                    public void onSuccess(DocumentSnapshot documentSnapshot){
                         myProfile.setName(documentSnapshot.getString("NAME"));
                         myProfile.setEmail(documentSnapshot.getString("EMAIL_ID"));
+                        if(documentSnapshot.getString("VAITRO") != null)
+                        {
+                            myProfile.setVaitro(documentSnapshot.getString("VAITRO"));
+                        }
 
                         if (documentSnapshot.getString("PHONE") != null)
                             myProfile.setPhone(documentSnapshot.getString("PHONE"));
@@ -322,8 +326,7 @@ public class DbQuery {
                             g_testList.add(new TestModel(
                                     documentSnapshot.getString("TEST"+String.valueOf(i)+"_ID"),1,
                                     documentSnapshot.getLong("TEST"+String.valueOf(i)+"_TIME").intValue(),
-                                    documentSnapshot.getString("TEST"+String.valueOf(i)+"_START"),
-                                    documentSnapshot.getString("TEST"+String.valueOf(i)+"_END")
+                                    documentSnapshot.getString("TEST"+String.valueOf(i)+"_START")
                             ));
                         }
                         completeListener.onSuccess();
@@ -335,6 +338,10 @@ public class DbQuery {
                         completeListener.onFailure();
                     }
                 });
+    }
+    public static void updateTimeForTest(final MyCompleteListener completeListener)
+    {
+//        g_firestore.collection("QUIZ")
     }
 
     public static void loadData(final MyCompleteListener completeListener)

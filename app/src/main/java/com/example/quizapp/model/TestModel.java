@@ -5,7 +5,7 @@ public class TestModel {
     private int topScore;
     private int time;
 
-    private String start,end;
+    private String start;
 
     public String getTestID() {
         return testID;
@@ -39,24 +39,18 @@ public class TestModel {
         this.start = start;
     }
 
-    public String getEnd() {
-        return end;
-    }
 
-    public void setEnd(String end) {
-        this.end = end;
-    }
 
     public TestModel(String testID, int topScore, int time) {
         this.testID = testID;
         this.topScore = topScore;
         this.time = time;
     }
-    public TestModel(String testID, int topScore, int time,String start,String end) {
+    public TestModel(String testID, int topScore, int time,String start) {
         this.testID = testID;
         this.topScore = topScore;
         this.time = time;
         this.start=start;
-        this.end=end;
+
     }
 }

@@ -31,7 +31,7 @@ import java.util.TimeZone;
 
 public class StartTestActivity extends AppCompatActivity {
     private TextView catName, testNo, totalQ, bestScore, time;
-    private Button startTestB;
+    private Button startTestB,setTime;
     private ImageView backB;
     private Dialog progress_Dialog;
     private TextView dialogText;
@@ -80,6 +80,16 @@ public class StartTestActivity extends AppCompatActivity {
         time=findViewById(R.id.st_time);
         startTestB=findViewById(R.id.start_testB);
         backB=findViewById(R.id.st_backB);
+        setTime=findViewById(R.id.setTimeForTest);
+
+        if(DbQuery.myProfile.getVaitro()=="GIAOVIEN")
+        {
+            setTime.setVisibility(View.GONE);
+        }
+        else
+        {
+            setTime.setVisibility(View.VISIBLE);
+        }
 
         backB.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -95,19 +105,34 @@ public class StartTestActivity extends AppCompatActivity {
             }
         });
 
+        setTime.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(StartTestActivity.this,SetTimeForTestActivity.class);
+                startActivity(intent);
+            }
+        });
+
 
 
     }
+//    private void setTimeForTest()
+//    {
+//        DbQuery.g_testList.get(g_selectted_test_index).setTime();
+//    }
     private void checkRange(){
         Calendar now = Calendar.getInstance();
-        now.setTimeZone(TimeZone.getDefault());
+        now.setTimeZone(TimeZone.getTimeZone("GMT+7"));
         String mystr1 = DbQuery.g_testList.get(g_selectted_test_index).getStart();
-        String mystr2=DbQuery.g_testList.get(g_selectted_test_index).getEnd();
 
         SimpleDateFormat format = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
         try {
             time1 = format.parse(mystr1);
-            time2 = format.parse(mystr2);
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTime(time1);
+            calendar.add(Calendar.MINUTE,
+                    DbQuery.g_testList.get(g_selectted_test_index).getTime());
+            time2=calendar.getTime();
 
         } catch (ParseException e) {
             // TODO Auto-generated catch block
@@ -121,10 +146,23 @@ public class StartTestActivity extends AppCompatActivity {
         }
         else
         {
-            String log=String.valueOf(time1.toGMTString()+" mới tới giờ làm bài");
-            Toast.makeText(StartTestActivity.this,log,Toast.LENGTH_LONG).show();
-            Intent intent = new Intent(StartTestActivity.this, StartTestActivity.class);
-            startActivity(intent);
+            if(now.getTime().before(time1))
+            {
+                String log1=format.format(time1);
+                String log=String.valueOf(log1+" mới tới giờ làm bài");
+                Toast.makeText(StartTestActivity.this,log,Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(StartTestActivity.this, StartTestActivity.class);
+                startActivity(intent);
+            }
+            else if(now.getTime().after(time2))
+            {
+                String log2=format.format(time2);
+                String log=String.valueOf("đã hết thời gian làm bài lúc "+log2);
+                Toast.makeText(StartTestActivity.this,log,Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(StartTestActivity.this, StartTestActivity.class);
+                startActivity(intent);
+            }
+
         }
     }
     private void setData()
