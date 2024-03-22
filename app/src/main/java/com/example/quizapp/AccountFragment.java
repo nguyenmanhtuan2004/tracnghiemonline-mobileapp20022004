@@ -1,5 +1,10 @@
 package com.example.quizapp;
 
+import static com.example.quizapp.model.DbQuery.g_usersCount;
+import static com.example.quizapp.model.DbQuery.g_usersList;
+import static com.example.quizapp.model.DbQuery.myPerformance;
+
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -37,6 +42,8 @@ public class AccountFragment extends Fragment {
     private TextView profile_img_text , name , score , rank;
     private LinearLayout leaderB , profileB , bookmarksB;
     private BottomNavigationView bottomNavigationView;
+    private Dialog progress_Dialog;
+    private TextView dialogText;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -94,6 +101,15 @@ public class AccountFragment extends Fragment {
 
 
 //        profile_img_text.setText(userName.toUpperCase().substring(0,1));
+
+        progress_Dialog=new Dialog(getContext());//khởi tạo hộp thoại
+        progress_Dialog.setContentView(R.layout.dialog_layout);
+        progress_Dialog.setCancelable(false);//người dùng không thể hủy hộp thoại này
+        progress_Dialog.getWindow().setLayout(ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.WRAP_CONTENT);
+        //thiết lập kích thước của cửa sổ dialog thành kích thước nhỏ nhất có thể để vừa với nội dung bên trong của nó
+        dialogText= progress_Dialog.findViewById(R.id.dialog_text);
+        dialogText.setText("Loading...");
+
         DbQuery.loadMyProfile(name,profile_img_text, new MyCompleteListener() {
             @Override
             public void onSuccess() {
@@ -110,38 +126,44 @@ public class AccountFragment extends Fragment {
         //score.setText(String.valueOf(DbQuery.myPerformance.getScore()));
 
 
-        //if (DbQuery.g_usersList.size()==0)
+        if (DbQuery.g_usersList.size()==0)
         {
-            //DbQuery.getTopUsers(new MyCompleteListener() {
+            DbQuery.getTopUsers(new MyCompleteListener() {
+                @Override
+                public void onSuccess() {
 
-            //@Override
-            //public void onSuccess() {
+                    if(myPerformance.getScore() != 0)
+                    {
+                        if(!DbQuery.isMeOnTopList)
+                        {
+                            calculateRank();
+                        }
+                        score.setText("Score : " + myPerformance.getScore());
+                        rank.setText("Rank - " + myPerformance.getRank());
+                    }
 
-            // adapter.notifyDataSetChanged();
-            // if(DbQuery.myPerformance.getScore() !=0)
-            // {
-            //  if (! DbQuery.isMeOnTopList){
-            //   calculateRank();
-            //  }
-            //  myscoreTV.setText("Score : " + myPerformance.getScore());
-            //  myRankTV.setText("Rank - "+ myPerformance.getRank());
+                    progress_Dialog.dismiss();
+                }
 
-            //  }
-            // progress_Dialog.dismiss();
+                @Override
+                public void onFailure() {
 
-            //  }
-
-            //  @Override
-            //   public void onFailure() {
-            //    Toast.makeText(getContext(), "Có gì đó sai! Vui lòng thử lại",
-            //         Toast.LENGTH_SHORT).show();
-            //  progress_Dialog.dismiss();
-
-            // }
-            //  });
-
+                    Toast.makeText(getContext(), "Có gì đó sai! Vui lòng thử lại",
+                            Toast.LENGTH_SHORT).show();
+                    progress_Dialog.dismiss();
+                }
+            });
         }
 
+        //part32
+        else
+        {
+            score.setText("Score : " + myPerformance.getScore());
+            if(myPerformance.getScore() !=0)
+            {
+                rank.setText("Rank - "+ myPerformance.getRank());
+            }
+        }
 
 
         logoutB.setOnClickListener(new View.OnClickListener() {
@@ -201,4 +223,18 @@ public class AccountFragment extends Fragment {
         bottomNavigationView = getActivity().findViewById(R.id.bottom_nav_bar);
     }
 
+    private void calculateRank()
+    {
+        int lowTopScore = g_usersList.get(g_usersList.size() - 1).getScore();
+        int remaining_slots = g_usersCount - 20;
+        int myslot = (myPerformance.getScore()*remaining_slots) / lowTopScore;
+        int rank;
+        if(lowTopScore != myPerformance.getScore())
+        {
+            rank = g_usersCount - myslot;
+        }
+        else
+            rank = 21;
+        myPerformance.setRank(rank);
+    }
 }
