@@ -126,46 +126,44 @@ public class AccountFragment extends Fragment {
         //score.setText(String.valueOf(DbQuery.myPerformance.getScore()));
 
 
-        //if (DbQuery.g_usersList.size()==0)
+        if (DbQuery.g_usersList.size()==0)
         {
-            //progress_Dialog.show();
-            //DbQuery.getTopUsers(new MyCompleteListener() {
+            DbQuery.getTopUsers(new MyCompleteListener() {
+                @Override
+                public void onSuccess() {
 
-            //@Override
-            //public void onSuccess() {
+                    if(myPerformance.getScore() != 0)
+                    {
+                        if(!DbQuery.isMeOnTopList)
+                        {
+                            calculateRank();
+                        }
+                        score.setText("Score : " + myPerformance.getScore());
+                        rank.setText("Rank - " + myPerformance.getRank());
+                    }
 
-            // adapter.notifyDataSetChanged();
-            // if(myPerformance.getScore() !=0)
-            // {
-            //  if (! DbQuery.isMeOnTopList){
-            //   calculateRank();
-            //  }
-            //  score.setText("Score : " + myPerformance.getScore());
-            //  rank.setText("Rank - "+ myPerformance.getRank());
+                    progress_Dialog.dismiss();
+                }
 
-            //  }
-            // progress_Dialog.dismiss();
+                @Override
+                public void onFailure() {
 
-            //  }
-
-            //  @Override
-            //   public void onFailure() {
-            //    Toast.makeText(getContext(), "Có gì đó sai! Vui lòng thử lại",
-            //         Toast.LENGTH_SHORT).show();
-            //  progress_Dialog.dismiss();
-
-            // }
-            //  });
-
+                    Toast.makeText(getContext(), "Có gì đó sai! Vui lòng thử lại",
+                            Toast.LENGTH_SHORT).show();
+                    progress_Dialog.dismiss();
+                }
+            });
         }
 
         //part32
-        //else
-        //{
-        //  score.setText("Score : " + myPerformance.getScore());
-        //  if(myPerformance.getScore() !=0)
-        //      rank.setText("Rank - "+ myPerformance.getRank());
-        //}
+        else
+        {
+            score.setText("Score : " + myPerformance.getScore());
+            if(myPerformance.getScore() !=0)
+            {
+                rank.setText("Rank - "+ myPerformance.getRank());
+            }
+        }
 
 
         logoutB.setOnClickListener(new View.OnClickListener() {
