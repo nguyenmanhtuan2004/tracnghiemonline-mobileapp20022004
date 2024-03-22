@@ -88,6 +88,7 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.ViewHo
             setOption(optionD, 4, pos);
             prevSelectedB=new ArrayList<ToggleButton>();
             prevSelectedB.add(null);
+            prevSelectedB.add(null);
 
             optionA.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -121,7 +122,7 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.ViewHo
         private void selectOption(ToggleButton btn, int option_num, int quesID)
         {
 
-            if(prevSelectedB.get(0) == null)
+            if(prevSelectedB.get(0) == null)//chưa chọn câu nào
             {
                 btn.setBackgroundResource(R.drawable.selected_btn);
                 DbQuery.g_quesList.get(quesID).setSelectedAns(option_num);
@@ -129,6 +130,15 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.ViewHo
                 changeStatus(quesID, ANSWERED);
 
                 prevSelectedB.set(0,btn);
+            }
+            else if(prevSelectedB.get(1) == null)
+            {
+                btn.setBackgroundResource(R.drawable.selected_btn);
+                DbQuery.g_quesList.get(quesID).setSelectedAns2(option_num);
+
+                changeStatus(quesID, ANSWERED);
+
+                prevSelectedB.set(1,btn);
             }
             else
             {
@@ -140,16 +150,20 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.ViewHo
                     changeStatus(quesID,UNANSWERED);
                     prevSelectedB.set(0,null);
                 }
-                else
-                {
-                    btn.setBackgroundResource(R.drawable.selected_btn);
 
-                    DbQuery.g_quesList.get(quesID).setSelectedAns2(option_num);
+                else {
+                    if(prevSelectedB.get(1).getId() == btn.getId())
+                    {
+                        btn.setBackgroundResource(R.drawable.unselected_btn);
+                        DbQuery.g_quesList.get(quesID).setSelectedAns2(-1);
 
-                    changeStatus(quesID, ANSWERED);
-                    prevSelectedB.set(0,btn);
+                        changeStatus(quesID,UNANSWERED);
+                        prevSelectedB.set(1,null);
+                    }
                 }
             }
+
+
         }
 
         private void changeStatus(int id, int status)

@@ -5,8 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:theme="@style/LoginTheme"
-    tools:context=".SetTimeForTestActivity">
-
+    tools:context=".CreateQuestionActivity">
     <androidx.appcompat.widget.Toolbar
         android:layout_width="match_parent"
         android:id="@+id/toolbar"
@@ -75,6 +74,32 @@
         app:layout_constraintTop_toBottomOf="@id/divider"
         android:orientation="vertical"
         android:layout_marginLeft="15dp">
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp">
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/edt_category"
+                android:hint="Category"
+                android:inputType="text">
+            </EditText>
+        </com.google.android.material.textfield.TextInputLayout>
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp">
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/edt_question"
+                android:hint="Question"
+                android:inputType="text">
+            </EditText>
+        </com.google.android.material.textfield.TextInputLayout>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -87,8 +112,8 @@
                 <EditText
                     android:layout_width="160dp"
                     android:layout_height="wrap_content"
-                    android:id="@+id/edt_day"
-                    android:hint="Ngày thi (Ex:02)"
+                    android:id="@+id/edt_optionA"
+                    android:hint="Option A"
                     android:inputType="text">
                 </EditText>
             </com.google.android.material.textfield.TextInputLayout>
@@ -100,66 +125,76 @@
                 <EditText
                     android:layout_width="160dp"
                     android:layout_height="wrap_content"
-                    android:id="@+id/edt_month"
-                    android:hint="Tháng thi (Ex:04)"
+                    android:id="@+id/edt_optionB"
+                    android:hint="Option B"
                     android:inputType="text">
                 </EditText>
             </com.google.android.material.textfield.TextInputLayout>
         </LinearLayout>
 
-
-        <com.google.android.material.textfield.TextInputLayout
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp">
-
-            <EditText
-                android:layout_width="match_parent"
+            android:orientation="horizontal">
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="165dp"
                 android:layout_height="wrap_content"
-                android:id="@+id/edt_year"
-                android:hint="Năm thi (Ex: 2024)"
-                android:inputType="text">
-            </EditText>
-        </com.google.android.material.textfield.TextInputLayout>
-        <com.google.android.material.textfield.TextInputLayout
+                android:layout_marginTop="16dp">
+
+                <EditText
+                    android:layout_width="160dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/edt_optionC"
+                    android:hint="Option C"
+                    android:inputType="text">
+                </EditText>
+            </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="165dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp">
+
+                <EditText
+                    android:layout_width="160dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/edt_optionD"
+                    android:hint="Option D"
+                    android:inputType="text">
+                </EditText>
+            </com.google.android.material.textfield.TextInputLayout>
+        </LinearLayout>
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp">
-
-            <EditText
-                android:layout_width="match_parent"
+            android:orientation="horizontal">
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="165dp"
                 android:layout_height="wrap_content"
-                android:id="@+id/edt_hour"
-                android:hint="Giờ bắt đầu thi (Ex: 09)"
-                android:inputType="text">
-            </EditText>
-        </com.google.android.material.textfield.TextInputLayout>
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp">
+                android:layout_marginTop="16dp">
 
-            <EditText
-                android:layout_width="match_parent"
+                <EditText
+                    android:layout_width="160dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/edt_answer"
+                    android:hint="Answer 1"
+                    android:inputType="text">
+                </EditText>
+            </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="165dp"
                 android:layout_height="wrap_content"
-                android:id="@+id/edt_minute"
-                android:hint="Phút (Ex: 30)"
-                android:inputType="text">
-            </EditText>
-        </com.google.android.material.textfield.TextInputLayout>
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp">
+                android:layout_marginTop="16dp">
 
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/edt_time"
-                android:hint="Thời gian cho bài thi (nhập phút)"
-                android:inputType="text">
-            </EditText>
-        </com.google.android.material.textfield.TextInputLayout>
+                <EditText
+                    android:layout_width="160dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/edt_answer2"
+                    android:hint="Answer 2"
+                    android:inputType="text">
+                </EditText>
+            </com.google.android.material.textfield.TextInputLayout>
+        </LinearLayout>
+
     </LinearLayout>
 
     <LinearLayout

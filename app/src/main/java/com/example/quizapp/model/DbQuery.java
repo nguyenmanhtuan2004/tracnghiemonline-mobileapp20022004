@@ -2,6 +2,7 @@ package com.example.quizapp.model;
 
 import android.util.ArrayMap;
 import android.view.View;
+import android.view.autofill.AutofillId;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -10,6 +11,7 @@ import androidx.annotation.NonNull;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.Firebase;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -20,9 +22,11 @@ import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.firestore.SetOptions;
 import com.google.firebase.firestore.WriteBatch;
 
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 public class DbQuery {
     public static int g_selected_cat_index = 0;
@@ -78,6 +82,47 @@ public class DbQuery {
                     }
                 });
     }
+    public static void createQuestionData(String optionA,
+                                          String optionB,
+                                          String optionC,
+                                          String optionD,
+                                          String question,
+                                          int answer,
+                                          int answer2,
+                                          String category,
+                                          String test,
+                                          MyCompleteListener completeListener)
+    {
+        Map<String, Object> questionData= new ArrayMap<>();
+        questionData.put("A",optionA);
+        questionData.put("B",optionB);
+        questionData.put("C",optionC);
+        questionData.put("D",optionD);
+        questionData.put("QUESTION",question);
+        questionData.put("ANSWER",answer);
+        questionData.put("ANSWER2",answer2);
+        questionData.put("CATEGORY",category);
+        questionData.put("TEST",test);
+
+
+        DocumentReference questionsDoc=g_firestore.collection("Questions").document(UUID.randomUUID().toString());
+        WriteBatch batch=g_firestore.batch();//cập nhật dữ liệu theo nhóm (batch)
+        batch.set(questionsDoc, questionData);
+        batch.commit()
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void unused) {
+                        completeListener.onSuccess();
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        completeListener.onFailure();
+                    }
+                });
+
+    }
 
     //Tạo dữ liệu người dùng mới trong Firestore.
     //Cập nhật thông tin người dùng gồm email, tên và tổng điểm (khởi tạo là 0).
@@ -119,11 +164,11 @@ public class DbQuery {
                     }
                 });
     }
-    public static void saveSetTime(String setDate,String time, MyCompleteListener completeListener)
+    public static void saveSetTime(String setDate,int time, MyCompleteListener completeListener)
     {
         Map<String, Object> saveTimeData = new ArrayMap<>();
-        saveTimeData.put("TEST"+String.valueOf(g_selectted_test_index)+"_START",setDate);
-        saveTimeData.put("TEST"+String.valueOf(g_selectted_test_index)+"_TIME",time);
+        saveTimeData.put("TEST"+String.valueOf(g_selectted_test_index+1)+"_START",setDate);
+        saveTimeData.put("TEST"+String.valueOf(g_selectted_test_index+1)+"_TIME",time);
 
         g_firestore.collection("QUIZ").document(g_catList.get(g_selected_cat_index).getDocID())
                 .collection("TESTS_LIST").document("TESTS_INFO")

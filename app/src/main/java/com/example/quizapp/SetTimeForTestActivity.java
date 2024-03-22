@@ -19,12 +19,15 @@ public class SetTimeForTestActivity extends AppCompatActivity {
 
     EditText edt_day,edt_month,edt_year,edt_hour,edt_minute,edt_time;
 
-    String day, month, year,setTimeForStart,hour,minute,time;
+    String day, month, year,setTimeForStart,hour,minute;
+    int time=-1;
     Button btnSave,btnCancel;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_set_time_for_test);
+
+
 
         addControls();
         btnCancel.setOnClickListener(new View.OnClickListener() {
@@ -39,13 +42,12 @@ public class SetTimeForTestActivity extends AppCompatActivity {
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 day=String.valueOf(edt_day.getText().toString());
                 month=edt_month.getText().toString();
                 year=edt_year.getText().toString();
                 hour=edt_hour.getText().toString();
                 minute=edt_minute.getText().toString();
-                time=edt_time.getText().toString();
+                time=Integer.valueOf(edt_time.getText().toString());
                 setTimeForStart=String.valueOf(month+"/"+day+"/"+year+" "+hour+":"+minute+":00");
                 if(validate())
                 {
@@ -142,6 +144,12 @@ public class SetTimeForTestActivity extends AppCompatActivity {
             }
 
         }
+        if (edt_time.getText().toString().isEmpty())
+        {
+            edt_time.setError("Time can not be empty!");
+            return false;
+        }
+
         return true;
     }
     private void addControls() {
