@@ -156,10 +156,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/edt_time"
-                android:hint="Thời gian cho bài thi (nhập phút)"
+                android:hint="Thời gian làm bài"
                 android:inputType="text">
             </EditText>
         </com.google.android.material.textfield.TextInputLayout>
+
     </LinearLayout>
 
     <LinearLayout
@@ -174,7 +175,7 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Cancel"
+            android:text="Set question"
             android:id="@+id/btnCancel"
             android:background="@color/teal_200"
             android:layout_weight="1"

@@ -3,6 +3,7 @@ package com.example.quizapp;
 import static com.example.quizapp.model.DbQuery.g_selectted_test_index;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -20,6 +21,7 @@ public class SetTimeForTestActivity extends AppCompatActivity {
     EditText edt_day,edt_month,edt_year,edt_hour,edt_minute,edt_time;
 
     String day, month, year,setTimeForStart,hour,minute;
+    private Toolbar toolbar;
     int time=-1;
     Button btnSave,btnCancel;
     @Override
@@ -27,13 +29,17 @@ public class SetTimeForTestActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_set_time_for_test);
 
+        toolbar=findViewById(R.id.toolbar);
+
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
 
         addControls();
         btnCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(SetTimeForTestActivity.this, TestActivity.class);
+                Intent intent=new Intent(SetTimeForTestActivity.this, CreateQuestionActivity.class);
                 startActivity(intent);
             }
         });
@@ -47,23 +53,22 @@ public class SetTimeForTestActivity extends AppCompatActivity {
                 year=edt_year.getText().toString();
                 hour=edt_hour.getText().toString();
                 minute=edt_minute.getText().toString();
-                time=Integer.valueOf(edt_time.getText().toString());
                 setTimeForStart=String.valueOf(month+"/"+day+"/"+year+" "+hour+":"+minute+":00");
                 if(validate())
                 {
-                    DbQuery.saveSetTime(setTimeForStart,time, new MyCompleteListener() {
+                    DbQuery.saveSetTime(setTimeForStart,Integer.valueOf(edt_time.getText().toString()), new MyCompleteListener() {
                         @Override
                         public void onSuccess() {
-
+                            Intent intent=new Intent(SetTimeForTestActivity.this, CreateQuestionActivity.class);
+                            startActivity(intent);
                         }
 
                         @Override
                         public void onFailure() {
-
+                            Toast.makeText(SetTimeForTestActivity.this,"Nhập đúng form đi",Toast.LENGTH_SHORT).show();
                         }
                     });
-                    Intent intent=new Intent(SetTimeForTestActivity.this, TestActivity.class);
-                    startActivity(intent);
+
                 }
 
 
@@ -130,23 +135,15 @@ public class SetTimeForTestActivity extends AppCompatActivity {
             }
 
         }
-        if (minute.isEmpty())
+        if (edt_minute.getText().toString().isEmpty())
         {
             edt_minute.setError("Minute can not be empty!");
             return false;
         }
-        if(!minute.isEmpty())
-        {
-            if(minute.length()!=2)
-            {
-                edt_minute.setError("Enter Valid Minute");
-                return false;
-            }
 
-        }
         if (edt_time.getText().toString().isEmpty())
         {
-            edt_time.setError("Time can not be empty!");
+            edt_time.setError("Time can not empty");
             return false;
         }
 

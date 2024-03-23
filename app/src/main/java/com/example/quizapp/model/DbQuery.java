@@ -36,6 +36,7 @@ public class DbQuery {
     public static List<CategoryModel> g_catList =new ArrayList<CategoryModel>();
     //Part 17
     public static int g_selectted_test_index = 0;
+    public static int g_selectted_question_index = 0;
     public static List<QuestionsModel> g_quesList = new ArrayList<>();
     //end part 17
     public static ProfileModel myProfile = new ProfileModel("NA",null, null,null);//(name,email)
@@ -92,10 +93,9 @@ public class DbQuery {
                                           String question,
                                           int answer,
                                           int answer2,
-                                          String category,
-                                          String test,
                                           MyCompleteListener completeListener)
     {
+        String randomID=UUID.randomUUID().toString();
         Map<String, Object> questionData= new ArrayMap<>();
         questionData.put("A",optionA);
         questionData.put("B",optionB);
@@ -104,11 +104,13 @@ public class DbQuery {
         questionData.put("QUESTION",question);
         questionData.put("ANSWER",answer);
         questionData.put("ANSWER2",answer2);
-        questionData.put("CATEGORY",category);
-        questionData.put("TEST",test);
+        questionData.put("CATEGORY",g_catList.get(g_selected_cat_index).getDocID());
+        questionData.put("TEST",g_testList.get(g_selectted_test_index).getTestID());
+        questionData.put("RANDOMID",randomID);
 
 
-        DocumentReference questionsDoc=g_firestore.collection("Questions").document(UUID.randomUUID().toString());
+
+        DocumentReference questionsDoc=g_firestore.collection("Questions").document(randomID);
         WriteBatch batch=g_firestore.batch();//cập nhật dữ liệu theo nhóm (batch)
         batch.set(questionsDoc, questionData);
         batch.commit()
