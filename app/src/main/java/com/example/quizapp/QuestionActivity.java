@@ -34,8 +34,10 @@ import com.example.quizapp.Adapter.QuestionAdapter;
 import com.example.quizapp.Adapter.QuestionGridAdapter;
 
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
+import java.util.TimeZone;
 import java.util.concurrent.TimeUnit;
 
 public class QuestionActivity extends AppCompatActivity {
@@ -83,7 +85,9 @@ public class QuestionActivity extends AppCompatActivity {
 
     private void startTimer() {
 
-        long totalTimer = g_testList.get(g_selectted_test_index).getTime()*60*1000;
+        long timeEntrance = getIntent().getLongExtra("TIME_ENTRANCE", 0);
+        long timeStart = getIntent().getLongExtra("TIME_START", 0);
+        long totalTimer = g_testList.get(g_selectted_test_index).getTime()*60*1000-(timeEntrance-timeStart);
 
         timer = new CountDownTimer(totalTimer +1000, 1000) {
             @Override
