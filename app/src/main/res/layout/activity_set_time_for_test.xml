@@ -4,9 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/main_background"
     android:theme="@style/LoginTheme"
-    tools:context=".MyProfileActivity">
+    tools:context=".SetTimeForTestActivity">
 
     <androidx.appcompat.widget.Toolbar
         android:layout_width="match_parent"
@@ -32,19 +31,20 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/toolbar">
 
-        <TextView
+        <ImageView
             android:layout_width="70dp"
             android:layout_height="70dp"
             android:text="A"
+            android:src="@drawable/icon_quiz"
             android:id="@+id/txtProfile"
-            android:backgroundTint="@color/green"
+            android:backgroundTint="@color/white"
             android:layout_marginBottom="16dp"
             android:background="@drawable/circle"
             android:textSize="48sp"
             android:textColor="@color/white"
             android:textStyle="bold"
             android:gravity="center">
-        </TextView>
+        </ImageView>
     </LinearLayout>
 
     <View
@@ -62,19 +62,51 @@
     <LinearLayout
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginRight="16dp"
-        android:layout_marginTop="16dp"
-        android:paddingBottom="64dp"
-        android:paddingTop="32dp"
-        android:paddingLeft="16dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="15dp"
+        android:paddingBottom="20dp"
+        android:paddingTop="15dp"
+        android:paddingLeft="15dp"
         android:background="@drawable/round_view"
-        android:paddingRight="16dp"
+        android:paddingRight="15dp"
         android:elevation="5dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/divider"
         android:orientation="vertical"
-        android:layout_marginLeft="16dp">
+        android:layout_marginLeft="15dp">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="165dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp">
+
+                <EditText
+                    android:layout_width="160dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/edt_day"
+                    android:hint="Ngày thi (Ex:02)"
+                    android:inputType="text">
+                </EditText>
+            </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="165dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp">
+
+                <EditText
+                    android:layout_width="160dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/edt_month"
+                    android:hint="Tháng thi (Ex:04)"
+                    android:inputType="text">
+                </EditText>
+            </com.google.android.material.textfield.TextInputLayout>
+        </LinearLayout>
+
 
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
@@ -84,12 +116,11 @@
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/edt_name"
-                android:hint="Name"
+                android:id="@+id/edt_year"
+                android:hint="Năm thi (Ex: 2024)"
                 android:inputType="text">
             </EditText>
         </com.google.android.material.textfield.TextInputLayout>
-
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -98,12 +129,11 @@
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/edt_email"
-                android:hint="Email"
+                android:id="@+id/edt_hour"
+                android:hint="Giờ bắt đầu thi (Ex: 09)"
                 android:inputType="text">
             </EditText>
         </com.google.android.material.textfield.TextInputLayout>
-
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -112,37 +142,25 @@
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/edt_phone"
-                android:hint="Phone number"
+                android:id="@+id/edt_minute"
+                android:hint="Phút (Ex: 30)"
                 android:inputType="text">
             </EditText>
         </com.google.android.material.textfield.TextInputLayout>
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:elevation="7dp"
-        android:gravity="center"
-        android:id="@+id/editB"
-        android:layout_marginRight="32dp"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/divider"
-        android:orientation="vertical">
-
-        <ImageView
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:background="@color/green"
-            android:src="@drawable/ic_account">
-        </ImageView>
-        <TextView
-            android:layout_width="wrap_content"
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="16sp"
-            android:textColor="@color/green"
-            android:text="Edit">
-        </TextView>
+            android:layout_marginTop="16dp">
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/edt_time"
+                android:hint="Thời gian làm bài"
+                android:inputType="text">
+            </EditText>
+        </com.google.android.material.textfield.TextInputLayout>
+
     </LinearLayout>
 
     <LinearLayout
@@ -157,7 +175,7 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Cancel"
+            android:text="Set question"
             android:id="@+id/btnCancel"
             android:background="@color/teal_200"
             android:layout_weight="1"
@@ -180,4 +198,5 @@
             android:textColor="@color/white">
         </Button>
     </LinearLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

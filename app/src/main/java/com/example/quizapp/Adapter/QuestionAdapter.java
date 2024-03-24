@@ -20,6 +20,7 @@ import com.example.quizapp.R;
 import com.example.quizapp.model.DbQuery;
 import com.example.quizapp.model.QuestionsModel;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.ViewHolder> {
@@ -50,7 +51,8 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.ViewHo
     public class ViewHolder extends RecyclerView.ViewHolder {
 
         private TextView ques;
-        private ToggleButton optionA, optionB, optionC, optionD, prevSelectedB;
+        private ToggleButton optionA, optionB, optionC, optionD ;
+        private List<ToggleButton> prevSelectedB;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
@@ -84,6 +86,9 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.ViewHo
             setOption(optionB, 2, pos);
             setOption(optionC, 3, pos);
             setOption(optionD, 4, pos);
+            prevSelectedB=new ArrayList<ToggleButton>();
+            prevSelectedB.add(null);
+            prevSelectedB.add(null);
 
             optionA.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -116,36 +121,49 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.ViewHo
 
         private void selectOption(ToggleButton btn, int option_num, int quesID)
         {
-            if(prevSelectedB == null)
+
+            if(prevSelectedB.get(0) == null)//chưa chọn câu nào
             {
                 btn.setBackgroundResource(R.drawable.selected_btn);
                 DbQuery.g_quesList.get(quesID).setSelectedAns(option_num);
 
                 changeStatus(quesID, ANSWERED);
 
-                prevSelectedB = btn;
+                prevSelectedB.set(0,btn);
+            }
+            else if(prevSelectedB.get(1) == null)
+            {
+                btn.setBackgroundResource(R.drawable.selected_btn);
+                DbQuery.g_quesList.get(quesID).setSelectedAns2(option_num);
+
+                changeStatus(quesID, ANSWERED);
+
+                prevSelectedB.set(1,btn);
             }
             else
             {
-                if(prevSelectedB.getId() == btn.getId())
+                if(prevSelectedB.get(0).getId() == btn.getId())
                 {
                     btn.setBackgroundResource(R.drawable.unselected_btn);
                     DbQuery.g_quesList.get(quesID).setSelectedAns(-1);
 
                     changeStatus(quesID,UNANSWERED);
-                    prevSelectedB = null;
+                    prevSelectedB.set(0,null);
                 }
-                else
-                {
-                    prevSelectedB.setBackgroundResource(R.drawable.unselected_btn);
-                    btn.setBackgroundResource(R.drawable.selected_btn);
 
-                    DbQuery.g_quesList.get(quesID).setSelectedAns(option_num);
+                else {
+                    if(prevSelectedB.get(1).getId() == btn.getId())
+                    {
+                        btn.setBackgroundResource(R.drawable.unselected_btn);
+                        DbQuery.g_quesList.get(quesID).setSelectedAns2(-1);
 
-                    changeStatus(quesID, ANSWERED);
-                    prevSelectedB = btn;
+                        changeStatus(quesID,UNANSWERED);
+                        prevSelectedB.set(1,null);
+                    }
                 }
             }
+
+
         }
 
         private void changeStatus(int id, int status)

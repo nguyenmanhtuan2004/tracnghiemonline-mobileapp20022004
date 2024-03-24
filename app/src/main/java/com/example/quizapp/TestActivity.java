@@ -26,6 +26,7 @@ public class TestActivity extends AppCompatActivity {
 
     private Dialog progress_Dialog;
     private TextView dialogText;
+    private TestAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,10 +34,11 @@ public class TestActivity extends AppCompatActivity {
         setContentView(R.layout.activity_test);
 
         toolbar=findViewById(R.id.toolbar);
+
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(true);
-        //tiêu đề của Activity có được hiển thị trên ActionBar
 
+        //tiêu đề của Activity có được hiển thị trên ActionBar
         //nhận dữ liệu được truyền từ activity có khóa là CAT_INDEX
 
         getSupportActionBar().setTitle(DbQuery.g_catList.get(DbQuery.g_selected_cat_index).getName());
@@ -63,12 +65,24 @@ public class TestActivity extends AppCompatActivity {
         DbQuery.loadTestData(new MyCompleteListener() {
             @Override
             public void onSuccess() {
-                        TestAdapter adapter = new TestAdapter(DbQuery.g_testList);
+                DbQuery.loadMyScores(new MyCompleteListener() {
+                    @Override
+                    public void onSuccess() {
+                        adapter = new TestAdapter(DbQuery.g_testList);
                         //testList là danh sách object TestModel
                         testView.setAdapter(adapter);
 
                         progress_Dialog.dismiss();
                     }
+
+                    @Override
+                    public void onFailure() {
+                        progress_Dialog.dismiss();
+                        Toast.makeText(TestActivity.this, "Có gì đó sai! Vui lòng thử lại",
+                                Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
 
             @Override
             public void onFailure() {
