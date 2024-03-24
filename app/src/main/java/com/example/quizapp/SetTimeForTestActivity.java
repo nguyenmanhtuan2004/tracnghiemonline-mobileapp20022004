@@ -18,12 +18,12 @@ import com.example.quizapp.model.MyCompleteListener;
 
 public class SetTimeForTestActivity extends AppCompatActivity {
 
-    EditText edt_day,edt_month,edt_year,edt_hour,edt_minute,edt_time;
+    private EditText edt_day,edt_month,edt_year,edt_hour,edt_minute,edt_time;
 
-    String day, month, year,setTimeForStart,hour,minute;
+    private String day, month, year,setTimeForStart,hour,minute;
     private Toolbar toolbar;
-    int time=-1;
-    Button btnSave,btnCancel;
+    private int time=-1;
+    private Button btnSave,btnCancel;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

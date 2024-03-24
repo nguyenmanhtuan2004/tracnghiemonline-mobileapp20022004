@@ -11,6 +11,8 @@ public class QuestionsModel {
     private String optionD;
     private int correctAns,correctAns2;
     private int selectedAns,selectAns2;
+
+    private String RANDOMID;
     private int status;
 
     public QuestionsModel(String question, String optionA, String optionB, String optionC, String optionD, int correctAns, int selectedAns, int status) {
@@ -23,7 +25,7 @@ public class QuestionsModel {
         this.selectedAns = selectedAns;
         this.status = status;
     }
-    public QuestionsModel(String question, String optionA, String optionB, String optionC, String optionD, int correctAns,int correctAns2, int selectedAns,int selectAns2, int status) {
+    public QuestionsModel(String question, String optionA, String optionB, String optionC, String optionD, int correctAns,int correctAns2, int selectedAns,int selectAns2, String RANDOMID,int status) {
         this.question = question;
         this.optionA = optionA;
         this.optionB = optionB;
@@ -33,7 +35,17 @@ public class QuestionsModel {
         this.correctAns2 = correctAns2;
         this.selectedAns = selectedAns;
         this.selectAns2=selectAns2;
+        this.RANDOMID=RANDOMID;
         this.status = status;
+
+    }
+
+    public String getRANDOMID() {
+        return RANDOMID;
+    }
+
+    public void setRANDOMID(String RANDOMID) {
+        this.RANDOMID = RANDOMID;
     }
 
     public int getStatus() {

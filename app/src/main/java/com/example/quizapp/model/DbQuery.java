@@ -31,6 +31,8 @@ import java.util.UUID;
 
 public class DbQuery {
     public static int g_selected_cat_index = 0;
+
+    public static String RANDOMID_QUESTION;
     public static FirebaseFirestore g_firestore;
     //fireStore cung cấp các phương thức để tương tác các dữ liệu được lưu trữ trong FireStore:đọc, ghi, xóa
     public static List<CategoryModel> g_catList =new ArrayList<CategoryModel>();
@@ -72,7 +74,8 @@ public class DbQuery {
                                     doc.getString("D"),
                                     doc.getLong("ANSWER").intValue(),
                                     doc.getLong("ANSWER2").intValue(),
-                                    -1,-1,NOT_VISITED
+                                    -1,-1,
+                                    doc.getString("RANDOMID"),NOT_VISITED
 
                             ));
                         }
@@ -85,6 +88,56 @@ public class DbQuery {
                         completeListener.onFailure();
                     }
                 });
+    }
+    public static void updateQuestionData(String optionA,String optionB,String optionC,String optionD,String question,int answer,int answer2,MyCompleteListener completeListener)
+    {
+        Map<String, Object> questionDataUpdate= new ArrayMap<>();
+        questionDataUpdate.put("A",optionA);
+        questionDataUpdate.put("B",optionB);
+        questionDataUpdate.put("C",optionC);
+        questionDataUpdate.put("D",optionD);
+        questionDataUpdate.put("QUESTION",question);
+        questionDataUpdate.put("ANSWER",answer);
+        questionDataUpdate.put("ANSWER2",answer2);
+       g_firestore.collection("Questions")
+                .document(String.valueOf(g_quesList.get(g_selectted_question_index).getRANDOMID().toString()))
+               .update(questionDataUpdate)
+               .addOnSuccessListener(new OnSuccessListener<Void>() {
+                   @Override
+                   public void onSuccess(Void unused) {
+                       completeListener.onSuccess();
+                   }
+               })
+               .addOnFailureListener(new OnFailureListener() {
+                   @Override
+                   public void onFailure(@NonNull Exception e) {
+                       completeListener.onFailure();
+                   }
+               });
+    }
+    public static void deleteQuestionData(MyCompleteListener completeListener)
+    {
+
+        DocumentReference questionsDelete=g_firestore.collection("Questions")
+                .document(String.valueOf(g_quesList.get(g_selectted_question_index).getRANDOMID().toString()));
+        WriteBatch batch=g_firestore.batch();
+        batch.delete(questionsDelete);
+        batch.commit()
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void unused) {
+
+                        completeListener.onSuccess();
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+
+                        completeListener.onFailure();
+                    }
+                });
+
     }
     public static void createQuestionData(String optionA,
                                           String optionB,
@@ -109,10 +162,10 @@ public class DbQuery {
         questionData.put("RANDOMID",randomID);
 
 
-
         DocumentReference questionsDoc=g_firestore.collection("Questions").document(randomID);
         WriteBatch batch=g_firestore.batch();//cập nhật dữ liệu theo nhóm (batch)
         batch.set(questionsDoc, questionData);
+
         batch.commit()
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override

@@ -13,11 +13,17 @@
         android:theme="@style/Theme.QuizApp"
         tools:targetApi="31">
         <activity
+            android:name=".UpdateQuestionActivity"
+            android:exported="false"
+            android:theme="@style/Theme.QuizApp.NoActionBar"/>
+        <activity
             android:name=".DeleteQuestionActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:theme="@style/Theme.QuizApp.NoActionBar"/>
         <activity
             android:name=".CreateQuestionActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:theme="@style/Theme.QuizApp.NoActionBar"/>
         <activity
             android:name=".SetTimeForTestActivity"
             android:exported="false"
