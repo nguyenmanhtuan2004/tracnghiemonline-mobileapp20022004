@@ -18,14 +18,14 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.Toolbar;
 
-import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+
 import com.example.quizapp.model.DbQuery;
 import com.example.quizapp.model.MyCompleteListener;
 import com.example.quizapp.model.QuestionsModel;
@@ -35,14 +35,7 @@ import java.util.concurrent.TimeUnit;
 
 import org.w3c.dom.Text;
 
-//public class ScoreActivity extends AppCompatActivity {
-//
-//    private TextView scoreTV , timeTV , totalQTV , correctQTV, wrongQTV , unattemptedQTV;
-//    private Button leaderB , reAttempB , viewAnsB;
-//    private long timeTaken;
-//    private Dialog progressDialog;
-//    private TextView dialogText;
-//    private int finalScore;
+
 
 
 
@@ -71,6 +64,10 @@ public class ScoreActivity extends AppCompatActivity {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
+
+
+
+
             //Part 33
             // viewAnsB.setOnClickListener ( new View.OnClickListener(){
 
@@ -83,11 +80,11 @@ public class ScoreActivity extends AppCompatActivity {
           //}
 
         });
+        progress_Dialog=new Dialog(ScoreActivity.this);
         progress_Dialog=new Dialog(ScoreActivity.this);//khởi tạo hộp thoại
         progress_Dialog.setContentView(R.layout.dialog_layout);
-        progress_Dialog.setCancelable(false);//người dùng không thể hủy hộp thoại này
+        progress_Dialog.setCancelable(false);
         progress_Dialog.getWindow().setLayout(ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.WRAP_CONTENT);
-        //thiết lập kích thước của cửa sổ dialog thành kích thước nhỏ nhất có thể để vừa với nội dung bên trong của nó
         dialogText= progress_Dialog.findViewById(R.id.dialog_text);
         dialogText.setText("Loading...");
         progress_Dialog.show();
@@ -101,6 +98,8 @@ public class ScoreActivity extends AppCompatActivity {
         viewAnsB.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Intent intent = new Intent(ScoreActivity.this , AnswersActivity.class);
+                startActivity(intent);
 
             }
         });
@@ -113,6 +112,9 @@ public class ScoreActivity extends AppCompatActivity {
         });
 
         saveResult();
+    }
+
+    private void setSupportActionBar(Toolbar toolbar) {
     }
 
     private void saveResult() {
@@ -247,7 +249,10 @@ public class ScoreActivity extends AppCompatActivity {
             finish();
         }
     }
+
+
 }
+
 
 
 

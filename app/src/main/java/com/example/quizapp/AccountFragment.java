@@ -7,19 +7,17 @@ import static com.example.quizapp.model.DbQuery.myPerformance;
 import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
-
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.Toolbar;
+
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
 
 import com.example.quizapp.model.DbQuery;
 import com.example.quizapp.model.MyCompleteListener;
@@ -39,11 +37,12 @@ import com.google.firebase.auth.FirebaseAuth;
 public class AccountFragment extends Fragment {
 
     private LinearLayout logoutB;
-    private TextView profile_img_text , name , score , rank;
-    private LinearLayout leaderB , profileB , bookmarksB;
+    private TextView profile_img_text, name, score, rank;
+    private LinearLayout leaderB, profileB, bookmarksB;
     private BottomNavigationView bottomNavigationView;
     private Dialog progress_Dialog;
     private TextView dialogText;
+
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -57,7 +56,7 @@ public class AccountFragment extends Fragment {
 
     public AccountFragment() {
         // Required empty public constructor
-        Log.d("ddf","df");
+        Log.d("ddf", "df");
     }
 
     /**
@@ -91,26 +90,33 @@ public class AccountFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view= inflater.inflate(R.layout.fragment_account, container, false);
+        View view = inflater.inflate(R.layout.fragment_account, container, false);
 
-        //Lỗi
+
         initViews(view);
-        //Toolbar toolbar = getActivity().findViewById(R.id.toolbar);
-        //((MainActivity)getActivity()).getSupportActionBar().setTitle(("My Account"));
-        //
+        Toolbar toolbar = getActivity().findViewById(R.id.toolbar);
+        ((MainActivity) getActivity()).getSupportActionBar().setTitle(("My Account"));
+
+        progress_Dialog = new Dialog(getContext());
+        progress_Dialog.setContentView(R.layout.dialog_layout);
+        progress_Dialog.setCancelable(false);
+        progress_Dialog.getWindow().setLayout(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        dialogText = progress_Dialog.findViewById(R.id.dialog_text);
+        dialogText.setText("Loading...");
+        progress_Dialog.show();
 
 
 //        profile_img_text.setText(userName.toUpperCase().substring(0,1));
 
-        progress_Dialog=new Dialog(getContext());//khởi tạo hộp thoại
+        progress_Dialog = new Dialog(getContext());//khởi tạo hộp thoại
         progress_Dialog.setContentView(R.layout.dialog_layout);
         progress_Dialog.setCancelable(false);//người dùng không thể hủy hộp thoại này
-        progress_Dialog.getWindow().setLayout(ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.WRAP_CONTENT);
+        progress_Dialog.getWindow().setLayout(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         //thiết lập kích thước của cửa sổ dialog thành kích thước nhỏ nhất có thể để vừa với nội dung bên trong của nó
-        dialogText= progress_Dialog.findViewById(R.id.dialog_text);
+        dialogText = progress_Dialog.findViewById(R.id.dialog_text);
         dialogText.setText("Loading...");
 
-        DbQuery.loadMyProfile(name,profile_img_text, new MyCompleteListener() {
+        DbQuery.loadMyProfile(name, profile_img_text, new MyCompleteListener() {
             @Override
             public void onSuccess() {
 
@@ -118,24 +124,19 @@ public class AccountFragment extends Fragment {
 
             @Override
             public void onFailure() {
-                Toast.makeText(view.getContext(),"sai ròi",Toast.LENGTH_SHORT).show();
+                Toast.makeText(view.getContext(), "sai ròi", Toast.LENGTH_SHORT).show();
             }
         });
 
-        //Thiếu RankModel ở DBQuery
-        //score.setText(String.valueOf(DbQuery.myPerformance.getScore()));
+        score.setText(String.valueOf(myPerformance.getScore()));
 
-
-        if (DbQuery.g_usersList.size()==0)
-        {
+        if (DbQuery.g_usersList.size() == 0) {
             DbQuery.getTopUsers(new MyCompleteListener() {
                 @Override
                 public void onSuccess() {
 
-                    if(myPerformance.getScore() != 0)
-                    {
-                        if(!DbQuery.isMeOnTopList)
-                        {
+                    if (myPerformance.getScore() != 0) {
+                        if (!DbQuery.isMeOnTopList) {
                             calculateRank();
                         }
                         score.setText("Score : " + myPerformance.getScore());
@@ -147,21 +148,17 @@ public class AccountFragment extends Fragment {
 
                 @Override
                 public void onFailure() {
-
-                    Toast.makeText(getContext(), "Có gì đó sai! Vui lòng thử lại",
+                    Toast.makeText(getContext(), "Có gì đó sai ! Vui lòng thử lại .",
                             Toast.LENGTH_SHORT).show();
                     progress_Dialog.dismiss();
+
+
                 }
             });
-        }
-
-        //part32
-        else
-        {
+        } else {
             score.setText("Score : " + myPerformance.getScore());
-            if(myPerformance.getScore() !=0)
-            {
-                rank.setText("Rank - "+ myPerformance.getRank());
+            if (myPerformance.getScore() != 0) {
+                rank.setText("Rank : " + myPerformance.getRank());
             }
         }
 
@@ -175,11 +172,11 @@ public class AccountFragment extends Fragment {
                         .requestIdToken(getString(R.string.menu_slideshow))//menu_slideshow=default_web_client_id
                         .requestEmail()
                         .build();
-                GoogleSignInClient mGoogleClient= GoogleSignIn.getClient(getContext(),gso);
+                GoogleSignInClient mGoogleClient = GoogleSignIn.getClient(getContext(), gso);
                 mGoogleClient.signOut().addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
-                        Intent intent= new Intent(getContext(),LoginActivity.class);
+                        Intent intent = new Intent(getContext(), LoginActivity.class);
                         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                         startActivity(intent);
                         getActivity().finish();
@@ -210,30 +207,27 @@ public class AccountFragment extends Fragment {
         });
         return view;
     }
-    private void initViews(View view)
-    {
+
+    private void initViews(View view) {
         logoutB = view.findViewById(R.id.logoutB);
         profile_img_text = view.findViewById(R.id.profile_img_text);
         name = view.findViewById(R.id.name);
-        score =view.findViewById(R.id.total_score);
+        score = view.findViewById(R.id.total_score);
         rank = view.findViewById(R.id.rank);
-        leaderB=view.findViewById(R.id.leaderB);
+        leaderB = view.findViewById(R.id.leaderB);
         bookmarksB = view.findViewById(R.id.bookmarkB);
         profileB = view.findViewById(R.id.profileB);
         bottomNavigationView = getActivity().findViewById(R.id.bottom_nav_bar);
     }
 
-    private void calculateRank()
-    {
+    private void calculateRank() {
         int lowTopScore = g_usersList.get(g_usersList.size() - 1).getScore();
         int remaining_slots = g_usersCount - 20;
-        int myslot = (myPerformance.getScore()*remaining_slots) / lowTopScore;
+        int myslot = (myPerformance.getScore() * remaining_slots) / lowTopScore;
         int rank;
-        if(lowTopScore != myPerformance.getScore())
-        {
+        if (lowTopScore != myPerformance.getScore()) {
             rank = g_usersCount - myslot;
-        }
-        else
+        } else
             rank = 21;
         myPerformance.setRank(rank);
     }

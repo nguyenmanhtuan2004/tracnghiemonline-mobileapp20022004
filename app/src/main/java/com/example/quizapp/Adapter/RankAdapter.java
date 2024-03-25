@@ -13,19 +13,19 @@ import com.example.quizapp.model.RankModel;
 
 import java.util.List;
 
-public class RankAdapter extends RecyclerView.Adapter<RankAdapter.ViewHolder>{
+public class RankAdapter extends RecyclerView.Adapter<RankAdapter.ViewHolder> {
+
 
     private List<RankModel> userList;
 
-    public RankAdapter(List<RankModel> userList) {
-        this.userList = userList;
+    public RankAdapter(List<RankModel> gUsersList) {
     }
 
     @NonNull
     @Override
     public RankAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.rank_item_layout, parent, false);
 
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.rank_item_layout,parent,false);
         return new ViewHolder(view);
     }
 
@@ -36,34 +36,35 @@ public class RankAdapter extends RecyclerView.Adapter<RankAdapter.ViewHolder>{
         int score = userList.get(position).getScore();
         int rank = userList.get(position).getRank();
 
-        holder.setData(name, score, rank);
+        holder.setData(name,score,rank);
     }
 
     @Override
     public int getItemCount() {
-        if(userList.size() > 10)
-            return 10;
-        else
-            return userList.size();
+
+        return 0;
+
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
+        private TextView nameTV , rankTV , scoreTV, imgTV;
 
-        private TextView nameTV, rankTV, scoreTV, imgTV;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
+
             nameTV = itemView.findViewById(R.id.name);
-            rankTV = itemView.findViewById(R.id.rank);
-            imgTV = itemView.findViewById(R.id.img_text);
-            scoreTV = itemView.findViewById(R.id.score);
+            rankTV= itemView.findViewById(R.id.rank);
+            scoreTV= itemView.findViewById(R.id.score);
+            imgTV=itemView.findViewById(R.id.img_text);
         }
 
-        private void setData(String name, int score, int rank)
+        private void setData(String name , int score , int rank)
         {
             nameTV.setText(name);
-            scoreTV.setText("Score : " + score);
-            rankTV.setText("Rank - " + rank);
+            scoreTV.setText("Score : "+ score);
+            rankTV.setText("Rank - "+rank);
             imgTV.setText(name.toUpperCase().substring(0,1));
         }
+
     }
 }

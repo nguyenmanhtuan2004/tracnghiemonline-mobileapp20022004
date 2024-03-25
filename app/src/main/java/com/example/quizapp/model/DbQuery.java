@@ -1,17 +1,12 @@
 package com.example.quizapp.model;
 
 import android.util.ArrayMap;
-import android.view.View;
-import android.view.autofill.AutofillId;
-import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.Firebase;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -43,17 +38,22 @@ public class DbQuery {
     public static List<String> g_bmIdList = new ArrayList<>();
     public static List<QuestionsModel> g_quesList = new ArrayList<>();
     //end part 17
+
     public static ProfileModel myProfile = new ProfileModel("NA",null, null,null,0);//(name,email)
 
+
     public static List<RankModel> g_usersList = new ArrayList<>();
-    public  static int g_usersCount = 0;
     public static boolean isMeOnTopList = false;
-    public static RankModel myPerformance = new RankModel("NULL",0,-1);
+    public  static int g_usersCount = 0;
+
+
+    public static RankModel myPerformance = new RankModel("NULL", 0,-1);
     public static final int NOT_VISITED = 0;
     public static final int UNANSWERED = 1;
     public static final int ANSWERED = 2;
     public static final int REVIEW = 3;
     public static List<TestModel> g_testList = new ArrayList<>();
+
 
     //PART 17
     public static void loadquestions(MyCompleteListener completeListener)
@@ -306,6 +306,7 @@ public class DbQuery {
                         myPerformance.setScore(documentSnapshot.getLong("TOTAL_SCORE").intValue());
                         myPerformance.setName(documentSnapshot.getString("NAME"));
 
+                        myPerformance.setName(documentSnapshot.getString("NAME"));
                         completeListener.onSuccess();
                    }
                 })
