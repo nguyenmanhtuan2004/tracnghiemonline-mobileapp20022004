@@ -28,6 +28,7 @@ public class DbQuery {
     public static int g_selected_cat_index = 0;
 
     public static String RANDOMID_QUESTION;
+    public static List<String> g_bmIdList;
     public static FirebaseFirestore g_firestore;
     //fireStore cung cấp các phương thức để tương tác các dữ liệu được lưu trữ trong FireStore:đọc, ghi, xóa
     public static List<CategoryModel> g_catList =new ArrayList<CategoryModel>();
@@ -73,7 +74,6 @@ public class DbQuery {
                                     doc.getLong("ANSWER2").intValue(),
                                     -1,-1,
                                     doc.getString("RANDOMID"),NOT_VISITED
-
                             ));
                         }
                         completeListener.onSuccess();
@@ -287,9 +287,7 @@ public class DbQuery {
                         if (documentSnapshot.getString("PHONE") != null)
                             myProfile.setPhone(documentSnapshot.getString("PHONE"));
 
-                        myPerformance.setScore(documentSnapshot.getLong("TOTAL_SCORE").intValue());
-                        myPerformance.setName(documentSnapshot.getString("NAME"));
-
+                        myPerformance.setScore(Integer.valueOf(documentSnapshot.getLong("TOTAL_SCORE").toString()));
                         myPerformance.setName(documentSnapshot.getString("NAME"));
                         completeListener.onSuccess();
                    }
@@ -375,7 +373,7 @@ public class DbQuery {
                 .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                     @Override
                     public void onSuccess(DocumentSnapshot documentSnapshot) {
-                        g_usersCount = documentSnapshot.getLong("COUNT").intValue();
+                        g_usersCount = Integer.valueOf(documentSnapshot.getLong("COUNT").toString());
                         completeListener.onSuccess();
                     }
                 })

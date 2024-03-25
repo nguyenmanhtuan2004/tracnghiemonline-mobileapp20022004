@@ -8,7 +8,6 @@ public class RankModel {
     public RankModel(String name, int score, int rank) {
         this.score = score;
         this.rank = rank;
-        this.name = name ;
         this.name = name;
     }
 

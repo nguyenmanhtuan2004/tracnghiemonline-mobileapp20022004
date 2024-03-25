@@ -14,9 +14,9 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.Toolbar;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 
 import com.example.quizapp.model.DbQuery;
@@ -108,18 +108,11 @@ public class AccountFragment extends Fragment {
 
 //        profile_img_text.setText(userName.toUpperCase().substring(0,1));
 
-        progress_Dialog = new Dialog(getContext());//khởi tạo hộp thoại
-        progress_Dialog.setContentView(R.layout.dialog_layout);
-        progress_Dialog.setCancelable(false);//người dùng không thể hủy hộp thoại này
-        progress_Dialog.getWindow().setLayout(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        //thiết lập kích thước của cửa sổ dialog thành kích thước nhỏ nhất có thể để vừa với nội dung bên trong của nó
-        dialogText = progress_Dialog.findViewById(R.id.dialog_text);
-        dialogText.setText("Loading...");
-
         DbQuery.loadMyProfile(name, profile_img_text, new MyCompleteListener() {
             @Override
             public void onSuccess() {
 
+                progress_Dialog.dismiss();
             }
 
             @Override

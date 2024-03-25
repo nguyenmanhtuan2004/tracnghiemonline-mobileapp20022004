@@ -82,7 +82,7 @@ public class LeaderBoardFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_leader_board, container, false);
         ((MainActivity) getActivity()).getSupportActionBar().setTitle("LeaderBoard");
 
-        //initViews(View);
+        initViews(view);
 
 
         progress_Dialog = new Dialog(getContext());
@@ -93,15 +93,26 @@ public class LeaderBoardFragment extends Fragment {
         dialogText.setText("Loading...");
         progress_Dialog.show();
 
-        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
+        LinearLayoutManager layoutManager = new LinearLayoutManager(view.getContext());
         layoutManager.setOrientation(RecyclerView.VERTICAL);
 
 
         //Part 32
         usersView.setLayoutManager(layoutManager);
+        DbQuery.getUserData(new MyCompleteListener() {
+            @Override
+            public void onSuccess() {
+                adapter = new RankAdapter(DbQuery.g_usersList);
+                usersView.setAdapter(adapter);
+            }
 
-        adapter = new RankAdapter(DbQuery.g_usersList);
-        usersView.setAdapter(adapter);
+            @Override
+            public void onFailure() {
+
+            }
+        });
+
+
 
         DbQuery.getTopUsers(new MyCompleteListener() {
             @Override
@@ -112,8 +123,8 @@ public class LeaderBoardFragment extends Fragment {
                     {
                         calculateRank();
                     }
-                    txtScore.setText("Score : " + myPerformance.getScore());
-                    txtRank.setText("Rank - " + myPerformance.getRank());
+                    txtScore.setText("Score : " + String.valueOf(myPerformance.getScore()));
+                    txtRank.setText("Rank - " + String.valueOf(myPerformance.getRank()));
                 }
 
                 progress_Dialog.dismiss();
@@ -127,8 +138,17 @@ public class LeaderBoardFragment extends Fragment {
 
             }
         });
+        DbQuery.getUsersCount(new MyCompleteListener() {
+            @Override
+            public void onSuccess() {
+                txtTotalUsers.setText("Total Users : " + String.valueOf(DbQuery.g_usersCount));
+            }
 
-        txtTotalUsers.setText("Total Users : " + DbQuery.g_usersCount);
+            @Override
+            public void onFailure() {
+
+            }
+        });
         txtImg.setText(myPerformance.getName().toUpperCase().substring(0,1));
 
         return view;
