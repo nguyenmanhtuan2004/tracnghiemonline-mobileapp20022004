@@ -1,4 +1,4 @@
-package com.example.quizapp.ui;
+package com.example.quizapp.Adapter;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,10 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.quizapp.R;
-import com.example.quizapp.TestAdapter;
 import com.example.quizapp.model.QuestionsModel;
-
-import org.checkerframework.checker.units.qual.A;
 
 import java.util.List;
 
@@ -27,14 +24,15 @@ public class AnswersAdapter extends RecyclerView.Adapter<AnswersAdapter.ViewHold
 
     @NonNull
     @Override
-    public AnswersAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view= LayoutInflater.from(parent.getContext()).inflate(R.layout.answer_item_layout,parent,false);
 
-        return new AnswersAdapter.ViewHolder(view);
+        return new com.example.quizapp.Adapter.AnswersAdapter.ViewHolder(view);
+
     }
 
     @Override
-    public void onBindViewHolder(@NonNull AnswersAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 
         String ques = questionsModelList.get(position).getQuestion();
         String a = questionsModelList.get(position).getOptionA();

@@ -1,16 +1,5 @@
 package com.example.quizapp;
 
-<<<<<<< HEAD
-import android.app.Dialog;
-import android.content.Intent;
-import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
-import android.widget.TextView;
-import android.widget.Toolbar;
-=======
-import static com.example.quizapp.model.DbQuery.loadData;
-
 import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -20,29 +9,14 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
->>>>>>> 42bfb210e1ed75ed27da6ff06d2797b9156a799a
+import android.widget.Toolbar;
 
-import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-<<<<<<< HEAD
-import org.w3c.dom.Text;
-
-public class ScoreActivity extends AppCompatActivity {
-
-    private TextView scoreTV , timeTV , totalQTV , correctQTV, wrongQTV , unattemptedQTV;
-    private Button leaderB , reAttempB , viewAnsB;
-    private long timeTaken;
-    private Dialog progressDialog;
-    private TextView dialogText;
-    private int finalScore;
-
-=======
 import com.example.quizapp.model.DbQuery;
 import com.example.quizapp.model.MyCompleteListener;
 
@@ -56,19 +30,18 @@ public class ScoreActivity extends AppCompatActivity {
     private Dialog progress_Dialog;
     private TextView dialogText;
     private int finalscore;
->>>>>>> 42bfb210e1ed75ed27da6ff06d2797b9156a799a
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_score);
 
         Toolbar toolbar = findViewById(R.id.toolbar);
-<<<<<<< HEAD
+
         // Part 33
-        // setSupportActionBar(toolbar);
-        // setSupportActionBar().setDisplayShowTitleEnabled(true);
-        // setSupportActionBar().SetTitle("Result");
-        // setSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayShowTitleEnabled(true);
+        getSupportActionBar().setTitle("Result");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
@@ -79,40 +52,16 @@ public class ScoreActivity extends AppCompatActivity {
 
 
 
-            //Part 33
-            // viewAnsB.setOnClickListener ( new View.OnClickListener(){
-
-           // public void onClick (View view){
-            //    Intent intent = new Intent(ScoreActivity.this , AnswersActivity.class);
-             //   startActivity(Intent);
-           // }
-
-
-          //}
 
 
 
 
 
         });
-
-
-    }
-
-
-
-}
-=======
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayShowTitleEnabled(true);
-        getSupportActionBar().setTitle("Result");
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-        progress_Dialog=new Dialog(ScoreActivity.this);//khởi tạo hộp thoại
+        progress_Dialog=new Dialog(ScoreActivity.this);
         progress_Dialog.setContentView(R.layout.dialog_layout);
-        progress_Dialog.setCancelable(false);//người dùng không thể hủy hộp thoại này
+        progress_Dialog.setCancelable(false);
         progress_Dialog.getWindow().setLayout(ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.WRAP_CONTENT);
-        //thiết lập kích thước của cửa sổ dialog thành kích thước nhỏ nhất có thể để vừa với nội dung bên trong của nó
         dialogText= progress_Dialog.findViewById(R.id.dialog_text);
         dialogText.setText("Loading...");
         progress_Dialog.show();
@@ -124,6 +73,8 @@ public class ScoreActivity extends AppCompatActivity {
         viewAnsB.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Intent intent = new Intent(ScoreActivity.this , AnswersActivity.class);
+                startActivity(intent);
 
             }
         });
@@ -136,6 +87,9 @@ public class ScoreActivity extends AppCompatActivity {
         });
 
         saveResult();
+    }
+
+    private void setSupportActionBar(Toolbar toolbar) {
     }
 
     private void saveResult() {
@@ -208,10 +162,7 @@ public class ScoreActivity extends AppCompatActivity {
         scoreTV.setText(String.valueOf(finalscore));
 
         timeTaken = getIntent().getLongExtra("TIME_TAKEN", 0);
-        String time = String.format("%02d:%02d min",
-                TimeUnit.MILLISECONDS.toMinutes(timeTaken),
-                TimeUnit.MILLISECONDS.toSeconds(timeTaken),
-                TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(timeTaken)));
+        String time = String.format("%02d:%02d min", TimeUnit.MILLISECONDS.toMinutes(timeTaken), TimeUnit.MILLISECONDS.toSeconds(timeTaken), TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(timeTaken)));
 
         timeTV.setText(time);
     }
@@ -227,5 +178,13 @@ public class ScoreActivity extends AppCompatActivity {
             finish();
         }
     }
+
+
 }
->>>>>>> 42bfb210e1ed75ed27da6ff06d2797b9156a799a
+
+
+
+
+
+
+

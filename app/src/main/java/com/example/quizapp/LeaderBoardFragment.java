@@ -1,21 +1,24 @@
 package com.example.quizapp;
 
+import static com.example.quizapp.model.DbQuery.g_usersCount;
+import static com.example.quizapp.model.DbQuery.g_usersList;
+import static com.example.quizapp.model.DbQuery.myPerformance;
+
 import android.app.Dialog;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.quizapp.Adapter.RankAdapter;
 import com.example.quizapp.model.DbQuery;
 import com.example.quizapp.model.MyCompleteListener;
-import com.example.quizapp.ui.RankAdapter;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -24,11 +27,12 @@ import com.example.quizapp.ui.RankAdapter;
  */
 public class LeaderBoardFragment extends Fragment {
 
-    private TextView totalUsersTV , myImgTextTV , myScoreTV , myRankTV;
+    private TextView txtTotalUsers , txtImg , txtScore , txtRank;
     private RecyclerView usersView;
     private RankAdapter adapter;
     private Dialog progress_Dialog;
     private TextView dialogText;
+
 
 
     // TODO: Rename parameter arguments, choose names that match
@@ -91,75 +95,68 @@ public class LeaderBoardFragment extends Fragment {
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         layoutManager.setOrientation(RecyclerView.VERTICAL);
-        return view;
+
 
         //Part 32
-        //usersView.setLayoutManager(layoutManager);
+        usersView.setLayoutManager(layoutManager);
 
-        //adapter = new RankAdapter(DbQuery.g_usersList);
-        //usersView.setAdapter(adapter);
-        //  DbQuery.getTopUsers(new MyCompleteListener() {
+        adapter = new RankAdapter(DbQuery.g_usersList);
+        usersView.setAdapter(adapter);
 
-        //    @Override
-        //  public void onSuccess() {
+        DbQuery.getTopUsers(new MyCompleteListener() {
+            @Override
+            public void onSuccess() {
+                adapter.notifyDataSetChanged();
+                if(myPerformance.getScore() != 0)
+                {
+                    if(!DbQuery.isMeOnTopList)
+                    {
+                        calculateRank();
+                    }
+                    txtScore.setText("Score : " + myPerformance.getScore());
+                    txtRank.setText("Rank - " + myPerformance.getRank());
+                }
 
-        //  adapter.notifyDataSetChanged();
-        //   if(DbQuery.myPerformance.getScore() !=0)
-        // {
-        //    if (! DbQuery.isMeOnTopList){
-        //        calculateRank();
-        //  }
-        //  myscoreTV.setText("Score : " + myPerformance.getScore());
-        //  myRankTV.setText("Rank - "+ myPerformance.getRank());
+                progress_Dialog.dismiss();
+            }
 
-        //  }
-        //  progress_Dialog.dismiss();
+            @Override
+            public void onFailure() {
 
-        //  }
+                Toast.makeText(getContext(), "Có gì đó sai! Vui lòng thử lại",
+                        Toast.LENGTH_SHORT).show();
+                progress_Dialog.dismiss();
+            }
+        });
+        txtTotalUsers.setText("Total Users : " + DbQuery.g_usersCount);
+        txtImg.setText(myPerformance.getName().toUpperCase().substring(0,1));
 
-        //   @Override
-        //   public void onFailure() {
-        //   Toast.makeText(getContext(), "Có gì đó sai! Vui lòng thử lại",
-        //          Toast.LENGTH_SHORT).show();
-        //   progress_Dialog.dismiss();
-
-        // }
-        // });
-
-
-
-
-
-
-        //totalUsersTV.setText("Total Users : " + DbQuery.g_usersCount);
-
-        //  return view;
-        //  }
-
-        //...private void itnitViews( View view )...
-
-
-        //Phần tính điểm Rank
-        // private void calculateRank()
-        // {
-        //  int lowTopScore= g_usersList.get(g_usersList.size()-1).getScore();
-
-        //  int remaining_slots = g_usersCount - 20;
-
-        // int myslot = (myPerformance.getScore()*remaining_slots) / lowTopScore;
-
-        // int rank;
-
-        //  if (lowTopScore != myPerformance.getScore())
-        // {
-        //     rank = g_usersCount - myslot;
-        //  }
-        //  else
-        // {
-        //      rank = 21;
-        //  }
-        //  myPerformance.setRank(rank);
+        return view;
     }
+
+    private void initViews(View view) {
+        txtTotalUsers = view.findViewById(R.id.txtTotalUsers);
+        txtImg = view.findViewById(R.id.txtImg);
+        txtScore = view.findViewById(R.id.txtTotalScore);
+        txtRank = view.findViewById(R.id.txtRank);
+        usersView = view.findViewById(R.id.usersView);
+    }
+
+    private void calculateRank()
+    {
+        int lowTopScore = g_usersList.get(g_usersList.size() - 1).getScore();
+        int remaining_slots = g_usersCount - 20;
+        int myslot = (myPerformance.getScore()*remaining_slots) / lowTopScore;
+        int rank;
+        if(lowTopScore != myPerformance.getScore())
+        {
+            rank = g_usersCount - myslot;
+        }
+        else
+            rank = 21;
+        myPerformance.setRank(rank);
+    }
+
 
 
 

@@ -1,4 +1,4 @@
-package com.example.quizapp.ui;
+package com.example.quizapp.Adapter;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,10 +9,18 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.quizapp.R;
+import com.example.quizapp.model.RankModel;
+
+import java.util.List;
 
 public class RankAdapter extends RecyclerView.Adapter<RankAdapter.ViewHolder> {
 
-    //private List<RankModel> userList;
+
+    private List<RankModel> userList;
+
+    public RankAdapter(List<RankModel> gUsersList) {
+    }
+
     @NonNull
     @Override
     public RankAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -24,11 +32,11 @@ public class RankAdapter extends RecyclerView.Adapter<RankAdapter.ViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull RankAdapter.ViewHolder holder, int position) {
 
-        //String name = userList.get(position).getName();
-        //int score = userList.get(position).getScore();
-        //int rank = userList.get(position).getRank();
+        String name = userList.get(position).getName();
+        int score = userList.get(position).getScore();
+        int rank = userList.get(position).getRank();
 
-        //holder.setData(name,score,rank);
+        holder.setData(name,score,rank);
     }
 
     @Override
@@ -46,7 +54,7 @@ public class RankAdapter extends RecyclerView.Adapter<RankAdapter.ViewHolder> {
 
             nameTV = itemView.findViewById(R.id.name);
             rankTV= itemView.findViewById(R.id.rank);
-            // scoreTV= itemView.findViewById(R.id.score);
+            scoreTV= itemView.findViewById(R.id.score);
             imgTV=itemView.findViewById(R.id.img_text);
         }
 

@@ -1,20 +1,23 @@
 package com.example.quizapp;
 
+import static com.example.quizapp.model.DbQuery.g_usersCount;
+import static com.example.quizapp.model.DbQuery.g_usersList;
+import static com.example.quizapp.model.DbQuery.myPerformance;
+
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
-
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.Toolbar;
+
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
 
 import com.example.quizapp.model.DbQuery;
 import com.example.quizapp.model.MyCompleteListener;
@@ -37,6 +40,9 @@ public class AccountFragment extends Fragment {
     private TextView profile_img_text , name , score , rank;
     private LinearLayout leaderB , profileB , bookmarksB;
     private BottomNavigationView bottomNavigationView;
+
+    private Dialog progress_Dialog;
+    private TextView dialogText;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -86,53 +92,62 @@ public class AccountFragment extends Fragment {
         // Inflate the layout for this fragment
         View view= inflater.inflate(R.layout.fragment_account, container, false);
 
-       //Lỗi
+
         initViews(view);
-        //Toolbar toolbar = getActivity().findViewById(R.id.toolbar);
-        //((MainActivity)getActivity()).getSupportActionBar().setTitle(("My Account"));
-        //
+        Toolbar toolbar = getActivity().findViewById(R.id.toolbar);
+        ((MainActivity)getActivity()).getSupportActionBar().setTitle(("My Account"));
+
+        progress_Dialog = new Dialog(getContext());
+        progress_Dialog.setContentView(R.layout.dialog_layout);
+        progress_Dialog.setCancelable(false);
+        progress_Dialog.getWindow().setLayout(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        dialogText = progress_Dialog.findViewById(R.id.dialog_text);
+        dialogText.setText("Loading...");
+        progress_Dialog.show();
+
 
         String userName = DbQuery.myProfile.getName();
         profile_img_text.setText(userName.toUpperCase().substring(0,1));
 
         name.setText(userName);
 
-        //Thiếu RankModel ở DBQuery
-        //score.setText(String.valueOf(DbQuery.myPerformance.getScore()));
+        score.setText(String.valueOf(myPerformance.getScore()));
 
-
-        //if (DbQuery.g_usersList.size()==0)
+        if(DbQuery.g_usersList.size()==0)
         {
-            //DbQuery.getTopUsers(new MyCompleteListener() {
+            DbQuery.getTopUsers(new MyCompleteListener() {
+                @Override
+                public void onSuccess() {
+                    if (myPerformance.getScore() !=0)
+                    {
+                        if (!DbQuery.isMeOnTopList)
+                        {
+                            calculateRank();
+                        }
+                        score.setText("Score : " + myPerformance.getScore());
 
-               //@Override
-                //public void onSuccess() {
 
-                  // adapter.notifyDataSetChanged();
-                   // if(DbQuery.myPerformance.getScore() !=0)
-                   // {
-                      //  if (! DbQuery.isMeOnTopList){
-                         //   calculateRank();
-                      //  }
-                      //  myscoreTV.setText("Score : " + myPerformance.getScore());
-                      //  myRankTV.setText("Rank - "+ myPerformance.getRank());
+                    }
+                }
 
-                  //  }
-                   // progress_Dialog.dismiss();
+                @Override
+                public void onFailure() {
+                    Toast.makeText(getContext(),"Có gì đó sai ! Vui lòng thử lại ." ,
+                            Toast.LENGTH_SHORT).show();
+                    progress_Dialog.dismiss();
 
-              //  }
 
-              //  @Override
-             //   public void onFailure() {
-                //    Toast.makeText(getContext(), "Có gì đó sai! Vui lòng thử lại",
-                   //         Toast.LENGTH_SHORT).show();
-                  //  progress_Dialog.dismiss();
-
-               // }
-          //  });
-
+                }
+            });
         }
-
+        else
+        {
+            score.setText("Score : " + myPerformance.getScore());
+            if(myPerformance.getScore()!=0)
+            {
+                rank.setText("Rank : " +myPerformance.getRank());
+            }
+        }
 
 
         logoutB.setOnClickListener(new View.OnClickListener() {
@@ -190,6 +205,23 @@ public class AccountFragment extends Fragment {
         bookmarksB = view.findViewById(R.id.bookmarkB);
         profileB = view.findViewById(R.id.profileB);
         bottomNavigationView = getActivity().findViewById(R.id.bottom_nav_bar);
+    }
+
+
+
+    private void calculateRank()
+    {
+        int lowTopScore = g_usersList.get(g_usersList.size() - 1).getScore();
+        int remaining_slots = g_usersCount - 20;
+        int myslot = (myPerformance.getScore()*remaining_slots) / lowTopScore;
+        int rank;
+        if(lowTopScore != myPerformance.getScore())
+        {
+            rank = g_usersCount - myslot;
+        }
+        else
+            rank = 21;
+        myPerformance.setRank(rank);
     }
     
 }

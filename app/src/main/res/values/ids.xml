@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="txtTotalUsers" type="id" />
+    <item name="txtImg" type="id" />
+    <item name="txtTotalScore" type="id" />
+    <item name="txtRank" type="id" />
+    <item name="usersView" type="id" />
+</resources>

@@ -3,10 +3,12 @@ package com.example.quizapp.model;
 public class RankModel {
     private int score;
     private int rank;
+    private String name ;
 
-    public RankModel(int score, int rank) {
+    public RankModel(String name, int score, int rank) {
         this.score = score;
         this.rank = rank;
+        this.name = name ;
     }
 
     public int getScore() {
@@ -23,5 +25,12 @@ public class RankModel {
 
     public void setRank(int rank) {
         this.rank = rank;
+    }
+
+    public String getName() {
+        return this.name;
+    }
+
+    public void setName(String name) {
     }
 }
