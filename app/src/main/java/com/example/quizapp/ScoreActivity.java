@@ -28,6 +28,7 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import com.example.quizapp.model.DbQuery;
 import com.example.quizapp.model.MyCompleteListener;
+import com.example.quizapp.model.QuestionsModel;
 
 import java.text.SimpleDateFormat;
 import java.util.concurrent.TimeUnit;
@@ -95,6 +96,8 @@ public class ScoreActivity extends AppCompatActivity {
 
         loadData();
 
+        setBookMarks();
+
         viewAnsB.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -128,6 +131,30 @@ public class ScoreActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    private void setBookMarks()
+    {
+        for (int i=0; i < DbQuery.g_quesList.size(); i++)
+        {
+            QuestionsModel question = DbQuery.g_quesList.get(i);
+            if (question.isBookmarked())
+            {
+                if(!DbQuery.g_bmIdList.contains(question.getqID()));
+                {
+                    DbQuery.g_bmIdList.add(question.getqID());
+                    DbQuery.myProfile.setBookmarksCount(DbQuery.g_bmIdList.size());
+                }
+            }
+            else
+            {
+                if (DbQuery.g_bmIdList.contains(question.getqID()))
+                {
+                    DbQuery.g_bmIdList.remove(question.getqID());
+                    DbQuery.myProfile.setBookmarksCount(DbQuery.g_bmIdList.size());
+                }
+            }
+        }
     }
 
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {

@@ -55,7 +55,7 @@ public class QuestionActivity extends AppCompatActivity {
     private QuestionGridAdapter gridAdapter;
     private CountDownTimer timer;
     private long timeLeft;
-
+    private ImageView bookmarkB;
 
 
     @Override
@@ -198,6 +198,13 @@ public class QuestionActivity extends AppCompatActivity {
                 submitTest();
             }
         });
+
+        bookmarkB.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                addToBookmarks();
+            }
+        });
     }
 
     private void submitTest()
@@ -270,6 +277,14 @@ public class QuestionActivity extends AppCompatActivity {
                 }
                 txtQuesID.setText(String.valueOf(quesID + 1) + "/" + String.valueOf(g_quesList.size()));
 
+                if(g_quesList.get(quesID).isBookmarked())
+                {
+                    bookmarkB.setImageResource(R.drawable.ic_bookmark);
+                }
+                else
+                {
+                    bookmarkB.setImageResource(R.drawable.ic_bookmark_selected);
+                }
             }
 
             @Override
@@ -293,6 +308,7 @@ public class QuestionActivity extends AppCompatActivity {
         drawer = findViewById(R.id.drawer_layout);
         markImage = findViewById(R.id.flag_image);
         quesListGV = findViewById(R.id.ques_list_gv);
+        bookmarkB = findViewById(R.id.qa_bookmarkB);
 
         drawerCloseB = findViewById(R.id.drawerCloseB);
 
@@ -302,5 +318,28 @@ public class QuestionActivity extends AppCompatActivity {
         txtCatName.setText(g_catList.get(g_selected_cat_index).getName());
 
         g_quesList.get(0).setStatus(UNANSWERED);
+
+        if(g_quesList.get(0).isBookmarked())
+        {
+            bookmarkB.setImageResource(R.drawable.ic_bookmark_selected);
+        }
+        else
+        {
+            bookmarkB.setImageResource(R.drawable.ic_bookmark);
+        }
+    }
+
+    private void addToBookmarks()
+    {
+        if(g_quesList.get(quesID).isBookmarked())
+        {
+            g_quesList.get(quesID).setBookmarked(false);
+            bookmarkB.setImageResource(R.drawable.ic_bookmark);
+        }
+        else
+        {
+            g_quesList.get(quesID).setBookmarked(true);
+            bookmarkB.setImageResource(R.drawable.ic_bookmark_selected);
+        }
     }
 }

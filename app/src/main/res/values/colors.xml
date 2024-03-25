@@ -18,4 +18,6 @@
 
     <color name="yellow">#FFD700</color>
 
+    <color name="text_normal">#919191</color>
+
 </resources>
