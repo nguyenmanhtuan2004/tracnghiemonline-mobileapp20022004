@@ -8,20 +8,27 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+import androidx.appcompat.widget.Toolbar;
 
 import com.example.quizapp.model.DbQuery;
 import com.example.quizapp.model.MyCompleteListener;
 
 public class CreateQuestionActivity extends AppCompatActivity {
 
-    EditText edt_optionA,edt_optionB,edt_optionC,edt_optionD,
+    private EditText edt_optionA,edt_optionB,edt_optionC,edt_optionD,
             edt_answer,edt_answer2,edt_question;
-    Button btnSave,btnCancel;
+    private Button btnSave,btnCancel;
+    private Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_question);
+
+        toolbar=findViewById(R.id.toolbar);
+
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         edt_optionA=findViewById(R.id.edt_optionA);
         edt_optionB=findViewById(R.id.edt_optionB);
@@ -34,9 +41,11 @@ public class CreateQuestionActivity extends AppCompatActivity {
         btnCancel=findViewById(R.id.btnCancel);
         btnCancel.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                Intent intent=new Intent(CreateQuestionActivity.this,MainActivity.class);
+            public void onClick(View v)
+            {
+                Intent intent=new Intent(CreateQuestionActivity.this, DeleteQuestionActivity.class);
                 startActivity(intent);
+
             }
         });
 
@@ -56,7 +65,9 @@ public class CreateQuestionActivity extends AppCompatActivity {
                             new MyCompleteListener() {
                                 @Override
                                 public void onSuccess() {
-                                    Toast.makeText(CreateQuestionActivity.this,"Load dữ liệu thành công",Toast.LENGTH_SHORT).show();
+                                    Intent intent=new Intent(CreateQuestionActivity.this, DeleteQuestionActivity.class);
+                                    startActivity(intent);
+                                    finish();
                                 }
 
                                 @Override

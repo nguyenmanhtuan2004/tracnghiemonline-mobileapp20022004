@@ -127,6 +127,8 @@ public class StartTestActivity extends AppCompatActivity {
 
         if ( now.getTime().after(time1) && now.getTime().before(time2)) {
             Intent intent = new Intent(StartTestActivity.this, QuestionActivity.class);
+            intent.putExtra("TIME_ENTRANCE",(long) now.getTime().getTime());
+            intent.putExtra("TIME_START",(long) time1.getTime());
             startActivity(intent);
             finish();
         }
@@ -139,6 +141,7 @@ public class StartTestActivity extends AppCompatActivity {
                 Toast.makeText(StartTestActivity.this,log,Toast.LENGTH_LONG).show();
                 Intent intent = new Intent(StartTestActivity.this, StartTestActivity.class);
                 startActivity(intent);
+                finish();
             }
             else if(now.getTime().after(time2))
             {
@@ -147,6 +150,7 @@ public class StartTestActivity extends AppCompatActivity {
                 Toast.makeText(StartTestActivity.this,log,Toast.LENGTH_LONG).show();
                 Intent intent = new Intent(StartTestActivity.this, StartTestActivity.class);
                 startActivity(intent);
+                finish();
             }
 
         }
