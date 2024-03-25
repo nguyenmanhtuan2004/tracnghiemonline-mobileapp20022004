@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class QuestionsModel {
+    private String qID;
     private String question;
     private String optionA;
     private String optionB;
@@ -14,8 +15,10 @@ public class QuestionsModel {
 
     private String RANDOMID;
     private int status;
+    private boolean isBookmarked;
 
-    public QuestionsModel(String question, String optionA, String optionB, String optionC, String optionD, int correctAns, int selectedAns, int status) {
+    public QuestionsModel(String qID, String question, String optionA, String optionB, String optionC, String optionD, int correctAns, int selectedAns, int status, boolean isBookmarked) {
+        this.qID = qID;
         this.question = question;
         this.optionA = optionA;
         this.optionB = optionB;
@@ -24,8 +27,10 @@ public class QuestionsModel {
         this.correctAns = correctAns;
         this.selectedAns = selectedAns;
         this.status = status;
+        this.isBookmarked = isBookmarked;
     }
-    public QuestionsModel(String question, String optionA, String optionB, String optionC, String optionD, int correctAns,int correctAns2, int selectedAns,int selectAns2, String RANDOMID,int status) {
+    public QuestionsModel(String qID ,String question, String optionA, String optionB, String optionC, String optionD, int correctAns,int correctAns2, int selectedAns,int selectAns2, String RANDOMID,int status, boolean isBookmarked) {
+        this.qID = qID;
         this.question = question;
         this.optionA = optionA;
         this.optionB = optionB;
@@ -37,7 +42,16 @@ public class QuestionsModel {
         this.selectAns2=selectAns2;
         this.RANDOMID=RANDOMID;
         this.status = status;
+        this.isBookmarked = isBookmarked;
 
+    }
+
+    public String getqID() {
+        return qID;
+    }
+
+    public void setqID(String qID) {
+        this.qID = qID;
     }
 
     public String getRANDOMID() {
@@ -128,4 +142,11 @@ public class QuestionsModel {
         this.correctAns2 = correctAns2;
     }
 
+    public boolean isBookmarked() {
+        return isBookmarked;
+    }
+
+    public void setBookmarked(boolean bookmarked) {
+        isBookmarked = bookmarked;
+    }
 }
