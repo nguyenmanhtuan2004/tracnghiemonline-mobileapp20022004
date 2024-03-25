@@ -18,10 +18,10 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.Toolbar;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
@@ -100,6 +100,7 @@ public class ScoreActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(ScoreActivity.this , AnswersActivity.class);
                 startActivity(intent);
+                finish();
 
             }
         });
@@ -114,8 +115,7 @@ public class ScoreActivity extends AppCompatActivity {
         saveResult();
     }
 
-    private void setSupportActionBar(Toolbar toolbar) {
-    }
+
 
     private void saveResult() {
 

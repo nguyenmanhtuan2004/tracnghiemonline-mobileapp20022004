@@ -1,5 +1,6 @@
 package com.example.quizapp.Adapter;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -55,6 +56,7 @@ public class DeleteQuestionAdapter extends RecyclerView.Adapter<DeleteQuestionAd
                     DbQuery.g_selectted_question_index=pos;
                     Intent intent = new Intent(itemView.getContext(), UpdateQuestionActivity.class);
                     itemView.getContext().startActivity(intent);
+                    ((Activity) itemView.getContext()).finish();
 
                 }
             });

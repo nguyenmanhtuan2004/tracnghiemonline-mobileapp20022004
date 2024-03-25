@@ -45,6 +45,10 @@
             android:exported="false"
             android:theme="@style/Theme.QuizApp.NoActionBar" />
         <activity
+            android:name=".AnswersActivity"
+            android:exported="false"
+            android:theme="@style/Theme.QuizApp.NoActionBar" />
+        <activity
             android:name=".TestActivity"
             android:exported="false"
             android:theme="@style/Theme.QuizApp.NoActionBar" />

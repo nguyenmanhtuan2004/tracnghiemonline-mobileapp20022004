@@ -66,7 +66,7 @@ public class UpdateQuestionActivity extends AppCompatActivity {
         btnCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(UpdateQuestionActivity.this, MainActivity.class);
+                Intent intent=new Intent(UpdateQuestionActivity.this, DeleteQuestionActivity.class);
                 startActivity(intent);
                 finish();
             }

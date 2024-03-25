@@ -28,7 +28,6 @@ public class DbQuery {
     public static int g_selected_cat_index = 0;
 
     public static String RANDOMID_QUESTION;
-    public static List<String> g_bmIdList;
     public static FirebaseFirestore g_firestore;
     //fireStore cung cấp các phương thức để tương tác các dữ liệu được lưu trữ trong FireStore:đọc, ghi, xóa
     public static List<CategoryModel> g_catList =new ArrayList<CategoryModel>();
@@ -83,14 +82,8 @@ public class DbQuery {
                                     doc.getLong("ANSWER").intValue(),
                                     doc.getLong("ANSWER2").intValue(),
                                     -1,-1,
-<<<<<<< HEAD
-                                    doc.getString("RANDOMID"),NOT_VISITED
-=======
-                                    doc.getString("RANDOMID"),
-                                    NOT_VISITED,
+                                    doc.getString("RANDOMID"),NOT_VISITED,
                                     isBookmarked
-
->>>>>>> c0db87bd8d71cc4d3631cfa633068a3aaa6726c1
                             ));
                         }
                         completeListener.onSuccess();
@@ -304,17 +297,11 @@ public class DbQuery {
 
                         if (documentSnapshot.getString("PHONE") != null)
                             myProfile.setPhone(documentSnapshot.getString("PHONE"));
-
-<<<<<<< HEAD
                         myPerformance.setScore(Integer.valueOf(documentSnapshot.getLong("TOTAL_SCORE").toString()));
-=======
                        if (documentSnapshot.get("BOOKMARKS") != null)
                            myProfile.setBookmarksCount(documentSnapshot.getLong("BOOKMARKS").intValue());
 
                         myPerformance.setScore(documentSnapshot.getLong("TOTAL_SCORE").intValue());
-                        myPerformance.setName(documentSnapshot.getString("NAME"));
-
->>>>>>> c0db87bd8d71cc4d3631cfa633068a3aaa6726c1
                         myPerformance.setName(documentSnapshot.getString("NAME"));
                         completeListener.onSuccess();
                    }
@@ -572,7 +559,7 @@ public class DbQuery {
     public static void loadTestData(final MyCompleteListener completeListener)
     {
         g_testList.clear();
-        g_firestore.collection("QUIZ").document(g_catList.get(g_selected_cat_index).getDocID())
+        g_firestore.collection("QUIZ").document(String.valueOf(g_catList.get(g_selected_cat_index).getDocID().toString()))
                 .collection("TESTS_LIST").document("TESTS_INFO")
                 .get()
                 .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
