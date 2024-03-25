@@ -55,6 +55,7 @@ public class DeleteQuestionAdapter extends RecyclerView.Adapter<DeleteQuestionAd
                     DbQuery.g_selectted_question_index=pos;
                     Intent intent = new Intent(itemView.getContext(), UpdateQuestionActivity.class);
                     itemView.getContext().startActivity(intent);
+
                 }
             });
 

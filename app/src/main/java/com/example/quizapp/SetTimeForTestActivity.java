@@ -61,6 +61,7 @@ public class SetTimeForTestActivity extends AppCompatActivity {
                         public void onSuccess() {
                             Intent intent=new Intent(SetTimeForTestActivity.this, CreateQuestionActivity.class);
                             startActivity(intent);
+                            finish();
                         }
 
                         @Override

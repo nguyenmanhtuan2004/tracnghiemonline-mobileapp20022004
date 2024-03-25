@@ -141,6 +141,7 @@ public class StartTestActivity extends AppCompatActivity {
                 Toast.makeText(StartTestActivity.this,log,Toast.LENGTH_LONG).show();
                 Intent intent = new Intent(StartTestActivity.this, StartTestActivity.class);
                 startActivity(intent);
+                finish();
             }
             else if(now.getTime().after(time2))
             {
@@ -149,6 +150,7 @@ public class StartTestActivity extends AppCompatActivity {
                 Toast.makeText(StartTestActivity.this,log,Toast.LENGTH_LONG).show();
                 Intent intent = new Intent(StartTestActivity.this, StartTestActivity.class);
                 startActivity(intent);
+                finish();
             }
 
         }

@@ -45,6 +45,7 @@ public class CreateQuestionActivity extends AppCompatActivity {
             {
                 Intent intent=new Intent(CreateQuestionActivity.this, DeleteQuestionActivity.class);
                 startActivity(intent);
+
             }
         });
 
@@ -66,6 +67,7 @@ public class CreateQuestionActivity extends AppCompatActivity {
                                 public void onSuccess() {
                                     Intent intent=new Intent(CreateQuestionActivity.this, DeleteQuestionActivity.class);
                                     startActivity(intent);
+                                    finish();
                                 }
 
                                 @Override

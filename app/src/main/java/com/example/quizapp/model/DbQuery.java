@@ -235,6 +235,7 @@ public class DbQuery {
                     @Override
                     public void onSuccess(Void unused) {
 
+                        completeListener.onSuccess();
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {

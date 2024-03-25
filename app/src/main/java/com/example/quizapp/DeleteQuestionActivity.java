@@ -11,8 +11,11 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 
@@ -26,6 +29,8 @@ public class DeleteQuestionActivity extends AppCompatActivity {
     private RecyclerView questionView;
     private Toolbar toolbar;
     private DeleteQuestionAdapter adapter;
+
+    private Button btnHome;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,9 +45,18 @@ public class DeleteQuestionActivity extends AppCompatActivity {
         LinearLayoutManager layoutManager=new LinearLayoutManager(this);
         layoutManager.setOrientation(RecyclerView.VERTICAL);
         questionView.setLayoutManager(layoutManager);
+        btnHome=findViewById(R.id.btnHome);
 
 
 
+        btnHome.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(DeleteQuestionActivity.this,MainActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
 
         DbQuery.loadquestions(new MyCompleteListener() {
             @Override
