@@ -1,13 +1,18 @@
 package com.example.quizapp.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class QuestionsModel {
     private String question;
     private String optionA;
     private String optionB;
     private String optionC;
     private String optionD;
-    private int correctAns;
-    private int selectedAns;
+    private int correctAns,correctAns2;
+    private int selectedAns,selectAns2;
+
+    private String RANDOMID;
     private int status;
 
     public QuestionsModel(String question, String optionA, String optionB, String optionC, String optionD, int correctAns, int selectedAns, int status) {
@@ -19,6 +24,28 @@ public class QuestionsModel {
         this.correctAns = correctAns;
         this.selectedAns = selectedAns;
         this.status = status;
+    }
+    public QuestionsModel(String question, String optionA, String optionB, String optionC, String optionD, int correctAns,int correctAns2, int selectedAns,int selectAns2, String RANDOMID,int status) {
+        this.question = question;
+        this.optionA = optionA;
+        this.optionB = optionB;
+        this.optionC = optionC;
+        this.optionD = optionD;
+        this.correctAns = correctAns;
+        this.correctAns2 = correctAns2;
+        this.selectedAns = selectedAns;
+        this.selectAns2=selectAns2;
+        this.RANDOMID=RANDOMID;
+        this.status = status;
+
+    }
+
+    public String getRANDOMID() {
+        return RANDOMID;
+    }
+
+    public void setRANDOMID(String RANDOMID) {
+        this.RANDOMID = RANDOMID;
     }
 
     public int getStatus() {
@@ -35,6 +62,14 @@ public class QuestionsModel {
 
     public void setSelectedAns(int selectedAns) {
         this.selectedAns = selectedAns;
+    }
+
+    public int getSelectedAns2() {
+        return selectAns2;
+    }
+
+    public void setSelectedAns2(int selectedAns2) {
+        this.selectAns2 = selectedAns2;
     }
 
     public String getQuestion() {
@@ -84,4 +119,13 @@ public class QuestionsModel {
     public void setCorrectAns(int correctAns) {
         this.correctAns = correctAns;
     }
+
+    public int getCorrectAns2() {
+        return correctAns2;
+    }
+
+    public void setCorrectAns2(int correctAns2) {
+        this.correctAns2 = correctAns2;
+    }
+
 }

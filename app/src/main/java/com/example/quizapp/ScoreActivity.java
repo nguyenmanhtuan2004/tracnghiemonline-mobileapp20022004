@@ -3,6 +3,15 @@ package com.example.quizapp;
 import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
+
+import static com.example.quizapp.model.DbQuery.loadData;
+
+import android.app.Dialog;
+import android.content.Intent;
+import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,7 +29,14 @@ import androidx.core.view.WindowInsetsCompat;
 import com.example.quizapp.model.DbQuery;
 import com.example.quizapp.model.MyCompleteListener;
 
+import java.text.SimpleDateFormat;
 import java.util.concurrent.TimeUnit;
+
+import org.w3c.dom.Text;
+
+
+
+
 
 public class ScoreActivity extends AppCompatActivity {
 
@@ -36,7 +52,6 @@ public class ScoreActivity extends AppCompatActivity {
         setContentView(R.layout.activity_score);
 
         Toolbar toolbar = findViewById(R.id.toolbar);
-
         // Part 33
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(true);
@@ -52,13 +67,20 @@ public class ScoreActivity extends AppCompatActivity {
 
 
 
+            //Part 33
+            // viewAnsB.setOnClickListener ( new View.OnClickListener(){
+
+           // public void onClick (View view){
+            //    Intent intent = new Intent(ScoreActivity.this , AnswersActivity.class);
+             //   startActivity(Intent);
+           // }
 
 
-
-
+          //}
 
         });
         progress_Dialog=new Dialog(ScoreActivity.this);
+        progress_Dialog=new Dialog(ScoreActivity.this);//khởi tạo hộp thoại
         progress_Dialog.setContentView(R.layout.dialog_layout);
         progress_Dialog.setCancelable(false);
         progress_Dialog.getWindow().setLayout(ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.WRAP_CONTENT);
@@ -103,7 +125,7 @@ public class ScoreActivity extends AppCompatActivity {
             @Override
             public void onFailure() {
 
-                Toast.makeText(ScoreActivity.this,"Something went wrong! Please try again later!",Toast.LENGTH_SHORT).show();
+                Toast.makeText(ScoreActivity.this,"Something went wrong! Please try again later!ScoreActivity",Toast.LENGTH_SHORT).show();
                 progress_Dialog.dismiss();
             }
         });
@@ -141,14 +163,32 @@ public class ScoreActivity extends AppCompatActivity {
             }
             else
             {
-                if (DbQuery.g_quesList.get(i).getSelectedAns() == DbQuery.g_quesList.get(i).getCorrectAns())
+                if(DbQuery.g_quesList.get(i).getCorrectAns2()!=0)// có đáp án 2
                 {
-                    correctQ++;
+                    if ((DbQuery.g_quesList.get(i).getSelectedAns() == DbQuery.g_quesList.get(i).getCorrectAns() &&
+                            DbQuery.g_quesList.get(i).getSelectedAns2() == DbQuery.g_quesList.get(i).getCorrectAns2())||
+                            DbQuery.g_quesList.get(i).getSelectedAns() == DbQuery.g_quesList.get(i).getCorrectAns2() &&
+                                    DbQuery.g_quesList.get(i).getSelectedAns2() == DbQuery.g_quesList.get(i).getCorrectAns())
+                    {
+                        correctQ++;
+                    }
+                    else
+                    {
+                        wrongQ++;
+                    }
                 }
                 else
                 {
-                    wrongQ++;
+                    if (DbQuery.g_quesList.get(i).getSelectedAns() == DbQuery.g_quesList.get(i).getCorrectAns())
+                    {
+                        correctQ++;
+                    }
+                    else
+                    {
+                        wrongQ++;
+                    }
                 }
+
             }
         }
 
@@ -158,13 +198,17 @@ public class ScoreActivity extends AppCompatActivity {
 
         totalQTV.setText(String.valueOf(DbQuery.g_quesList.size()));
 
-        finalscore = (correctQ*100)/DbQuery.g_quesList.size();
+        finalscore = (int)((correctQ*100)/DbQuery.g_quesList.size());
         scoreTV.setText(String.valueOf(finalscore));
 
         timeTaken = getIntent().getLongExtra("TIME_TAKEN", 0);
-        String time = String.format("%02d:%02d min", TimeUnit.MILLISECONDS.toMinutes(timeTaken), TimeUnit.MILLISECONDS.toSeconds(timeTaken), TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(timeTaken)));
+        String time = String.format("%02d:%02d min",
+                TimeUnit.MILLISECONDS.toMinutes(timeTaken),
+                TimeUnit.MILLISECONDS.toSeconds(timeTaken)-
+                TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(timeTaken)));
 
         timeTV.setText(time);
+        progress_Dialog.dismiss();
     }
 
     private void reAttempt()

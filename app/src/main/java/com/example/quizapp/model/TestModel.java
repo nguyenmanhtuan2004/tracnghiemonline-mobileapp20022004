@@ -5,6 +5,8 @@ public class TestModel {
     private int topScore;
     private int time;
 
+    private String start;
+
     public String getTestID() {
         return testID;
     }
@@ -29,9 +31,26 @@ public class TestModel {
         this.time = time;
     }
 
+    public String getStart() {
+        return start;
+    }
+
+    public void setStart(String start) {
+        this.start = start;
+    }
+
+
+
     public TestModel(String testID, int topScore, int time) {
         this.testID = testID;
         this.topScore = topScore;
         this.time = time;
+    }
+    public TestModel(String testID, int topScore, int time,String start) {
+        this.testID = testID;
+        this.topScore = topScore;
+        this.time = time;
+        this.start=start;
+
     }
 }

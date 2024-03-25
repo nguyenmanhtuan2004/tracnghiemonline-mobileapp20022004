@@ -33,6 +33,11 @@ import android.widget.TextView;
 import com.example.quizapp.Adapter.QuestionAdapter;
 import com.example.quizapp.Adapter.QuestionGridAdapter;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
+import java.util.TimeZone;
 import java.util.concurrent.TimeUnit;
 
 public class QuestionActivity extends AppCompatActivity {
@@ -50,6 +55,8 @@ public class QuestionActivity extends AppCompatActivity {
     private QuestionGridAdapter gridAdapter;
     private CountDownTimer timer;
     private long timeLeft;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,7 +85,9 @@ public class QuestionActivity extends AppCompatActivity {
 
     private void startTimer() {
 
-        long totalTimer = g_testList.get(g_selectted_test_index).getTime()*60*1000;
+        long timeEntrance = getIntent().getLongExtra("TIME_ENTRANCE", 0);
+        long timeStart = getIntent().getLongExtra("TIME_START", 0);
+        long totalTimer = g_testList.get(g_selectted_test_index).getTime()*60*1000-(timeEntrance-timeStart);
 
         timer = new CountDownTimer(totalTimer +1000, 1000) {
             @Override
@@ -87,9 +96,9 @@ public class QuestionActivity extends AppCompatActivity {
                 timeLeft = remainingTime;
 
                 String time = String.format("%02d:%02d min",
-                        TimeUnit.MILLISECONDS.toMinutes(remainingTime),
-                        TimeUnit.MILLISECONDS.toSeconds(remainingTime)-
-                        TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(remainingTime)));
+                        TimeUnit.MILLISECONDS.toMinutes(timeLeft),
+                        TimeUnit.MILLISECONDS.toSeconds(timeLeft)-
+                        TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(timeLeft)));
                 txtTimer.setText(time);
             }
 
@@ -203,7 +212,7 @@ public class QuestionActivity extends AppCompatActivity {
 
         builder.setView(view);
 
-        AlertDialog alertDialog=builder.create();
+        final AlertDialog alertDialog=builder.create();
 
         cancelB.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -217,10 +226,11 @@ public class QuestionActivity extends AppCompatActivity {
                 timer.cancel();
                 alertDialog.dismiss();
 
+
                 Intent intent=new Intent(QuestionActivity.this,ScoreActivity.class);
-                startActivity(intent);
                 long totalTime = g_testList.get(g_selectted_test_index).getTime()*60*1000;
-                intent.putExtra("TIME_TAKEN",totalTime - timeLeft);
+                intent.putExtra("TIME_TAKEN",(long) totalTime-timeLeft);
+                startActivity(intent);
                 QuestionActivity.this.finish();
             }
         });

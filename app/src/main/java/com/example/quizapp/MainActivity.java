@@ -4,7 +4,9 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Menu;
+import android.widget.Button;
 import android.widget.FrameLayout;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.Toolbar;
@@ -31,10 +33,11 @@ import com.example.quizapp.databinding.ActivityMainBinding;
 
 public class MainActivity extends AppCompatActivity  {
 
-    private TextView drawerProfileName;
+    private TextView drawerProfileName,imgText;
     private AppBarConfiguration mAppBarConfiguration;
     private FrameLayout main_frame;
     private NavigationView navigationView1;
+    private DrawerLayout drawerLayout;
 
     private BottomNavigationView bottomNavigationView;
     //    private BottomNavigationView.OnNavigationItemSelectedListener onNavigationItemSelectedListener;
@@ -52,6 +55,15 @@ public class MainActivity extends AppCompatActivity  {
 
         setSupportActionBar(binding.appBarMain.toolbar);
 
+        drawerLayout=findViewById(R.id.drawer_layout);
+        ImageButton btnOpenDrawer=findViewById(R.id.btnOpenDrawer);
+        btnOpenDrawer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                drawerLayout.openDrawer(GravityCompat.START);
+            }
+        });
+
         navigationView1=findViewById(R.id.nav_view);
         DrawerLayout drawer = binding.drawerLayout;
         NavigationView navigationView = binding.navView;
@@ -65,9 +77,20 @@ public class MainActivity extends AppCompatActivity  {
         addEvents();
 
         drawerProfileName = navigationView.getHeaderView(0).findViewById(R.id.nav_drawer_name);
+        imgText=navigationView.getHeaderView(0).findViewById(R.id.img_text);
 
-        String name = DbQuery.myProfile.getName();
-        drawerProfileName.setText(name);
+
+        DbQuery.loadMyProfile(drawerProfileName, imgText, new MyCompleteListener() {
+            @Override
+            public void onSuccess() {
+
+            }
+
+            @Override
+            public void onFailure() {
+
+            }
+        });
 
         setFragment(new CatergoryFragment());
 

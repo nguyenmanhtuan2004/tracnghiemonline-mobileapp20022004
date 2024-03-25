@@ -106,7 +106,6 @@ public class LeaderBoardFragment extends Fragment {
         DbQuery.getTopUsers(new MyCompleteListener() {
             @Override
             public void onSuccess() {
-                adapter.notifyDataSetChanged();
                 if(myPerformance.getScore() != 0)
                 {
                     if(!DbQuery.isMeOnTopList)
@@ -122,12 +121,13 @@ public class LeaderBoardFragment extends Fragment {
 
             @Override
             public void onFailure() {
-
                 Toast.makeText(getContext(), "Có gì đó sai! Vui lòng thử lại",
                         Toast.LENGTH_SHORT).show();
                 progress_Dialog.dismiss();
+
             }
         });
+
         txtTotalUsers.setText("Total Users : " + DbQuery.g_usersCount);
         txtImg.setText(myPerformance.getName().toUpperCase().substring(0,1));
 

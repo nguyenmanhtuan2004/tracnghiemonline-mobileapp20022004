@@ -1,12 +1,14 @@
 package com.example.quizapp;
 
 import static com.example.quizapp.model.DbQuery.g_catList;
+import static com.example.quizapp.model.DbQuery.g_selectted_test_index;
 import static com.example.quizapp.model.DbQuery.loadquestions;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Dialog;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +19,15 @@ import android.widget.Toast;
 
 import com.example.quizapp.model.DbQuery;
 import com.example.quizapp.model.MyCompleteListener;
+import com.google.protobuf.StringValue;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.format.DateTimeFormatter;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
+import java.util.TimeZone;
 
 public class StartTestActivity extends AppCompatActivity {
     private TextView catName, testNo, totalQ, bestScore, time;
@@ -24,6 +35,11 @@ public class StartTestActivity extends AppCompatActivity {
     private ImageView backB;
     private Dialog progress_Dialog;
     private TextView dialogText;
+
+    private Date time1;
+    private Date time2;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,6 +81,9 @@ public class StartTestActivity extends AppCompatActivity {
         startTestB=findViewById(R.id.start_testB);
         backB=findViewById(R.id.st_backB);
 
+
+
+
         backB.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -75,12 +94,66 @@ public class StartTestActivity extends AppCompatActivity {
         startTestB.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(StartTestActivity.this, QuestionActivity.class);
-                startActivity(intent);
-                finish();
+                checkRange();
             }
         });
 
+
+
+
+    }
+//    private void setTimeForTest()
+//    {
+//        DbQuery.g_testList.get(g_selectted_test_index).setTime();
+//    }
+    private void checkRange(){
+        Calendar now = Calendar.getInstance();
+        now.setTimeZone(TimeZone.getTimeZone("GMT+7"));
+        String mystr1 = DbQuery.g_testList.get(g_selectted_test_index).getStart();
+
+        SimpleDateFormat format = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
+        try {
+            time1 = format.parse(mystr1);
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTime(time1);
+            calendar.add(Calendar.MINUTE,
+                    DbQuery.g_testList.get(g_selectted_test_index).getTime());
+            time2=calendar.getTime();
+
+        } catch (ParseException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+
+        if ( now.getTime().after(time1) && now.getTime().before(time2)) {
+            Intent intent = new Intent(StartTestActivity.this, QuestionActivity.class);
+            intent.putExtra("TIME_ENTRANCE",(long) now.getTime().getTime());
+            intent.putExtra("TIME_START",(long) time1.getTime());
+            startActivity(intent);
+            finish();
+        }
+        else
+        {
+            if(now.getTime().before(time1))
+            {
+                String log1=format.format(time1);
+                String log=String.valueOf(log1+" mới tới giờ làm bài");
+                Toast.makeText(StartTestActivity.this,log,Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(StartTestActivity.this, StartTestActivity.class);
+                startActivity(intent);
+                finish();
+            }
+            else if(now.getTime().after(time2))
+            {
+                String log2=format.format(time2);
+                String log=String.valueOf("đã hết thời gian làm bài lúc "+log2);
+                Toast.makeText(StartTestActivity.this,log,Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(StartTestActivity.this, StartTestActivity.class);
+                startActivity(intent);
+                finish();
+            }
+
+        }
     }
     private void setData()
     {
